@@ -35,9 +35,9 @@ gem 'haml-rails'
 group :test, :development do
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'factory_girl'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', '1.1.beta1'
 end
 
-  gem 'rails3-generators'
+gem 'rails3-generators'
 gem 'autotest'
+gem 'devise'
