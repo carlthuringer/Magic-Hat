@@ -30,8 +30,14 @@ gem 'sqlite3'
 #   gem 'webrat'
 # end
 gem 'haml'
+gem 'haml-rails'
 
-group :test do
+group :test, :development do
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
 end
+
+  gem 'rails3-generators'
+gem 'autotest'
