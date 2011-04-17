@@ -1,0 +1,23 @@
+%h1 Listing plans
+
+%table
+  %tr
+    %th Description
+    %th Due date
+    %th Completed
+    %th
+    %th
+    %th
+
+  - @plans.each do |plan|
+    %tr
+      %td= plan.description
+      %td= plan.due_date
+      %td= plan.completed
+      %td= link_to 'Show', plan
+      %td= link_to 'Edit', edit_plan_path(plan)
+      %td= link_to 'Destroy', plan, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Plan', new_plan_path

@@ -1,0 +1,19 @@
+= form_for @plan do |f|
+  -if @plan.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@plan.errors.count, "error")} prohibited this plan from being saved:"
+      %ul
+        - @plan.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :description
+    = f.text_area :description
+  .field
+    = f.label :due_date
+    = f.date_select :due_date
+  .field
+    = f.label :completed
+    = f.check_box :completed
+  .actions
+    = f.submit 'Save'
