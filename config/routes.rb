@@ -1,4 +1,6 @@
 MagicHat::Application.routes.draw do
+  get "home/index"
+
   resources :tasks
 
   resources :plans
