@@ -36,6 +36,7 @@ group :test, :development do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'factory_girl_rails', '1.1.beta1'
+  gem 'webrat'
 end
 
 gem 'rails3-generators'

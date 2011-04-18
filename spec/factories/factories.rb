@@ -11,4 +11,9 @@ FactoryGirl.define do
     association :plan
     completed false
   end
+
+  factory :user do
+    email "example@example.com"
+    password "password"
+  end
 end

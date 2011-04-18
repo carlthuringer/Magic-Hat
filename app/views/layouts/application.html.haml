@@ -1,0 +1,12 @@
+!!!
+%html
+  %head
+    %title Magic Hat
+    = stylesheet_link_tag :all
+    = javascript_include_tag :defaults
+    = csrf_meta_tag
+  %body
+    - flash.each do |key, value|
+      .flash{:class => key}
+        = value
+    = yield
