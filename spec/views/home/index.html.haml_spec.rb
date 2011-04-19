@@ -1,20 +1,31 @@
 require 'spec_helper'
 
 describe '/home/index.html.haml' do
-  before(:each) do
-    render
-  end
-  it "includes a login link" do
-    rendered.should have_tag('a', "Sign In")
-    assert_select "a", :text => "Sign In".to_s
+  context "anonymous users" do
+    before(:each) do
+      render
+    end
+
+    it "includes a login link" do
+      rendered.should have_selector('a', :content => "Sign In")
+    end
+
+    it "includes a register link" do
+      rendered.should have_selector('a', :content => "Register")
+    end
+
   end
 
-  it "includes a register link" do
-    assert_select "a", :text => "Register".to_s
-  end
+  context "logged-in users" do
+    before(:each) do
+      user = Factory(:user)
+      sign_in user
+      render
+    end
 
-  it "hides the login/register links when I'm logged in." do
-    user = Factory(:user)
-    sign_in user
+    it "hides the login/register links when I'm logged in." do
+      rendered.should_not have_selector('ul', :class => "unauthenticated")
+    end
+
   end
 end
