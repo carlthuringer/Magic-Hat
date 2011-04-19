@@ -1,0 +1,6 @@
+h1. Magic Hat
+A project developed during my apprenticeship at "Obtiva":http://www.obtiva.com.
+It is a personal planning, habit-management tool designed to encourage good behavior
+through various forms of positive and negative feedback.
+h2. Planning
+This project is tracked on PivotalTracker at "Magic Hat":https://www.pivotaltracker.com/projects/276411/overview.
