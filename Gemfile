@@ -42,3 +42,4 @@ end
 gem 'rails3-generators'
 gem 'autotest'
 gem 'devise'
+gem 'heroku'
