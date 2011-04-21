@@ -24,7 +24,10 @@ class TasksController < ApplicationController
   # GET /tasks/new
   # GET /tasks/new.xml
   def new
-    @task = Task.new
+    puts params.inspect
+@plan = Plan.find(params[:plan_id])
+    @plans = Plan.order(:title)
+    @task = @plan.tasks.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,10 +44,10 @@ class TasksController < ApplicationController
   # POST /tasks.xml
   def create
     @task = Task.new(params[:task])
-
+    # @task = Task.new(:plan_id => params[:plan_id])
     respond_to do |format|
       if @task.save
-        format.html { redirect_to(@task, :notice => 'Task was successfully created.') }
+        format.html { redirect_to(plans_url, :notice => 'Task was successfully created.') }
         format.xml  { render :xml => @task, :status => :created, :location => @task }
       else
         format.html { render :action => "new" }

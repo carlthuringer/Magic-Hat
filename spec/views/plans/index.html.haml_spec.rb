@@ -17,8 +17,8 @@ describe "plans/index.html.haml" do
   it "renders a list of plans" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => "MyText".to_s, :count => 2
+    assert_select "dd>h3", :text => "MyText".to_s, :count => 2
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "tr>td", :text => false.to_s, :count => 2
+    assert_select "dt>p", :text => "Completed? " + false.to_s, :count => 2
   end
 end

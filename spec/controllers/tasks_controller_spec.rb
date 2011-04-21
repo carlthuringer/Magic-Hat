@@ -53,7 +53,7 @@ describe TasksController do
       it "redirects to the created task" do
         Task.stub(:new) { mock_task(:save => true) }
         post :create, :task => {}
-        response.should redirect_to(task_url(mock_task))
+        response.should redirect_to(plans_url)
       end
     end
 

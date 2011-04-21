@@ -53,7 +53,7 @@ describe PlansController do
       it "redirects to the created plan" do
         Plan.stub(:new) { mock_plan(:save => true) }
         post :create, :plan => {}
-        response.should redirect_to(plan_url(mock_plan))
+        response.should redirect_to(plans_url)
       end
     end
 
@@ -89,7 +89,7 @@ describe PlansController do
       it "redirects to the plan" do
         Plan.stub(:find) { mock_plan(:update_attributes => true) }
         put :update, :id => "1"
-        response.should redirect_to(plan_url(mock_plan))
+        response.should redirect_to(plans_url)
       end
     end
 

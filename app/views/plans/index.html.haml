@@ -1,23 +1,24 @@
 %h1 Listing plans
-
-%table
-  %tr
-    %th Description
-    %th Due date
-    %th Completed
-    %th
-    %th
-    %th
-
-  - @plans.each do |plan|
-    %tr
-      %td= plan.description
-      %td= plan.due_date
-      %td= plan.completed
-      %td= link_to 'Show', plan
-      %td= link_to 'Edit', edit_plan_path(plan)
-      %td= link_to 'Destroy', plan, :confirm => 'Are you sure?', :method => :delete
-
-%br
+- @plans.each do |plan|
+  %dl.plan
+    %dt 
+      %h2= plan.title
+      %p Completed? #{plan.completed}
+      %dd
+        %h3= plan.description
+        %p= plan.due_date
+        %span.admin
+          = link_to 'Show', plan
+          = link_to 'Edit', edit_plan_path(plan)
+          = link_to 'Destroy', plan, :confirm => 'Are you sure?', :method => :delete
+          = link_to 'New Task', new_task_path(plan)
+        %ul.tasks
+        - plan.tasks.each do |task|
+          %li.task
+            %span Completed? #{task.completed}
+            %p= task.description
+            %span.admin
+              = link_to 'Edit', edit_task_path(task)
+              = link_to 'Destroy', task, :confirm => 'Are you sure?', :method => :delete
 
 = link_to 'New Plan', new_plan_path

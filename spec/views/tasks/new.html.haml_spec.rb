@@ -6,6 +6,7 @@ describe "tasks/new.html.haml" do
       :description => "MyText",
       :completed => ""
     ).as_new_record)
+    
   end
 
   it "renders new task form" do
@@ -14,6 +15,7 @@ describe "tasks/new.html.haml" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => tasks_path, :method => "post" do
       assert_select "textarea#task_description", :name => "task[description]"
+      assert_select "select#task_plan_id", :name => "task[plan_id]"
       assert_select "input#task_completed", :name => "task[completed]"
     end
   end

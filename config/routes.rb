@@ -3,9 +3,16 @@ MagicHat::Application.routes.draw do
 
   root :to => "home#index"
 
-  resources :tasks
+  # resources :tasks
 
-  resources :plans
+  resources :plans do
+    resources :tasks
+  end
+  # resources :plans
+
+  # RESTful creation of a Task associated with a Plan.
+  
+  #match 'plans/:plan_id/tasks/new' => 'tasks#new'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

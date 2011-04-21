@@ -1,6 +1,8 @@
 class AddPasswordSaltToUsers < ActiveRecord::Migration
   def self.up
-    add_column "users", "password_salt", :text
+    change_table :users do |t|
+      t.text :password_salt
+    end
   end
 
   def self.down

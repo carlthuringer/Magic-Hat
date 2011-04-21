@@ -44,7 +44,7 @@ class PlansController < ApplicationController
 
     respond_to do |format|
       if @plan.save
-        format.html { redirect_to(@plan, :notice => 'Plan was successfully created.') }
+        format.html { redirect_to(plans_url, :notice => 'Plan was successfully created.') }
         format.xml  { render :xml => @plan, :status => :created, :location => @plan }
       else
         format.html { render :action => "new" }
@@ -60,7 +60,7 @@ class PlansController < ApplicationController
 
     respond_to do |format|
       if @plan.update_attributes(params[:plan])
-        format.html { redirect_to(@plan, :notice => 'Plan was successfully updated.') }
+        format.html { redirect_to(plans_url, :notice => 'Plan was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
