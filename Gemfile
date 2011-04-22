@@ -32,15 +32,16 @@ gem 'sqlite3'
 gem 'haml'
 gem 'haml-rails'
 
-group :test, :development do
+group :test do
+  gem 'cucumber-rails'
+  gem 'factory_girl_rails', '1.1.beta1'
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'factory_girl_rails', '1.1.beta1'
-  gem 'webrat'
   gem 'spork'
+  gem 'webrat'
 end
 
-gem 'rails3-generators'
 gem 'autotest'
 gem 'devise'
 gem 'heroku'
+gem 'rails3-generators'

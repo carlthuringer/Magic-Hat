@@ -3,14 +3,9 @@ MagicHat::Application.routes.draw do
 
   root :to => "home#index"
 
-  # resources :tasks
-
-  resources :plans do
+  resources :plans, :shallow => true do
     resources :tasks
   end
-
-  resources :tasks
-  # resources :plans
 
   # RESTful creation of a Task associated with a Plan.
   

@@ -40,11 +40,13 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
-  # POST /tasks
-  # POST /tasks.xml
+  # POST plans/:plan_id/tasks
+  # POST plans/:plan_id/tasks.xml
   def create
-    @task = Task.new(params[:task])
-    # @task = Task.new(:plan_id => params[:plan_id])
+    @plan = Plan.find(params[:plan_id])
+    @task = @plan.tasks.build(params[:task])
+    # @task = Task.new(params[:task], :plan => @plan)
+
     respond_to do |format|
       if @task.save
         format.html { redirect_to(plans_url, :notice => 'Task was successfully created.') }
@@ -79,7 +81,7 @@ class TasksController < ApplicationController
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to(tasks_url) }
+      format.html { redirect_to(plans_url) }
       format.xml  { head :ok }
     end
   end
