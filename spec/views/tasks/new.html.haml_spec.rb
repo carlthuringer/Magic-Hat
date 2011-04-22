@@ -6,7 +6,8 @@ describe "tasks/new.html.haml" do
       :description => "MyText",
       :completed => ""
     ).as_new_record)
-    
+    @plan = Plan.new
+    @plan.stub(:model_name).and_return('Plan')
   end
 
   it "renders new task form" do

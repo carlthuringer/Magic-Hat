@@ -8,6 +8,8 @@ MagicHat::Application.routes.draw do
   resources :plans do
     resources :tasks
   end
+
+  resources :tasks
   # resources :plans
 
   # RESTful creation of a Task associated with a Plan.
