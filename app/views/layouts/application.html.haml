@@ -2,15 +2,13 @@
 %html
   %head
     %title #{ title }
-    = stylesheet_link_tag :all
+    = render 'layouts/stylesheets'
     = javascript_include_tag :defaults
     = csrf_meta_tag
   %body
-    - if signed_in?
-      = link_to "Sign out", signout_path, :method => :delete
-    -else
-      = link_to "Sign in", signin_path
-    - flash.each do |key, value|
-      .flash{:class => key}
-        = value
-    = yield
+    %div.container 
+      = render 'layouts/header'
+      - flash.each do |key, value|
+        .flash{:class => key}
+          = value
+      = yield

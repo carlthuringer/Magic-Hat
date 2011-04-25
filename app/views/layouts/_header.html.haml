@@ -1,0 +1,4 @@
+- if signed_in?
+  = link_to "Sign out", signout_path, :method => :delete
+-else
+  = link_to "Sign in", signin_path
