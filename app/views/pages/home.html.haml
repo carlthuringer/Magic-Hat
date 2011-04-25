@@ -1,0 +1,6 @@
+- if signed_in?
+  = "You are signed in"  
+- else
+  .h1 Magic Hat
+  = link_to "Sign up now!", signup_path, :class => "signup_button round"
+- end

@@ -8,7 +8,8 @@ Spork.prefork do
   ENV["RAILS_ENV"] ||= 'test'
   require File.expand_path("../../config/environment", __FILE__)
   require 'rspec/rails'
-  require 'webrat'
+  require 'database_cleaner'
+
   # Requires supporting ruby files with custom matchers and macros, etc,
   # in spec/support/ and its subdirectories.
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -30,12 +31,20 @@ Spork.prefork do
     # examples within a transaction, remove the following line or assign false
     # instead of true.
     config.use_transactional_fixtures = true
-    Webrat.configure do |config|
-      config.mode = :rails
-    end   
+
+    def test_sign_in(user)
+      controller.sign_in(user)
+    end
+
+    config.before :each do
+      DatabaseCleaner.strategy = :truncation
+      DatabaseCleaner.clean
+    end
   end
 end
 
 Spork.each_run do
-  # This code will be run each time you run your specs.
+  load "#{Rails.root}/config/routes.rb"
+  Dir["#{Rails.root}/app/**/*.rb"].each { |f| load f }
 end
+

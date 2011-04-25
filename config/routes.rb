@@ -1,11 +1,13 @@
 MagicHat::Application.routes.draw do
-  devise_for :users
+  root :to => 'pages#home'
+  resources :users
+  resources :sessions, :only => [:new, :create, :destroy]
 
-  root :to => "home#index"
+  get "sessions/new"
 
-  resources :plans, :shallow => true do
-    resources :tasks
-  end
+  match '/signup', :to => 'users#new'
+  match '/signin', :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
 
   # RESTful creation of a Task associated with a Plan.
   

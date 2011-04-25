@@ -1,11 +1,14 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.7'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem 'sqlite3'
+gem 'haml'
+gem 'haml-rails'
+gem 'will_paginate', '~> 3.0.pre2'
+gem 'rails3-generators'
+gem 'gravatar_image_tag'
+
+
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -29,19 +32,18 @@ gem 'sqlite3'
 # group :development, :test do
 #   gem 'webrat'
 # end
-gem 'haml'
-gem 'haml-rails'
 
-group :test do
-  gem 'cucumber-rails'
-  gem 'factory_girl_rails', '1.1.beta1'
-  gem 'rspec'
+group :development do
   gem 'rspec-rails'
-  gem 'spork'
-  gem 'webrat'
+  gem 'annotate-models'
+  gem 'faker'
 end
 
-gem 'autotest'
-gem 'devise'
-gem 'heroku'
-gem 'rails3-generators'
+group :test do
+  gem 'rspec'
+  gem 'webrat'
+  gem 'spork'
+  gem 'autotest'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+end
