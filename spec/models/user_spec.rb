@@ -148,4 +148,24 @@ describe User do
       @user.should be_admin
     end
   end
+
+  describe "goal associations" do
+
+    before :each do
+      @user = User.create! @attr
+      @goal1 = Factory(:goal, :user => @user)
+      @goal2 = Factory(:goal, :user => @user)
+    end
+
+    it "should have a goals attribute" do
+      @user.should respond_to :goals
+    end
+
+    it "should destroy associated goals" do
+      @user.destroy
+      [@goal1, @goal2].each do |goal|
+        Goal.find_by_id(goal.id).should be_nil
+      end
+    end
+  end
 end
