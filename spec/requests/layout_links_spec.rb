@@ -12,6 +12,11 @@ describe "LayoutLinks" do
     response.should have_selector('title', :content => "Sign up")
   end
 
+  it "should have a home link" do
+    get '/'
+    response.should have_selector('a', :href => root_path)
+  end
+
   describe "when not signed in" do
     
     it "should have a signin link" do

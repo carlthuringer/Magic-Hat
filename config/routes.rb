@@ -2,12 +2,14 @@ MagicHat::Application.routes.draw do
   root :to => 'pages#home'
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :goals, :except => :index
 
   get "sessions/new"
 
   match '/signup', :to => 'users#new'
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
+  match '/dashboard', :to => 'goals#index'
 
   # RESTful creation of a Task associated with a Plan.
   

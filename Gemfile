@@ -37,6 +37,7 @@ group :development do
   gem 'rspec-rails'
   gem 'annotate-models'
   gem 'faker'
+  gem 'awesome_print'
 end
 
 group :test do

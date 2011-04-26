@@ -1,6 +1,12 @@
 class PagesController < ApplicationController
+  before_filter :authenticate, :only => :dashboard
+
   def home
-    @title = "Home"
+    if signed_in?
+      @title = current_user.name
+    else
+      @title = "Home"
+    end
   end
 
   def contact
