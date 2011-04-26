@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110425181353) do
+ActiveRecord::Schema.define(:version => 20110426150204) do
 
   create_table "goals", :force => true do |t|
     t.string   "title"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(:version => 20110425181353) do
 
   add_index "goals", ["id"], :name => "index_goals_on_id"
   add_index "goals", ["user_id"], :name => "index_goals_on_user_id"
+
+  create_table "tasks", :force => true do |t|
+    t.string   "description"
+    t.boolean  "active",      :default => false
+    t.integer  "goal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasks", ["goal_id"], :name => "index_tasks_on_goal_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"
