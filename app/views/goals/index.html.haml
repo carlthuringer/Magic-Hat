@@ -7,6 +7,8 @@
       %td
         = goal.title
       %td
+        = goal.description
+      %td
         = link_to "Edit", edit_goal_path(goal)
         = link_to "Delete", :method => :delete, :confirm => "Are you sure?",
           :title => "Delete"
