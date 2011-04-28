@@ -34,17 +34,21 @@ gem 'gravatar_image_tag'
 # end
 
 group :development do
-  gem 'rspec-rails'
   gem 'annotate-models'
-  gem 'faker'
-  gem 'awesome_print'
 end
 
 group :test do
+  gem 'autotest'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'spork'
   gem 'rspec'
   gem 'webrat'
-  gem 'spork'
-  gem 'autotest'
-  gem 'factory_girl_rails'
-  gem 'database_cleaner'
+end
+
+group :development, :test do
+  gem 'awesome_print'
+  gem 'faker'
+  gem 'rspec-rails'
+  gem 'metric_fu'
 end

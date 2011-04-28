@@ -161,6 +161,7 @@ describe GoalsController do
       before :each do
         @user = test_sign_in Factory :user
         @goal = Factory(:goal, :user => @user)
+        @task = Factory(:task, :goal => @goal)
         get 'index'
       end
 
@@ -175,10 +176,22 @@ describe GoalsController do
       it "should show the user's goals" do
         response.should have_selector("tr>td", :content => @goal.title)
       end
-      
+
       it "should have edit and delete links for my goals" do
         response.should have_selector('td>a', :content => "Edit")
-        response.should have_selector('td>a', :content => "Delete")
+        response.should have_selector('input', :type => "submit", :value => "Delete")
+      end
+
+      describe "task display" do
+
+        it "Should display the tasks in a <tr><td> under the goal" do
+          response.should have_selector('tr>td', :content => @task.description)
+        end
+
+        it "should have edit and delete links for my tasks" do
+          response.should have_selector('td>a', :content => "Edit")
+          response.should have_selector('input', :type => "submit", :value => "Delete")
+        end
       end
     end
   end

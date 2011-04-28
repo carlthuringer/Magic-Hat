@@ -17,4 +17,11 @@ FactoryGirl.define do
     active false
     association :user
   end
+
+  factory :task do
+    description "My task description"
+    active false
+    association :goal
+  end
+
 end

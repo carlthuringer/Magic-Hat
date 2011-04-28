@@ -5,7 +5,7 @@ class GoalsController < ApplicationController
   def new
     @title = "New Goal"
     @user = current_user
-    @goal = current_user.goals.new
+    @goal = @user.goals.new
   end
 
 
@@ -22,6 +22,10 @@ class GoalsController < ApplicationController
   def index
     @title = "Dashboard"
     @goals = current_user.goals.all
+    @goal_tasks = []
+    @goals.each do |goal|
+      @goal_tasks << [goal, goal.tasks.all]
+    end
   end
 
   def edit
@@ -42,7 +46,7 @@ class GoalsController < ApplicationController
 
   def destroy
     @goal.destroy
-    redirect_back_or root_path
+    redirect_back_or dashboard_path
   end
 
   private
