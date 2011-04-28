@@ -46,7 +46,7 @@ class GoalsController < ApplicationController
 
   def destroy
     @goal.destroy
-    redirect_back_or root_path
+    redirect_back_or dashboard_path
   end
 
   private

@@ -10,28 +10,27 @@
         = goal.description
       %td.goal_actions
         = link_to "Edit", edit_goal_path(goal)
-        = link_to "Delete", :method => :delete, :confirm => "Are you sure?",
-          :title => "Delete"
+        = button_to "Delete", goal, :action => 'destroy', :id => goal.id, :confirm => "Are you sure?", :method => :delete
     - unless tasks.empty?
       %tr.new_task
         %td
         %td
-          = link_to "New Task", new_task_path(goal)
+          = link_to "New Task", new_task_path(:goal_id => goal)
         %td
       - tasks.each do |task|
         %tr.tasks
           %td.task
-            +
+            Done: 
+            = task.active.to_s
           %td.task_description
             = task.description
           %td.task_actions
             = link_to "Edit", edit_task_path(task)
-            = link_to "Delete", :method => :delete, :confirm => "Are you sure?",
-              :title => "Delete"
+            = button_to("Delete", task, { :action => 'destroy', :id => task.id, :confirm => "Are you sure?", :method => :delete })
     - else
       %tr.new_task
         %td
         %td
           There are no tasks yet.
-          = link_to "Create a new Task", new_task_path(goal)
+          = link_to "Create a new Task", new_task_path(:goal_id => goal)
         %td

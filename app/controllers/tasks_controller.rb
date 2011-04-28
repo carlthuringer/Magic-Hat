@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   def new
     @title = "New Task"
     @goal = Goal.find params[:goal_id]
-    @task = @goal.tasks.build
+    @task = @goal.tasks.build(:goal_id => @goal.id)
   end
 
   def create
