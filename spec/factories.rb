@@ -19,8 +19,9 @@ FactoryGirl.define do
   end
 
   factory :task do
-    description "MyString"
+    description "My task description"
     active false
+    association :goal
   end
 
 end

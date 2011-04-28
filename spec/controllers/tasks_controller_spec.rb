@@ -1,0 +1,239 @@
+require 'spec_helper'
+
+describe TasksController do
+  render_views
+
+  describe "GET 'new'" do
+
+    before :each do
+      @user = test_sign_in Factory :user
+      @goal = Factory(:goal, :user => @user)
+      get :new, :goal_id => @goal.id
+    end
+
+    it "should be successful" do
+      response.should be_success
+    end
+
+    it "should have the right title" do
+      response.should have_selector('title', :content => "Magic Hat | New Task")
+    end
+
+    it "should have a heading that indicates what goal the task is assigned to" do
+      response.should have_selector('h1', :content => "New Task for #{@goal.title}")
+    end
+
+    it "should have a form with the right fields" do
+      response.should have_selector('input', :id => "task_description")
+    end
+  end
+
+  describe "POST 'create'" do
+
+    before :each do
+      @user = test_sign_in Factory :user
+      @goal = Factory(:goal, :user => @user)
+      @attr = {:description => "POST 'create'", :goal_id => @goal.id }
+    end
+
+    describe "failure" do
+
+      it "should not create a new task with an empty description" do
+        expect {
+          @attr[:description] = ""
+          post :create, :task => @attr
+          response.should render_template 'new'
+        }.to_not change(Task, :count).by 1
+      end
+    end
+
+    describe "success" do
+
+      it "should create a new task" do
+        expect {
+          post :create, :task => @attr
+          response.should redirect_to dashboard_path
+        }.to change(Task, :count).by 1
+      end
+    end
+  end
+
+  describe "GET 'edit'" do
+
+    before :each do
+      @user = test_sign_in Factory :user
+      @goal = Factory(:goal, :user => @user)
+      @task = Factory(:task, :goal => @goal)
+      get :edit, :id => @task
+    end
+
+    it "should be successful" do
+      response.should be_successful
+    end
+
+    it "should have the right title" do
+      response.should have_selector('title', :content => "Magic Hat | Edit Task")
+    end
+
+    it "should have a heading indicating the parent goal" do
+      response.should have_selector('h1', :content => @goal.title)
+    end
+
+    it "should have a field to edit the description." do
+      response.should have_selector('input', :id => "task_description")
+    end
+
+    it "should have a checkbox to toggle the active state." do
+      response.should have_selector('input', :id => "task_active")
+    end
+  end
+
+  describe "PUT 'update'" do
+
+    before :each do
+      @user = test_sign_in Factory :user
+      @goal = Factory(:goal, :user => @user)
+      @task = Factory(:task, :goal => @goal)
+    end
+
+    describe "failure" do
+
+      before :each do
+        @attr = { :description => "", :active => "0" }
+        put :update, :id => @task, :task => @attr
+      end
+
+      it "should re-render the edit page" do
+        response.should render_template 'edit'
+      end
+
+      it "should have the right title" do
+        response.should have_selector('title', :content => "Magic Hat | Edit Task")
+      end
+
+      it "should have a header indicating the parent goal" do
+        response.should have_selector('h1', :content => @goal.title)
+      end
+    end
+
+    describe "success" do
+
+      before :each do
+        @attr = { :description => "SHOULD BE EDITED", :active => true }
+        put :update, :id => @task, :task => @attr
+      end
+
+      it "should change the Task's attributes" do
+        @task.reload
+        @task.description.should == @attr[:description]
+        @task.active.should == @attr[:active]
+      end
+
+      it "should redirect to the dashboard" do
+        response.should redirect_to dashboard_path
+      end
+
+      it "should have a flash message" do
+        flash[:success].should =~ /task updated/i
+      end
+    end
+  end
+
+  describe "DELETE 'destroy'" do
+
+    before :each do
+      @user = Factory :user
+      @goal = Factory(:goal, :user => @user)
+      @task = Factory(:task, :goal => @goal)
+    end
+
+    describe "as a non-authenticated user" do
+
+      it "should redirect to the signin path" do
+        delete :destroy, :id => @task
+        response.should redirect_to signin_path
+      end
+    end
+
+    describe "as an authenticated user" do
+
+      before :each do
+        test_sign_in @user
+      end
+
+      it "should destroy the task" do
+        expect {
+          delete :destroy, :id => @task
+        }.to change(Task, :count).by -1
+      end
+
+      it "should redirect to the dashboard" do
+        delete :destroy, :id => @task
+        response.should redirect_to dashboard_path
+      end
+    end
+  end
+
+  describe "authentication of actions" do
+
+    before :each do
+      @user = Factory :user
+      @goal = Factory(:goal, :user => @user)
+      @task = Factory(:task, :goal => @goal)
+    end
+
+    describe "for non-signed-in users" do
+
+      it "should deny access to 'edit'" do
+        get :edit, :id => @task
+        response.should redirect_to signin_path
+      end
+
+      it "should deny access to 'update'" do
+        put :update, :id => @task, :task => { :description => "Test description" }
+        response.should redirect_to signin_path
+      end
+
+      it "should deny access to 'new'" do
+        get :new, :goal_id => @goal
+        response.should redirect_to signin_path
+      end
+
+      it "should deny access to 'create'" do
+        post :create, :task => { :description => "Test description", :goal_id => @goal.id }
+        response.should redirect_to signin_path
+      end
+
+      it "should deny access to 'destroy'" do
+        delete :destroy, :id => @task
+        response.should redirect_to signin_path
+      end
+    end
+
+    describe "for signed-in users" do
+
+      before :each do
+        test_sign_in @user
+        @other_user = Factory(:user, :email => Factory(:email))
+        @other_goal = Factory(:goal, :user => @other_user)
+        @other_task = Factory(:task, :goal => @other_goal)
+      end
+
+      it "should not allow user to POST 'create' task for goal they don't own" do
+        post :create, :task => { :description => "POST 'create' test", :goal_id => @other_goal.id }
+        response.should redirect_to dashboard_path
+      end
+
+      it "should not allow user to PUT 'update' task they don't own" do
+        put :update, :id => @other_task, :task => { :description => "PUT 'update' test" }
+        response.should redirect_to dashboard_path
+      end
+
+      it "should not allow user to DELETE 'destroy' task they don't own" do
+        delete :destroy, :id => @other_task
+        response.should redirect_to dashboard_path
+      end
+    end
+  end
+
+end
