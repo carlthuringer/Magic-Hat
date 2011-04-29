@@ -39,7 +39,7 @@ describe DashboardController do
       end
 
       it "should have edit and delete links for my goals" do
-        response.should have_selector('td>a', :content => "Edit")
+        response.should have_selector('input', :value => "Edit")
         response.should have_selector('input', :type => "submit", :value => "Delete")
       end
 
@@ -50,7 +50,7 @@ describe DashboardController do
         end
 
         it "should have edit and delete links for my tasks" do
-          response.should have_selector('td>a', :content => "Edit")
+          response.should have_selector('input', :value => "Edit")
           response.should have_selector('input', :type => "submit", :value => "Delete")
         end
       end

@@ -53,7 +53,9 @@ describe "Tasks" do
 
       it "should reload the page and show an error message" do
         visit dashboard_path
-        click_link_within ".task_actions", "Edit"
+        within ".task_actions" do
+          click_button "Edit"
+        end
         fill_in "Description", :with => ""
         click_button
         response.should have_selector('div#error_explanation')
@@ -64,7 +66,9 @@ describe "Tasks" do
 
       it "should edit the task" do
         visit dashboard_path
-        click_link_within ".task_actions", "Edit"
+        within ".task_actions" do
+          click_button "Edit"
+        end
         fill_in "Description", :with => "IT SHOULD EDIT THE TASK"
         click_button
         response.should have_selector('tr>td', :content => "IT SHOULD EDIT THE TASK")
