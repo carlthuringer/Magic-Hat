@@ -1,0 +1,23 @@
+- tasks = goal.tasks
+%tr.goal
+  %td.goal_title
+    = goal.title
+  %td.goal_description
+    = goal.description
+  %td.goal_actions
+    = button_to "Edit", edit_goal_path(goal), :action => 'edit', :id => goal.id, :method => :get
+    = button_to "Delete", goal, :action => 'destroy', :id => goal.id, :confirm => "Are you sure?", :method => :delete
+- unless tasks.empty?
+  %tr.new_task
+  %td
+  %td
+    = link_to "New Task", new_task_path(:goal_id => goal)
+  %td
+  = render tasks
+- else
+  %tr.new_task
+    %td
+    %td
+      There are no tasks yet.
+      = button_to("Create a new Task", new_task_path, { :action => 'new', :id => goal.id })
+    %td
