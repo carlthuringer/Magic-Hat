@@ -1,0 +1,9 @@
+%tr.tasks
+  %td.task_status
+    Done: 
+    = task.active.to_s
+  %td.task_description
+    = task.description
+  %td.task_actions
+    = button_to "Edit", edit_task_path(task), :action => 'edit', :id => task.id, :method => 'get'
+    = button_to("Delete", task, { :action => 'destroy', :id => task.id, :confirm => "Are you sure?", :method => :delete })
