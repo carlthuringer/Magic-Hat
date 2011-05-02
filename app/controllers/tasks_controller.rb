@@ -39,15 +39,19 @@ class TasksController < ApplicationController
   end
 
   def complete
-    if params[:ids]
-      current_user.all_tasks.each do |task|
-        # Because the array of task IDs is returned as a string and we're
-        # doing an include? to compare that array's items against an integer
-        # id we have to convert the task ID to a string or else it won't match.
+    current_user.all_tasks.each do |task|
+      # Because the array of task IDs is returned as a string and we're
+      # doing an include? to compare that array's items against an integer
+      # id we have to convert the task ID to a string or else it won't match.
+      if params[:ids]
         unless params[:ids].include?(task.id.to_s)
           task.clear_complete_time
         end
+      else
+        task.clear_complete_time
       end
+    end
+    if params[:ids]
       Task.find(params[:ids]).each do |task|
         task.mark_complete
       end

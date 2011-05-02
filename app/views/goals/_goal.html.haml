@@ -1,4 +1,6 @@
 - tasks = goal.tasks
+- incomplete_tasks = goal.incomplete_tasks
+- complete_tasks = goal.complete_tasks
 %tr.goal
   %td.goal_title
     = goal.title
@@ -13,7 +15,8 @@
   %td
     = link_to "New Task", new_task_path(:goal_id => goal)
   %td
-    = render tasks
+  = render :partial => 'tasks/task', :collection => incomplete_tasks
+  = render :partial => 'tasks/task', :collection => complete_tasks
 - else
   %tr.new_task
     %td
