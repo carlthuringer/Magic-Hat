@@ -45,6 +45,7 @@ class GoalsController < ApplicationController
   end
 
   def destroy
+    @goal = Goal.find params[:id]
     @goal.destroy
     redirect_back_or dashboard_path
   end
@@ -52,7 +53,7 @@ class GoalsController < ApplicationController
   private
 
   def authorized_user
-    @goal = Goal.find params[:id]
-    redirect_to root_path unless current_user? @goal.user
+    goal = Goal.find params[:id]
+    redirect_to root_path unless goal.owned_by? current_user
   end
 end

@@ -1,5 +1,7 @@
 %h1 New Task for #{@goal.title}
 = form_for @task do |f|
   = render :partial => 'task_fields', :locals => { :f => f }
+  .field
+  = f.hidden_field :goal_id
   .actions
     = f.submit "Save Task", :goal_id => @goal.id

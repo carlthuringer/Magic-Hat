@@ -54,7 +54,7 @@ describe "Tasks" do
       it "should reload the page and show an error message" do
         visit dashboard_path
         within ".task_actions" do
-          click_button "Edit"
+          click_link "Edit"
         end
         fill_in "Description", :with => ""
         click_button
@@ -67,7 +67,7 @@ describe "Tasks" do
       it "should edit the task" do
         visit dashboard_path
         within ".task_actions" do
-          click_button "Edit"
+          click_link "Edit"
         end
         fill_in "Description", :with => "IT SHOULD EDIT THE TASK"
         click_button

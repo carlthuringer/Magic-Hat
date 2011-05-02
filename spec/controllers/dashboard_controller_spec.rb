@@ -53,6 +53,10 @@ describe DashboardController do
           response.should have_selector('input', :value => "Edit")
           response.should have_selector('input', :type => "submit", :value => "Delete")
         end
+
+        it "should have a checkbox for each task" do
+          response.should have_selector('input', :type => "checkbox")
+        end
       end
     end
   end

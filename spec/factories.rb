@@ -20,7 +20,7 @@ FactoryGirl.define do
 
   factory :task do
     description "My task description"
-    active false
+    complete nil
     association :goal
   end
 

@@ -1,5 +1,18 @@
 %h1 Dashboard
 %p You are now looking at the dashboard
 = link_to "Create new Goal", new_goal_path
-%table
-  = render @goals
+= form_tag complete_tasks_path, :method => :put do
+  %table
+    %tr
+      %td
+        = submit_tag "Update Tasks"
+      %td
+      %td
+    = render @goals
+    %tr
+      %td
+        = submit_tag "Update Tasks"
+      %td
+      %td
+
+

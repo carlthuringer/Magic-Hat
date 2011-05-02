@@ -8,4 +8,9 @@ class Goal < ActiveRecord::Base
   belongs_to :user
 
   has_many :tasks
+
+  def owned_by?(user)
+    owner = User.find self.user_id
+    owner == user
+  end
 end

@@ -48,6 +48,14 @@ class User < ActiveRecord::Base
     (user && user.salt == cookie_salt) ? user : nil
   end
 
+  def all_tasks
+    all_tasks = []
+    self.goals.each do |goal|
+      all_tasks << goal.tasks
+    end
+    all_tasks.flatten!
+  end
+
   private
 
   def encrypt_password

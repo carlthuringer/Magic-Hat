@@ -24,8 +24,8 @@ describe Task do
       @task.should_not be_valid
     end
 
-    it "should default to active == false" do
-      @task.active.should be_false
+    it "should default to completed == nil" do
+      @task.complete.should be_nil
     end
   end
 

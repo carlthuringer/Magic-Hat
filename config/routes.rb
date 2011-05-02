@@ -3,7 +3,12 @@ MagicHat::Application.routes.draw do
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
   resources :goals, :except => :index
-  resources :tasks, :except => :index
+
+  resources :tasks, :except => :index do
+    collection do
+      put :complete
+    end
+  end
 
   get "sessions/new"
 

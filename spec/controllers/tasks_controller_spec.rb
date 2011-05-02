@@ -82,10 +82,6 @@ describe TasksController do
     it "should have a field to edit the description." do
       response.should have_selector('input', :id => "task_description")
     end
-
-    it "should have a checkbox to toggle the active state." do
-      response.should have_selector('input', :id => "task_active")
-    end
   end
 
   describe "PUT 'update'" do
@@ -119,14 +115,13 @@ describe TasksController do
     describe "success" do
 
       before :each do
-        @attr = { :description => "SHOULD BE EDITED", :active => true }
+        @attr = { :description => "SHOULD BE EDITED" }
         put :update, :id => @task, :task => @attr
       end
 
       it "should change the Task's attributes" do
         @task.reload
         @task.description.should == @attr[:description]
-        @task.active.should == @attr[:active]
       end
 
       it "should redirect to the dashboard" do
@@ -135,6 +130,74 @@ describe TasksController do
 
       it "should have a flash message" do
         flash[:success].should =~ /task updated/i
+      end
+    end
+  end
+
+  describe "PUT 'complete'" do
+
+    before :each do
+      # Prepare 5 tasks and collect them.
+      @user = test_sign_in Factory :user
+      @goal = Factory(:goal, :user => @user)
+      5.times do
+        Factory(:task, :goal => @goal)
+      end
+      @tasks = @goal.tasks
+    end
+
+    describe "failure" do
+      # A submission with no selected tasks is considered a failure
+      # But there is no error, it simply redirects to the dashboard
+      it "should redirect to the dashboard" do
+        attr = {:ids => []}
+        put :complete
+        response.should redirect_to dashboard_path
+      end
+    end
+
+    describe "success" do
+
+      it "should set tasks 1 and 3 as complete but no others" do
+        attr = [@tasks[1].id, @tasks[3].id]
+        put :complete, :ids => attr
+        @tasks.each do |task|
+          task.reload
+        end
+        @tasks[0].active?.should == true
+        @tasks[1].active?.should == false
+        @tasks[2].active?.should == true
+        @tasks[3].active?.should == false
+        @tasks[4].active?.should == true
+      end
+
+      it "should set true tasks 1, 3 and 4 to false, but leave 0 and 2 alone" do
+        attr = [@tasks[0].id, @tasks[2].id]
+        @tasks.each do |task|
+          task.mark_complete
+        end
+        put :complete, :ids => attr
+        @tasks.each do |task|
+          task.reload
+        end
+        @tasks[0].active?.should == false
+        @tasks[1].active?.should == true
+        @tasks[2].active?.should == false
+        @tasks[3].active?.should == true
+        @tasks[4].active?.should == true
+      end
+
+      it "should set task 0 true, then set 1 and 2 true, and all should remain true" do
+        attr = [@tasks[0].id]
+        put :complete, :ids => attr
+        attr = [@tasks[1].id, @tasks[2].id]
+        put :complete, :ids => attr
+        @tasks.each do |task|
+          task.reload
+        end
+        @tasks[0].active?.should == false
+        @tasks[1].active?.should == false
+        @tasks[2].active?.should == false
       end
     end
   end

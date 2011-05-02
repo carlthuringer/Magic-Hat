@@ -28,13 +28,32 @@ class TasksController < ApplicationController
   def update
     @task = Task.find params[:id]
     @goal = Goal.find @task.goal_id
-    if @task.update_attributes params[:task]
+    @task.description = params[:task][:description]
+    if @task.save 
       flash[:success] = "Task updated!"
       redirect_to dashboard_path
     else
       @title = "Edit Task"
       render :edit
     end
+  end
+
+  def complete
+    if params[:ids]
+      current_user.all_tasks.each do |task|
+        # Because the array of task IDs is returned as a string and we're
+        # doing an include? to compare that array's items against an integer
+        # id we have to convert the task ID to a string or else it won't match.
+        unless params[:ids].include?(task.id.to_s)
+          task.clear_complete_time
+        end
+      end
+      Task.find(params[:ids]).each do |task|
+        task.mark_complete
+      end
+    end
+
+    redirect_to dashboard_path
   end
 
   def destroy
@@ -46,20 +65,14 @@ class TasksController < ApplicationController
   private
 
   def authorized_user
-    # Depending on the method, the task :id may be set, or the :goal_id may be set.
-    # Find out which one is set and use that as a basis for discovering whether
-    # the current user is authorized to act upon this Task.
-    if params[:goal_id]
-      goal = Goal.find params[:goal_id]
+    if params[:ids]
+      params[:ids].each do |id|
+        task = Task.find id
+        redirect_back_or dashboard_path unless task.owned_by? current_user
+      end
     elsif params[:id]
       task = Task.find params[:id]
-      goal = Goal.find task.goal_id
-    else
-      redirect_to root_path
+      redirect_back_or dashboard_path unless task.owned_by? current_user
     end
-    owner = User.find goal.user_id
-
-    redirect_back_or dashboard_path unless owner == current_user
-
   end
-end
+ end

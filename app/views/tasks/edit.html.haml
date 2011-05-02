@@ -1,10 +1,5 @@
 %h1 Edit Task for #{@goal.title}
 = form_for @task do |f|
   = render :partial => "task_fields", :locals => { :f => f }
-  .field
-    = f.label :active, "Complete?"
-    = f.check_box :active
   .actions
     = f.submit "Save Edit"
-
-
