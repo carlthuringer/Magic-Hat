@@ -6,7 +6,9 @@ describe User do
       :name => "Example User", 
       :email => "user@example.com",
       :password => "foobars",
-      :password_confirmation => "foobars"
+      :password_confirmation => "foobars",
+      :website => "http://www.google.com",
+      :biography => "Just a few fake words about me."
     }
   end
 
@@ -58,6 +60,17 @@ describe User do
     User.create!(@attr.merge(:email => upcased_email))
     user_with_duplicate_email = User.new(@attr)
     user_with_duplicate_email.should_not be_valid
+  end
+
+  it "should reject a Website that is in an invalid format" do
+    bad_websites = []
+    bad_websites[0] = "Htp googlecom"
+    bad_websites[1] = "nanobar"
+    bad_websites[2] = "http://www.magichat.com/index.html?<funnybusiness>badstuff"
+    bad_websites.each do |badsite|
+      user_with_bad_site = User.new(@attr.merge(:website => badsite))
+      user_with_bad_site.should_not be_valid
+    end
   end
 
   describe "password validations" do

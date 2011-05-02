@@ -44,8 +44,13 @@ describe "LayoutLinks" do
 
     it "should have a dashboard link" do
       visit root_path
-      response.should have_selector('a', :href => dashboard_path, 
+      response.should have_selector('a', :href => dashboard_path,
                                     :content => "Dashboard")
+    end
+
+    it "should have a profile link" do
+      visit root_path
+      response.should have_selector('a', :href => edit_user_path(@user))
     end
   end
 end
