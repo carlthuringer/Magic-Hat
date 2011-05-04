@@ -18,7 +18,9 @@ class User < ActiveRecord::Base
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   website_regex = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
 
-
+  # Required before_validation to prevent empty form fields that aren't required from causing
+  # a validation error.
+  before_validation :clear_empty_web_bio_attrs
   validates :name, :presence => true,
                    :length   => { :maximum => 50}
   validates :email, :presence   => true,
@@ -28,7 +30,8 @@ class User < ActiveRecord::Base
   validates :password, :presence     => true,
                        :confirmation => true,
                        :length       => { :within => 6..40 }
-  validates :website, :format => { :with => email_regex }
+  validates :website, :format => { :with => website_regex, :allow_nil => true}
+  validates :biography, :length => { :within => 10..1400, :allow_nil => true }
 
   before_save :encrypt_password
 
@@ -76,5 +79,14 @@ class User < ActiveRecord::Base
 
   def secure_hash(string)
     Digest::SHA2.hexdigest(string)
+  end
+
+  protected
+
+  def clear_empty_web_bio_attrs
+    # This is required so that when integration tests submit a form with an empty field
+    # it doesn't complain about the "" value being invalid.
+    self.website = nil if self.website.blank?
+    self.biography = nil if self.website.blank?
   end
 end

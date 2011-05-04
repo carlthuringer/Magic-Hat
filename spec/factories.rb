@@ -5,6 +5,8 @@ FactoryGirl.define do
     email                 "foo@bar.com"
     password              "foobar"
     password_confirmation "foobar"
+    website               "http://www.google.com"
+    biography             Faker::Lorem.paragraph(3)
   end
 
   sequence :email do |n|

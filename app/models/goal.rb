@@ -14,6 +14,10 @@ class Goal < ActiveRecord::Base
     owner == user
   end
 
+  def recent
+    order("updated_at DESC")
+  end
+
   def incomplete_tasks
     self.tasks.find :all, :order => "updated_at DESC", :conditions => [ "complete IS NULL" ]
   end

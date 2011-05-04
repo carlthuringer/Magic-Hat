@@ -12,7 +12,9 @@ def make_users
   admin = User.create!(:name => "Example User",
                :email => "example@google.com",
                :password => "foobar",
-               :password_confirmation => "foobar")
+               :password_confirmation => "foobar",
+               :website => "http://www.google.com",
+               :biography => Faker::Lorem.paragraph(3))
   admin.toggle! :admin
   1.times do |n|
     name = Faker::Name.name

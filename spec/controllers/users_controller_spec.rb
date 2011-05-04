@@ -91,29 +91,53 @@ describe UsersController do
       @user = Factory :user
     end
 
-    it "should be successful" do
-      get :show, :id => @user
-      response.should be_success
+    describe "displayed user is not signed in user or no user signed in" do
+
+      before :each do
+        get :show, :id => @user
+      end
+
+      it "should be successful" do
+        response.should be_success
+      end
+
+      it "should find the right user" do
+        assigns(:user).should == @user
+      end
+
+      it "should have the right title" do
+        response.should have_selector("title", :content => @user.name)
+      end
+
+      it "should include the user's name" do
+        response.should have_selector("h1", :content => @user.name)
+      end
+
+      it "should display the user's website" do
+        response.should have_selector("a", :href => @user.website)
+      end
+
+      it "should display the user's biography" do
+        response.should have_selector('a', :href => @user.biography)
+      end
+
+      it "should have a profile image" do
+        response.should have_selector("h1>img", :class => "gravatar")
+      end
+
+      it "should not have an edit link" do
+        response.should_not have_selector('a', :href => edit_user_path(@user))
+      end
     end
 
-    it "should find the right user" do
-      get :show, :id => @user
-      assigns(:user).should == @user
-    end
+    describe "displayed user is signed in" do
 
-    it "should have the right title" do
-      get :show, :id => @user 
-      response.should have_selector("title", :content => @user.name)
-    end
+      it "should have an edit link" do
+        test_sign_in @user
+        get :show, :id => @user
+        response.should have_selector('a', :href => edit_user_path(@user))
+      end
 
-    it "should include the user's name" do
-      get :show, :id => @user
-      response.should have_selector("h1", :content => @user.name)
-    end
-
-    it "should have a profile image" do
-      get :show, :id => @user
-      response.should have_selector("h1>img", :class => "gravatar")
     end
   end
 
@@ -228,6 +252,16 @@ describe UsersController do
       response.should have_selector('a', :href => gravatar_url,
                                          :content => "change")
     end
+
+    it "should have a field for a website URL" do
+      get :edit, :id => @user
+      response.should have_selector('input', :id => "user_website")
+    end
+
+    it "should have a field for a biography" do
+      get :edit, :id => @user
+      response.should have_selector('textarea', :id => "user_biography")
+    end
   end
 
   describe "PUT 'edit'" do
@@ -259,7 +293,9 @@ describe UsersController do
 
       before :each do
         @attr = { :name => "New Name", :email => "newemail@example.org",
-                  :password => "barbaz", :password_confirmation => "barbaz" }
+                  :password => "barbaz", :password_confirmation => "barbaz",
+                  :website => "http://www.yahoo.com", 
+                  :biography => "The bird of Hermes is my name, eating my wings to make me tame" }
       end
 
       it "should change the user's attributes" do
@@ -267,6 +303,8 @@ describe UsersController do
         @user.reload
         @user.name.should == @attr[:name]
         @user.email.should == @attr[:email]
+        @user.website.should == @attr[:website]
+        @user.biography.should == @attr[:biography]
       end
 
       it "should redirect to the user show page" do
@@ -320,7 +358,7 @@ describe UsersController do
   end
 
   describe "DELETE 'destroy'" do
-    
+
     before :each do
       @user = Factory :user
     end

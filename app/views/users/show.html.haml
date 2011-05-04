@@ -1,13 +1,15 @@
-%table.profile{:summary => "Profile information"}
-  %tr
-    %td.main
-      %h1
-        = gravatar_for @user
-        = @user.name
-    %td.sidebar.round
-      %strong Name
-      = @user.name
-      %br/
-      %strong URL
-      = link_to user_path(@user), @user
-      %br/
+.profile{:summary => "Profile information"}
+  %h1
+    = gravatar_for @user
+    = link_to @user.name, @user
+  %strong Name
+  = @user.name
+  %br/
+  - if @user.website
+    %strong Web site
+    = link_to @user.website, @user.website
+  - if @user.biography
+    %strong Biography
+  %br/
+  - if @user == current_user
+    = link_to "Edit my profile", edit_user_path(@user)
