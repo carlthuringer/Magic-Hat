@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20110502210408
+#
+# Table name: goals
+#
+#  id          :integer         not null, primary key
+#  title       :string(255)
+#  description :string(255)
+#  active      :boolean
+#  user_id     :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class Goal < ActiveRecord::Base
   attr_accessible :title, :description
 

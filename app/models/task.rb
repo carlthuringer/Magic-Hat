@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20110502210408
+#
+# Table name: tasks
+#
+#  id          :integer         not null, primary key
+#  description :string(255)
+#  goal_id     :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#  complete    :datetime
+#
+
 class Task < ActiveRecord::Base
   attr_accessible :description, :complete
 
