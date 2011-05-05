@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   # Required before_validation to prevent empty form fields that aren't required from causing
   # a validation error.
-  before_validation :clear_empty_web_bio_attrs
+  #before_validation :clear_empty_web_bio_attrs
   validates :name, :presence => true,
                    :length   => { :maximum => 50}
   validates :email, :presence   => true,
@@ -30,8 +30,8 @@ class User < ActiveRecord::Base
   validates :password, :presence     => true,
                        :confirmation => true,
                        :length       => { :within => 6..40 }
-  validates :website, :format => { :with => website_regex, :allow_nil => true}
-  validates :biography, :length => { :within => 10..1400, :allow_nil => true }
+  validates :website, :format => { :with => website_regex, :allow_blank => true}
+  validates :biography, :length => { :within => 10..1400, :allow_blank => true }
 
   before_save :encrypt_password
 

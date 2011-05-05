@@ -118,7 +118,7 @@ describe UsersController do
       end
 
       it "should display the user's biography" do
-        response.should have_selector('a', :href => @user.biography)
+        response.should have_selector('p', :content => @user.biography)
       end
 
       it "should have a profile image" do

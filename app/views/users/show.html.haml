@@ -8,8 +8,10 @@
   - if @user.website
     %strong Web site
     = link_to @user.website, @user.website
+    %br/
   - if @user.biography
     %strong Biography
-  %br/
+    %p #{@user.biography}
+    %br/
   - if @user == current_user
     = link_to "Edit my profile", edit_user_path(@user)
