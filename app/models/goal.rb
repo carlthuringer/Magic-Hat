@@ -19,10 +19,10 @@ class Goal < ActiveRecord::Base
   end
 
   def incomplete_tasks
-    self.tasks.find :all, :order => "updated_at DESC", :conditions => [ "complete IS NULL" ]
+    tasks.where("complete IS NULL").order("updated_at DESC")
   end
 
   def complete_tasks
-    self.tasks.find :all, :order => "complete DESC", :conditions => [ "complete IS NOT NULL" ]
+    tasks.where("complete IS NOT NULL").order("complete DESC")
   end
 end
