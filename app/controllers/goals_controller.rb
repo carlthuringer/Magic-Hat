@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
   before_filter :authenticate
-  before_filter :authorized_user, :only => [:destroy, :update]
+  before_filter :authorized_user, :only => [:destroy, :update, :shelving]
 
   def new
     @title = "New Goal"
@@ -42,6 +42,13 @@ class GoalsController < ApplicationController
       @title = "Edit Goal"
       render 'edit'
     end
+  end
+
+  def shelving
+    goal = Goal.find params[:id]
+    goal.toggle :shelved
+    goal.save
+    redirect_to dashboard_path
   end
 
   def destroy

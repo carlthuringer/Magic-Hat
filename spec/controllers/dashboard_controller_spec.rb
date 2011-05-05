@@ -22,6 +22,7 @@ describe DashboardController do
       before :each do
         @user = test_sign_in Factory :user
         @goal = Factory(:goal, :user => @user)
+        @shelved_goal = Factory(:goal, :user => @user, :title => "INACTIVE GOAL", :shelved => true)
         @task = Factory(:task, :goal => @goal)
         get 'index'
       end
@@ -34,13 +35,19 @@ describe DashboardController do
         response.should have_selector("title", :content => @base_title + " | Dashboard")
       end
 
-      it "should show the user's goals" do
+      it "should show the user's active goals" do
         response.should have_selector("tr>td", :content => @goal.title)
+        response.should_not have_selector("tr>td", :content => @shelved_goal.title)
       end
 
-      it "should have edit and delete links for my goals" do
-        response.should have_selector('input', :value => "Edit")
+      it "should have edit, delete and shelve links for my goals" do
+        response.should have_selector('a', :content => "Edit")
         response.should have_selector('input', :type => "submit", :value => "Delete")
+        response.should have_selector('a', :content => "Shelve")
+      end
+
+      it "should have a link to my shelved goals" do
+        response.should have_selector('a', :content => "Shelved")
       end
 
       describe "task display" do
@@ -50,7 +57,7 @@ describe DashboardController do
         end
 
         it "should have edit and delete links for my tasks" do
-          response.should have_selector('input', :value => "Edit")
+          response.should have_selector('a', :content => "Edit", :href => "/tasks/#{@task.id}/edit")
           response.should have_selector('input', :type => "submit", :value => "Delete")
         end
 
@@ -59,5 +66,17 @@ describe DashboardController do
         end
       end
     end
+  end
+
+  describe "GET 'shelved'" do
+
+    before :each do
+      get :shelved
+    end
+
+    it "should be successful" do
+      response.should be_successful
+    end
+
   end
 end

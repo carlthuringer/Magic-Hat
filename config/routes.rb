@@ -2,7 +2,11 @@ MagicHat::Application.routes.draw do
   root :to => 'pages#home'
   resources :users
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :goals, :except => :index
+  resources :goals, :except => :index do
+    member do
+      put 'shelving'
+    end
+  end
 
   resources :tasks, :except => :index do
     collection do
@@ -16,6 +20,7 @@ MagicHat::Application.routes.draw do
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   match '/dashboard', :to => 'dashboard#index'
+  match '/dashboard/shelved', :to => 'dashboard#shelved', :as => "shelved"
 
   # RESTful creation of a Task associated with a Plan.
   
