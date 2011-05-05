@@ -6,14 +6,14 @@
 #  id          :integer         not null, primary key
 #  title       :string(255)
 #  description :string(255)
-#  active      :boolean
+#  shelved     :boolean
 #  user_id     :integer
 #  created_at  :datetime
 #  updated_at  :datetime
 #
 
 class Goal < ActiveRecord::Base
-  attr_accessible :title, :description
+  attr_accessible :title, :description, :shelved
 
   validates :title, :presence => true,
     :length => { :within => (4..40) }

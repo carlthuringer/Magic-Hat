@@ -16,7 +16,7 @@ FactoryGirl.define do
   factory :goal do
     title "Example"
     description "An example description of the goal."
-    active false
+    shelved false
     association :user
   end
 

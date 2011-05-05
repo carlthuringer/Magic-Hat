@@ -10,15 +10,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110502210408) do
+ActiveRecord::Schema.define(:version => 20110505192036) do
 
   create_table "goals", :force => true do |t|
     t.string   "title"
     t.string   "description"
-    t.boolean  "active",      :default => false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "shelved",     :default => false
   end
 
   add_index "goals", ["id"], :name => "index_goals_on_id"

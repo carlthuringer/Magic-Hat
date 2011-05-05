@@ -171,6 +171,9 @@ describe User do
       @user = User.create! @attr
       @goal1 = Factory(:goal, :user => @user)
       @goal2 = Factory(:goal, :user => @user)
+      @goal3 = Factory(:goal, :user => @user)
+      @goal4 = Factory(:goal, :user => @user, :shelved => true)
+      @goal5 = Factory(:goal, :user => @user, :shelved => true)
     end
 
     it "should have a goals attribute" do
@@ -182,6 +185,18 @@ describe User do
       [@goal1, @goal2].each do |goal|
         Goal.find_by_id(goal.id).should be_nil
       end
+    end
+
+    it "should respond with active goals, newest to oldest" do
+      active_goals = @user.active_goals
+      active_goals[0].should == @goal3
+      active_goals.include?(@goal4).should_not be_true
+    end
+
+    it "should respond with shelved goals, newest to oldest" do
+      shelved_goals = @user.shelved_goals
+      shelved_goals[0].should == @goal5
+      shelved_goals.include?(@goal2).should_not be_true
     end
   end
 end

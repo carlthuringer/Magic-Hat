@@ -28,5 +28,9 @@ describe Goal do
     goal.should_not be_valid
   end
 
-  
+  it "Should default to 'shelved' = false" do
+    goal = Goal.new(@attr)
+    goal.shelved.should be_false
+  end
+
 end

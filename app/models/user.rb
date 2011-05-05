@@ -68,6 +68,14 @@ class User < ActiveRecord::Base
     all_tasks.flatten!
   end
 
+  def active_goals
+    goals.where(:shelved => false).order("updated_at DESC")
+  end
+
+  def shelved_goals
+    goals.where(:shelved => true).order("updated_at DESC")
+  end
+
   private
 
   def encrypt_password
