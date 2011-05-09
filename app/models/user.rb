@@ -70,11 +70,12 @@ class User < ActiveRecord::Base
   end
 
   def velocity
-
+    three_week_total = tasks.where(:complete => (3.weeks.ago)..(Time.now)).count
+    three_week_total / 3
   end
 
   def tasks_completed_today
-    2
+    tasks.where(:complete => (1.day.ago)..(Time.now)).count
   end
 
   private

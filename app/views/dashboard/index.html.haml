@@ -1,4 +1,6 @@
 %h1 Dashboard
+%h3#tasks-completed Completed Today: #{@total_completed}
+%h3#velocity Per-week Average: #{@velocity}
 %ul
   %li
     = link_to "Active Goals", dashboard_path

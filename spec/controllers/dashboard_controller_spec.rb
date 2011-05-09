@@ -65,6 +65,17 @@ describe DashboardController do
           response.should have_selector('input', :type => "checkbox")
         end
       end
+
+      describe "statistics" do
+
+        it "should display today's total" do
+          response.should have_selector('h3', :id => "tasks-completed")
+        end
+
+        it "should display the current velocity" do
+          response.should have_selector('h3', :id => "velocity")
+        end
+      end
     end
   end
 

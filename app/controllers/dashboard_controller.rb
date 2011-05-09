@@ -5,6 +5,8 @@ class DashboardController < ApplicationController
     @body_class = "dashboard"
     @title = "Dashboard"
     @goals = current_user.active_goals
+    @total_completed = current_user.tasks_completed_today
+    @velocity = current_user.velocity
     @shelf_verb = "Shelve"
   end
 
@@ -15,4 +17,5 @@ class DashboardController < ApplicationController
     @shelf_verb = "Unshelve"
     render :index
   end
+
 end

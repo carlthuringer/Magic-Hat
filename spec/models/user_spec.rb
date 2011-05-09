@@ -87,6 +87,7 @@ describe User do
       end
       @tasks[3..4].each do |task|
         task.complete = 1.week.ago
+        task.save
       end
     end
 
@@ -95,7 +96,14 @@ describe User do
     end
 
     it "should report 2 tasks completed today" do
-      @user.tasks_completed_today.should == 2
+      @user.tasks_completed_today.should == 3
+    end
+
+    it "should calculate a rounded velocity average based on tasks per week, versus the past three weeks." do
+      5.times do
+        @tasks << Factory(:task, :goal => @goal, :complete => 2.weeks.ago)
+      end
+      @user.velocity.should == 3
     end
   end
 
