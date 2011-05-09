@@ -82,6 +82,11 @@ describe TasksController do
     it "should have a field to edit the description." do
       response.should have_selector('input', :id => "task_description")
     end
+
+    it "should have a field to edit the deadline." do
+      response.should have_selector('input', :id => "task_deadline_string")
+    end
+
   end
 
   describe "PUT 'update'" do
@@ -115,7 +120,9 @@ describe TasksController do
     describe "success" do
 
       before :each do
-        @attr = { :description => "SHOULD BE EDITED" }
+        @attr = { :description => "SHOULD BE EDITED", 
+          :deadline_string => "11-23-2012" }
+
         put :update, :id => @task, :task => @attr
       end
 

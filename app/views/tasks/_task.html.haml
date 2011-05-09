@@ -6,6 +6,7 @@
     = task.complete
   %td.task_description
     = task.description
+    = task.deadline
   %td.task_actions
     = link_to "Edit", edit_task_path(task)
     = button_to("Delete", task, { :action => 'destroy', :id => task.id, :confirm => "Are you sure?", :method => :delete })

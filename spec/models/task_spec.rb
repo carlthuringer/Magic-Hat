@@ -27,6 +27,10 @@ describe Task do
     it "should default to completed == nil" do
       @task.complete.should be_nil
     end
+
+    it "should default to deadline == nil" do
+      @task.deadline.should be_nil
+    end
   end
 
   describe "relationships" do

@@ -29,6 +29,8 @@ class TasksController < ApplicationController
     @task = Task.find params[:id]
     @goal = Goal.find @task.goal_id
     @task.description = params[:task][:description]
+    @task.deadline_string=params[:task][:deadline_string]
+    logger.info(@task.to_yaml)
     if @task.save 
       flash[:success] = "Task updated!"
       redirect_to dashboard_path

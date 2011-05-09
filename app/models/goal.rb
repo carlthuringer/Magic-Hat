@@ -29,7 +29,7 @@ class Goal < ActiveRecord::Base
   end
 
   def incomplete_tasks
-    tasks.where("complete IS NULL").order("updated_at DESC")
+    tasks.where("complete IS NULL").order("deadline ASC").order("updated_at DESC")
   end
 
   def complete_tasks

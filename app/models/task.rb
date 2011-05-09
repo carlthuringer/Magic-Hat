@@ -12,10 +12,11 @@
 #
 
 class Task < ActiveRecord::Base
-  attr_accessible :description, :complete
+  attr_accessible :description, :complete, :deadline
 
   validates :description, :presence => true,
     :length => { :minimum => 5 }
+  validate :deadline_string_no_errors
 
   belongs_to :goal
 
@@ -38,4 +39,31 @@ class Task < ActiveRecord::Base
   def active?
     self.complete == nil
   end
+
+  def deadline_string
+    self.deadline.to_s
+  end
+
+  def deadline_string=(deadline_str)
+    unless deadline_str.blank?
+      begin
+        self.deadline = Time.parse(deadline_str)
+      rescue ArgumentError
+        nil
+      end
+    end
+  end
+
+  def deadline_string_no_errors
+    unless deadline_string.blank?
+      begin
+        temp = Time.parse(self.deadline_string)
+      rescue ArgumentError
+        errors.add(:deadline_string, "Invalid Format")
+      end
+    end
+  end
+
 end
+
+
