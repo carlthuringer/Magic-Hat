@@ -92,4 +92,20 @@ describe "Tasks" do
       }.to change(Task, :count).by -1
     end
   end
+
+  describe "Complete Task" do
+
+    before :each do
+      visit dashboard_path
+      click_link "Create a new Task"
+      fill_in "Description", :with => "IT SHOULD CREATE THE TASK"
+      click_button
+    end
+
+    it "should result in a successful request" do
+      within(".task_status") { check "ids[]"}
+      click_button "Update Tasks"
+      response.should be_successful
+    end
+  end
 end

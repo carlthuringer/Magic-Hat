@@ -7,7 +7,8 @@
   %td.goal_description
     = goal.description
   %td.goal_actions
-    = link_to "Edit", edit_goal_path(goal)
+    -# = link_to "Edit", edit_goal_path(goal)
+    = button_to "Edit", edit_goal_path(goal), :action => 'edit', :id => goal.id, :method => :get
     = button_to "Delete", goal, :action => 'destroy', :id => goal.id, :confirm => "Are you sure?", :method => :delete
     = link_to @shelf_verb, shelving_goal_path(goal), :method => :put
 - unless tasks.empty?
