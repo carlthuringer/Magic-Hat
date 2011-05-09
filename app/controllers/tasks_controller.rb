@@ -41,7 +41,7 @@ class TasksController < ApplicationController
   end
 
   def complete
-    current_user.all_tasks.each do |task|
+    current_user.tasks.each do |task|
       # Because the array of task IDs is returned as a string and we're
       # doing an include? to compare that array's items against an integer
       # id we have to convert the task ID to a string or else it won't match.

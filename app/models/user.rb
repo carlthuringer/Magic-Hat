@@ -42,6 +42,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
 
   has_many :goals, :dependent => :destroy
+  has_many :tasks, :through => :goals
 
   # Return true if the user's submitted password matches the hashed one.
   def has_password?(submitted_password)
@@ -60,20 +61,20 @@ class User < ActiveRecord::Base
     (user && user.salt == cookie_salt) ? user : nil
   end
 
-  def all_tasks
-    all_tasks = []
-    self.goals.each do |goal|
-      all_tasks << goal.tasks
-    end
-    all_tasks.flatten!
-  end
-
   def active_goals
     goals.where(:shelved => false).order("updated_at DESC")
   end
 
   def shelved_goals
     goals.where(:shelved => true).order("updated_at DESC")
+  end
+
+  def velocity
+
+  end
+
+  def tasks_completed_today
+    2
   end
 
   private

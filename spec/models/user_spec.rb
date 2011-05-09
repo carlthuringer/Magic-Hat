@@ -76,6 +76,29 @@ describe User do
     user_with_long_bio.should_not be_valid
   end
 
+  describe "Statistics" do
+
+    before :each do
+      @user = Factory :user
+      @goal = Factory(:goal, :user => @user)
+      @tasks = []
+      5.times do
+        @tasks << Factory(:task, :goal => @goal, :complete => Time.now)
+      end
+      @tasks[3..4].each do |task|
+        task.complete = 1.week.ago
+      end
+    end
+
+    it "should have a velocity method" do
+      @user.should respond_to :velocity
+    end
+
+    it "should report 2 tasks completed today" do
+      @user.tasks_completed_today.should == 2
+    end
+  end
+
   describe "password validations" do
 
     it "should require a password" do
@@ -197,6 +220,19 @@ describe User do
       shelved_goals = @user.shelved_goals
       shelved_goals[0].should == @goal5
       shelved_goals.include?(@goal2).should_not be_true
+    end
+  end
+
+  describe "task associations" do
+
+    before :each do
+      @user = Factory :user
+      @goal = Factory(:goal, :user => @user)
+      @task = Factory(:task, :goal => @goal)
+    end
+
+    it "should discover its own tasks through its association" do
+      @user.tasks.first.should == @task
     end
   end
 end
