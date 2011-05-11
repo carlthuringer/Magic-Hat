@@ -2,10 +2,11 @@
 - unless current_user.tasks.count == 0
   #statistics
     -# TODO Link this to a 'what is this' FAQ sort of page. Make some method that friendly links 'ok, back to what i was doing'
-    = link_to "#{@total_completed} today, #{@velocity} avg.", #
+    = link_to "#{@total_completed} today, #{@velocity} avg.", root_path
 - if current_user.goals.count == 0
   #tutorial
-    Welcome to *Magic Hat*. The next step is to create your first goal.
+    :textile
+      Welcome to *Magic Hat*. The next step is to create your first goal.
   = link_to "Add Goal", new_goal_path, :class => "button clear"
 - else
   = link_to "Add Goal", new_goal_path, :class => "button clear"
