@@ -1,4 +1,4 @@
-- unless @user.errors
+- if @user.errors.blank?
   %h1 Sign up
   %p To secure your login, we will need an e-mail and password. You're almost ready to begin!
 = form_for(@user) do |f|
@@ -6,7 +6,7 @@
   -# = render :partial =>  "fields", :locals => { :f => f }
   .field
     = f.label :email
-    = f.text_field :email, :placeholder => "example@youremail.com"
+    = f.text_field :email, :placeholder => "you@youremail.com"
   .field
     = f.label :password
     = f.text_field :password
