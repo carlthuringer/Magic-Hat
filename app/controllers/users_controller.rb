@@ -37,7 +37,6 @@ class UsersController < ApplicationController
     else
       @title = "Sign up"
       @user.password = ''
-      @user.password_confirmation = ''
       render 'new'
     end
   end

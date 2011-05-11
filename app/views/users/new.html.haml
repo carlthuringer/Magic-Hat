@@ -1,5 +1,12 @@
 %h1 Sign up
+%p To secure your login, we will need an e-mail and password. You're almost ready to begin!
 = form_for(@user) do |f|
-  = render :partial =>  "fields", :locals => { :f => f }
+  -# = render :partial =>  "fields", :locals => { :f => f }
+  .field
+    = f.label :email
+    = f.text_field :email, :placeholder => "example@youremail.com"
+  .field
+    = f.label :password
+    = f.text_field :password
   .actions
     = f.submit "Sign up"

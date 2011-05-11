@@ -19,7 +19,7 @@ require 'digest'
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :password_confirmation, :website, :biography
+  attr_accessible :name, :email, :password, :website, :biography
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   website_regex = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
@@ -34,7 +34,6 @@ class User < ActiveRecord::Base
                     :uniqueness => { :case_sensitive => false }
   # Automatically create the virtual attribute 'password confirmation'
   validates :password, :presence     => true,
-                       :confirmation => true,
                        :length       => { :within => 6..40 }
   validates :website, :format => { :with => website_regex, :allow_blank => true}
   validates :biography, :length => { :within => 10..1400, :allow_blank => true }
