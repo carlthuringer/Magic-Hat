@@ -1,5 +1,6 @@
-%h1 Sign up
-%p To secure your login, we will need an e-mail and password. You're almost ready to begin!
+- unless @user.errors
+  %h1 Sign up
+  %p To secure your login, we will need an e-mail and password. You're almost ready to begin!
 = form_for(@user) do |f|
   = render 'shared/error_messages', :object => f.object
   -# = render :partial =>  "fields", :locals => { :f => f }

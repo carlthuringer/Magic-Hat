@@ -145,7 +145,17 @@ body.bp .removed {
   color: white;
 }
 
+/* line 42, ../../app/stylesheets/screen.sass */
+.flash {
+  clear: both;
+}
+
 /* line 44, ../../app/stylesheets/screen.sass */
+ul li {
+  margin-left: 1.325em;
+}
+
+/* line 47, ../../app/stylesheets/screen.sass */
 ul.navigation {
   margin: 0;
   padding: 0;
@@ -178,12 +188,12 @@ ul.navigation li {
 ul.navigation li {
   *display: inline;
 }
-/* line 50, ../../app/stylesheets/screen.sass */
+/* line 53, ../../app/stylesheets/screen.sass */
 ul.navigation a {
   text-decoration: none;
   padding: 2px 5px;
 }
-/* line 53, ../../app/stylesheets/screen.sass */
+/* line 56, ../../app/stylesheets/screen.sass */
 ul.navigation a.selected {
   background-color: #ffe9a3;
   -moz-border-radius: 4px;
@@ -194,7 +204,7 @@ ul.navigation a.selected {
   border-radius: 4px;
 }
 
-/* line 56, ../../app/stylesheets/screen.sass */
+/* line 59, ../../app/stylesheets/screen.sass */
 ul.navigation.sub {
   -webkit-border-radius: 0px 0px;
   -moz-border-radius: 0px 0px 4px 4px / 0px 0px 4px 4px;
@@ -206,7 +216,7 @@ ul.navigation.sub {
   margin-left: 25px;
 }
 
-/* line 62, ../../app/stylesheets/screen.sass */
+/* line 65, ../../app/stylesheets/screen.sass */
 h1.masthead {
   text-align: center;
   font-family: "Crimson Text", serif;
@@ -217,48 +227,48 @@ h1.masthead {
   line-height: 1.2;
 }
 
-/* line 71, ../../app/stylesheets/screen.sass */
+/* line 74, ../../app/stylesheets/screen.sass */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Crimson Text", serif;
   text-align: center;
 }
 
-/* line 75, ../../app/stylesheets/screen.sass */
+/* line 78, ../../app/stylesheets/screen.sass */
 h1 {
   font-size: 3em;
 }
 
-/* line 77, ../../app/stylesheets/screen.sass */
+/* line 80, ../../app/stylesheets/screen.sass */
 h2 {
   font-size: 2.5em;
 }
 
-/* line 79, ../../app/stylesheets/screen.sass */
+/* line 82, ../../app/stylesheets/screen.sass */
 h3 {
   font-size: 2em;
 }
 
-/* line 81, ../../app/stylesheets/screen.sass */
+/* line 84, ../../app/stylesheets/screen.sass */
 h4 {
   font-size: 1.6em;
 }
 
-/* line 83, ../../app/stylesheets/screen.sass */
+/* line 86, ../../app/stylesheets/screen.sass */
 h5 {
   font-size: 1.4em;
 }
 
-/* line 85, ../../app/stylesheets/screen.sass */
+/* line 88, ../../app/stylesheets/screen.sass */
 h6 {
   font-size: 1.2em;
 }
 
-/* line 88, ../../app/stylesheets/screen.sass */
+/* line 91, ../../app/stylesheets/screen.sass */
 h1.title {
   display: none;
 }
 
-/* line 91, ../../app/stylesheets/screen.sass */
+/* line 94, ../../app/stylesheets/screen.sass */
 p {
   margin-bottom: 1em;
 }
@@ -460,13 +470,13 @@ p .loud {
   color: #111111;
 }
 
-/* line 95, ../../app/stylesheets/screen.sass */
+/* line 98, ../../app/stylesheets/screen.sass */
 #elevator-pitch {
   font-size: 1.4em;
   text-align: justify;
 }
 
-/* line 99, ../../app/stylesheets/screen.sass */
+/* line 102, ../../app/stylesheets/screen.sass */
 a {
   color: #ff8620;
   text-decoration: none;
@@ -489,7 +499,7 @@ a:active {
   color: #ff8620;
 }
 
-/* line 104, ../../app/stylesheets/screen.sass */
+/* line 107, ../../app/stylesheets/screen.sass */
 a.button {
   display: block;
   -moz-border-radius: 4px;
@@ -503,7 +513,7 @@ a.button {
   text-align: center;
 }
 
-/* line 111, ../../app/stylesheets/screen.sass */
+/* line 114, ../../app/stylesheets/screen.sass */
 .signup_button {
   color: white;
   margin-left: auto;
@@ -535,7 +545,7 @@ a.button {
   color: white;
 }
 
-/* line 125, ../../app/stylesheets/screen.sass */
+/* line 128, ../../app/stylesheets/screen.sass */
 .round {
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
@@ -545,19 +555,19 @@ a.button {
   border-radius: 12px;
 }
 
-/* line 128, ../../app/stylesheets/screen.sass */
+/* line 131, ../../app/stylesheets/screen.sass */
 form {
   margin: auto;
   width: 300px;
 }
-/* line 131, ../../app/stylesheets/screen.sass */
-form div {
+/* line 134, ../../app/stylesheets/screen.sass */
+form div.field {
   display: inline-block;
   padding: 5px 0;
   width: 300px;
 }
-/* line 135, ../../app/stylesheets/screen.sass */
-form div label {
+/* line 138, ../../app/stylesheets/screen.sass */
+form div.field label {
   float: left;
   display: inline-block;
   text-align: right;
@@ -568,32 +578,40 @@ form div label {
   font-size: 1.6em;
   margin-right: 0.3em;
 }
-/* line 145, ../../app/stylesheets/screen.sass */
-form div input[type="text"] {
+/* line 148, ../../app/stylesheets/screen.sass */
+form div.field input[type="text"] {
   float: left;
   font-size: 1.4em;
   width: 170px;
 }
-/* line 149, ../../app/stylesheets/screen.sass */
-form div input[type="submit"] {
+/* line 152, ../../app/stylesheets/screen.sass */
+form div.field input[type="submit"] {
   margin-left: 100px;
   font-size: 1.6em;
 }
+/* line 155, ../../app/stylesheets/screen.sass */
+form .field_with_errors {
+  color: red;
+}
+/* line 157, ../../app/stylesheets/screen.sass */
+form .field_with_errors input {
+  border: 1px solid red;
+}
 
-/* line 153, ../../app/stylesheets/screen.sass */
+/* line 160, ../../app/stylesheets/screen.sass */
 #tabs-info {
   overflow: hidden;
   *zoom: 1;
 }
 
-/* line 156, ../../app/stylesheets/screen.sass */
+/* line 163, ../../app/stylesheets/screen.sass */
 #completed-over-average {
   float: right;
   font-size: 1.4em;
   margin-bottom: 0.5em;
 }
 
-/* line 161, ../../app/stylesheets/screen.sass */
+/* line 168, ../../app/stylesheets/screen.sass */
 ul#shelf-tabs {
   margin: 0;
   padding: 0;
@@ -617,14 +635,14 @@ ul#shelf-tabs li {
 ul#shelf-tabs li {
   *display: inline;
 }
-/* line 163, ../../app/stylesheets/screen.sass */
+/* line 170, ../../app/stylesheets/screen.sass */
 ul#shelf-tabs li {
   background: #2d3b31;
   padding: 2px 4px;
   margin: 0px 2px;
 }
 
-/* line 168, ../../app/stylesheets/screen.sass */
+/* line 175, ../../app/stylesheets/screen.sass */
 .goal {
   background: #9abd8b;
   -moz-border-radius: 4px;
@@ -635,28 +653,28 @@ ul#shelf-tabs li {
   border-radius: 4px;
   padding: 4px;
 }
-/* line 172, ../../app/stylesheets/screen.sass */
+/* line 179, ../../app/stylesheets/screen.sass */
 .goal h4.title {
   text-align: center;
 }
-/* line 174, ../../app/stylesheets/screen.sass */
+/* line 181, ../../app/stylesheets/screen.sass */
 .goal .description {
   width: 80%;
   float: left;
 }
-/* line 178, ../../app/stylesheets/screen.sass */
+/* line 185, ../../app/stylesheets/screen.sass */
 .goal .actions a {
   width: 30%;
   float: left;
 }
-/* line 181, ../../app/stylesheets/screen.sass */
+/* line 188, ../../app/stylesheets/screen.sass */
 .goal .goal_info {
   overflow: hidden;
   *zoom: 1;
   margin-bottom: 4px;
 }
 
-/* line 184, ../../app/stylesheets/screen.sass */
+/* line 191, ../../app/stylesheets/screen.sass */
 .task {
   background: #ffe9a3;
   -moz-border-radius: 4px;
@@ -670,13 +688,13 @@ ul#shelf-tabs li {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 190, ../../app/stylesheets/screen.sass */
+/* line 197, ../../app/stylesheets/screen.sass */
 .task .task_info_wrapper {
   float: left;
   overflow: hidden;
   *zoom: 1;
 }
-/* line 193, ../../app/stylesheets/screen.sass */
+/* line 200, ../../app/stylesheets/screen.sass */
 .task .task_status {
   height: 48px;
   width: 48px;
@@ -690,7 +708,7 @@ ul#shelf-tabs li {
   float: left;
   margin-right: 4px;
 }
-/* line 201, ../../app/stylesheets/screen.sass */
+/* line 208, ../../app/stylesheets/screen.sass */
 .task .task_actions a {
   width: 48%;
   float: left;

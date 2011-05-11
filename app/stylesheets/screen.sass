@@ -38,8 +38,11 @@ body.bp
   font-family: Helvetica, Arial, Verdana, sans-serif
   background-color: $background
   color: $text
-  // Remove the scaffolding when you're ready to start doing visual design.
-  // Or leave it in if you're happy with how blueprint looks out-of-the-box
+
+.flash
+  clear: both
+ul li
+  margin-left: 1.325em
 
 ul.navigation
   +inline-block-list
@@ -128,7 +131,7 @@ a.button
 form
   margin: auto
   width: 300px
-  div
+  div.field
     display: inline-block
     padding: 5px 0
     width: 300px
@@ -149,6 +152,10 @@ form
     input[type="submit"]
       margin-left: 100px
       font-size: 1.6em
+  .field_with_errors
+    color: red
+    input
+      border: 1px solid red
 
 #tabs-info
   +clearfix
