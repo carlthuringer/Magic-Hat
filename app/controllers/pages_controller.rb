@@ -3,7 +3,7 @@ class PagesController < ApplicationController
 
   def home
     if signed_in?
-      @title = current_user.name
+      redirect_to dashboard_path
     else
       @title = "Home"
     end
