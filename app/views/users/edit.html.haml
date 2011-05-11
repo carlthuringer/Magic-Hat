@@ -1,9 +1,10 @@
 %h1 Editing
 %h2 #{ @user.name }
 = form_for(@user) do |f|
+  %div
+  = gravatar_for @user
+  %a{:href => "http://gravatar.com/emails", :target => "_blank"} change image
   = render :partial =>  "fields", :locals => { :f => f }
   .actions
     = f.submit "Update"
-%div
-  = gravatar_for @user
-  %a{:href => "http://gravatar.com/emails", :target => "_blank"} change
+

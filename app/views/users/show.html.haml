@@ -5,14 +5,13 @@
   - if @user.empty_profile && @user == current_user
     = link_to "Get started on your profile!", edit_user_path(@user), :id => "tutorial"
   - else
-    - if @user.name
-      %strong Name
-      = @user.name
     - if @user.website
-      %strong Web site
-      = link_to @user.website, @user.website
+      .website
+        %strong Web site:
+        = link_to @user.website, @user.website
     - if @user.biography
-      %strong Biography
-      %p #{@user.biography}
+      .biography
+        %strong Biography
+        %p #{@user.biography}
     - if @user == current_user
       = link_to "Edit my profile", edit_user_path(@user)
