@@ -36,8 +36,8 @@ describe DashboardController do
       end
 
       it "should show the user's active goals" do
-        response.should have_selector("tr>td", :content => @goal.title)
-        response.should_not have_selector("tr>td", :content => @shelved_goal.title)
+        response.should contain(@goal.title)
+        response.should_not contain(@shelved_goal.title)
       end
 
       it "should have edit, delete and shelve links for my goals" do
@@ -52,8 +52,8 @@ describe DashboardController do
 
       describe "task display" do
 
-        it "Should display the tasks in a <tr><td> under the goal" do
-          response.should have_selector('tr>td', :content => @task.description)
+        it "Should display the task" do
+          response.should contain(@task.description)
         end
 
         it "should have edit and delete links for my tasks" do
