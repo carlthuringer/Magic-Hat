@@ -88,7 +88,7 @@ describe "Tasks" do
     it "should delete the task" do
       expect {
         visit dashboard_path
-        within(".task_actions") { click_button "Delete" }
+        within(".task_actions") { click_link "Delete" }
       }.to change(Task, :count).by -1
     end
   end

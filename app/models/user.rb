@@ -27,8 +27,6 @@ class User < ActiveRecord::Base
   # Required before_validation to prevent empty form fields that aren't required from causing
   # a validation error.
   #before_validation :clear_empty_web_bio_attrs
-  validates :name, :presence => true,
-                   :length   => { :maximum => 50}
   validates :email, :presence   => true,
                     :format     => { :with => email_regex },
                     :uniqueness => { :case_sensitive => false }
