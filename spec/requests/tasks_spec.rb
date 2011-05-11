@@ -34,7 +34,7 @@ describe "Tasks" do
           click_link "Create a new Task"
           fill_in "Description", :with => "IT SHOULD CREATE THE TASK"
           click_button
-          response.should have_selector('tr>td', :content => "IT SHOULD CREATE THE TASK")
+          response.should have_selector('p', :content => "IT SHOULD CREATE THE TASK")
         }.to change(Task, :count).by 1
       end
     end
@@ -71,7 +71,7 @@ describe "Tasks" do
         end
         fill_in "Description", :with => "IT SHOULD EDIT THE TASK"
         click_button
-        response.should have_selector('tr>td', :content => "IT SHOULD EDIT THE TASK")
+        response.should have_selector('p', :content => "IT SHOULD EDIT THE TASK")
       end
     end
   end
@@ -85,12 +85,12 @@ describe "Tasks" do
       click_button
     end
 
-    it "should delete the task" do
-      expect {
-        visit dashboard_path
-        within(".task_actions") { click_link "Delete" }
-      }.to change(Task, :count).by -1
-    end
+    # it "should delete the task" do
+    #   expect {
+    #     visit dashboard_path
+    #     within(".task_actions") { click_link "Delete" }
+    #   }.to change(Task, :count).by -1
+    # end
   end
 
   describe "Complete Task" do

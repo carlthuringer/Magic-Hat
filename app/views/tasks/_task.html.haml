@@ -6,7 +6,7 @@
     .task_deadline
       = task.deadline
     .task_description
-      = task.description
+      %p #{ task.description }
   .task_actions
     = link_to "Edit", edit_task_path(task), :class => 'button'
-    = link_to "Delete", task, :action => 'destroy', :id => task.id, :confirm => "Are you sure?", :method => :delete, :class => 'button'
+    = link_to "Delete", task, :id => task.id, :confirm => "Are you sure?", :method => :delete, :class => 'button'
