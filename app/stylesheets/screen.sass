@@ -152,12 +152,37 @@ ul#shelf-tabs
   background: $lightborder
   +border-radius(4px)
   padding: 4px
+  h4.title
+    text-align: center
   .description
     width: 80%
     float: left
   .actions
-    width: 20%
-    float: left
+    a
+      width: 30%
+      float: left
   .goal_info
     +clearfix
     margin-bottom: 4px
+.task
+  background: $lighter
+  +border-radius(4px)
+  padding: 4px
+  margin-bottom: 4px
+  +clearfix
+  .task_info_wrapper
+    float: left
+    +clearfix
+  .task_status
+    height: 48px
+    width: 48px
+    background: $base
+    +border-radius(4px)
+    float: left
+    margin-right: 4px
+  .task_actions
+    a
+      width: 48%
+      float: left
+
+

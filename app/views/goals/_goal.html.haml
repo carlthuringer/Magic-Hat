@@ -9,9 +9,9 @@
       = goal.description
     .actions
       -# = link_to "Edit", edit_goal_path(goal)
-      = button_to "Edit", edit_goal_path(goal), :action => 'edit', :id => goal.id, :method => :get
-      = button_to "Delete", goal, :action => 'destroy', :id => goal.id, :confirm => "Are you sure?", :method => :delete
       = link_to @shelf_verb, shelving_goal_path(goal), :method => :put, :class => "button"
+      = link_to "Edit", edit_goal_path(goal), :action => 'edit', :id => goal.id, :method => :get, :class => 'button'
+      = link_to "Delete", goal, :action => 'destroy', :id => goal.id, :confirm => "Are you sure?", :method => :delete, :class => 'button'
   - unless tasks.empty?
     .new_task
       = link_to "Add Task", new_task_path(:goal_id => goal), :class => 'button'

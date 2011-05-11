@@ -1,11 +1,12 @@
-.tasks
-  .task_status
-    = check_box_tag "ids[]", task.id, !task.active?
-    = task.complete
-  .task_description
-    = task.description
-  .task_deadline
-    = task.deadline
+.task
+  .task_info_wrapper
+    .task_status
+      = check_box_tag "ids[]", task.id, !task.active?
+      -# = task.complete
+    .task_deadline
+      = task.deadline
+    .task_description
+      = task.description
   .task_actions
-    = link_to "Edit", edit_task_path(task)
-    = button_to("Delete", task, { :action => 'destroy', :id => task.id, :confirm => "Are you sure?", :method => :delete })
+    = link_to "Edit", edit_task_path(task), :class => 'button'
+    = link_to "Delete", task, :action => 'destroy', :id => task.id, :confirm => "Are you sure?", :method => :delete, :class => 'button'
