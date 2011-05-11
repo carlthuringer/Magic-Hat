@@ -5,8 +5,7 @@
     = link_to "#{@total_completed} today, #{@velocity} avg.", #
 - if current_user.goals.count == 0
   #tutorial
-    :textile
-      Welcome to *Magic Hat*. The next step is to create your first goal.
+    Welcome to *Magic Hat*. The next step is to create your first goal.
   = link_to "Add Goal", new_goal_path, :class => "button clear"
 - else
   = link_to "Add Goal", new_goal_path, :class => "button clear"
