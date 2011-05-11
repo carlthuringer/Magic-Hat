@@ -32,9 +32,8 @@ describe PagesController do
         get 'home'
       end
 
-      it "should have the right title" do
-        response.should have_selector("title",
-                                      :content => @base_title + " | #{@user.name}")
+      it "should redirect to the dashboard" do
+        response.should redirect_to dashboard_path
       end
     end
   end

@@ -60,7 +60,7 @@ describe "Goals" do
         fill_in "Description", :with => ""
         click_button
         response.should render_template 'dashboard/index'
-        response.should have_selector('div', :id => "error_explanation")
+        response.should have_selector('div', :class => "error")
       end
     end
 

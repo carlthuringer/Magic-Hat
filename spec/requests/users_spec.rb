@@ -13,7 +13,7 @@ describe "Users" do
           fill_in "Password", :with => ""
           click_button
           response.should render_template('users/new')
-          response.should have_selector("div#error_explanation")
+          response.should have_selector("div.error")
         end.should_not change(User, :count)
       end
     end
@@ -27,7 +27,7 @@ describe "Users" do
           fill_in "Password", :with => "foobar"
           click_button
           response.should have_selector("div.flash.success",
-                                        :content => "Welcome")
+                                        :content => "Created")
           response.should render_template("dashboard/index")
         end.should change(User, :count).by(1)
       end

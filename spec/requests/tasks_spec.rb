@@ -22,7 +22,7 @@ describe "Tasks" do
         visit dashboard_path
         click_link "Create a new Task"
         click_button
-        response.should have_selector('div#error_explanation')
+        response.should have_selector('div.error')
       end
     end
 
@@ -58,7 +58,7 @@ describe "Tasks" do
         end
         fill_in "Description", :with => ""
         click_button
-        response.should have_selector('div#error_explanation')
+        response.should have_selector('div.error')
       end
     end
 

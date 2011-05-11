@@ -20,7 +20,7 @@ describe TasksController do
     end
 
     it "should have a heading that indicates what goal the task is assigned to" do
-      response.should have_selector('h1', :content => "New Task for #{@goal.title}")
+      response.should contain(@goal.title)
     end
 
     it "should have a form with the right fields" do
@@ -76,7 +76,7 @@ describe TasksController do
     end
 
     it "should have a heading indicating the parent goal" do
-      response.should have_selector('h1', :content => @goal.title)
+      response.should have_selector('h2', :content => @goal.title)
     end
 
     it "should have a field to edit the description." do
@@ -113,7 +113,7 @@ describe TasksController do
       end
 
       it "should have a header indicating the parent goal" do
-        response.should have_selector('h1', :content => @goal.title)
+        response.should have_selector('h2', :content => @goal.title)
       end
     end
 
