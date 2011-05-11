@@ -6,7 +6,21 @@
 @import blueprint
 // Import the non-default scaffolding module.
 @import blueprint/scaffolding
-
+// Import the inline block list helpers
+@import compass/typography/lists/inline-block-list
+// Border Radius
+@import compass/css3/border-radius
+// Compass Clearfix
+@import compass/utilities/general/clearfix
+// Default Colors
+$lightborder: rgba(154, 189, 139, 1)
+$lighter: rgba(255, 233, 163, 1)
+$base: rgba(255, 190, 67, 1)
+$darker: rgba(255, 134, 32, 1)
+$border: rgba(45, 59, 49, 1)
+$text: rgba(33, 33, 33, 1)
+$background: rgba(250, 250, 250, 1)
+$link: $darker
 // To generate css equivalent to the blueprint css but with your
 // configuration applied, uncomment:
 // @include blueprint
@@ -15,32 +29,135 @@
 // that you scope your blueprint styles, so that you can better control
 // what pages use blueprint when stylesheets are concatenated together.
 body.bp
-  +blueprint-typography(true)
-  +blueprint-utilities
   +blueprint-debug
   +blueprint-interaction
+  font-size: 14px
+  width: 310px
+  margin: 5px
+  -webkit-text-size-adjust: none
+  font-family: Helvetica, Arial, Verdana, sans-serif
+  background-color: $background
+  color: $text
   // Remove the scaffolding when you're ready to start doing visual design.
   // Or leave it in if you're happy with how blueprint looks out-of-the-box
+
+ul.navigation
+  +inline-block-list
+  +border-radius(4px)
+  text-align: center
+  background-color: $border
+  padding: 3px 3px 6px 3px
+  a
+    text-decoration: none
+    padding: 2px 5px
+  a.selected
+    background-color: $lighter
+    +border-radius(4px)
+ul.navigation.sub
+  +border-radius(0px 0px 4px 4px, 0px 0px 4px 4px)
+  float: left
+  margin-left: 25px
+
+
+h1.masthead
+  text-align: center
+  font-family: 'Crimson Text', serif
+  font-style: italic
+  font-weight: 700
+  text-shadow: none
+  text-decoration: none
+  text-transform: lowercase
+  line-height: 1.2
+
+h1
+  font-family: 'Crimson Text', serif
+  font-size: 4em
+h2
+  font-family: 'Crimson Text', serif
+  font-size: 3em
+h3
+  font-family: 'Crimson Text', serif
+  font-size: 2em
+h4
+  font-family: 'Crimson Text', serif
+  font-size: 1.6em
+h5
+  font-family: 'Crimson Text', serif
+  font-size: 1.4em
+h6
+  font-family: 'Crimson Text', serif
+  font-size: 1.2em
+
+h1.title
+  display: none
+
+p
+  +blueprint-typography
+  margin-bottom: 1em
+
+#elevator-pitch
+  font-size: 1.4em
+  text-align: justify
+
+a
+  +link-colors($link, $link, $link, $link, $link)
+  text-decoration: none
+  font-weight: bold
+
+a.button
+  display: block
+  +border-radius(4px)
+  background: $border
+  padding: 3px
+  text-align: center
+
+.signup_button
+  +link-colors(#FFF, #FFF, #FFF, #FFF, #FFF)
+  margin-left: auto
+  margin-right: auto
+  display: block
+  text-align: center
+  width: 100px
+  background: $link
+  font-size: 1.5em
+  font-weight: bold
+  padding: 15px
+  text-decoration: none
+  color: #fff
+
+.round
+  +border-radius(12px)
+
 form.bp
   +blueprint-form
   // You'll probably want to remove the scaffolding once you start styling your site.
   +blueprint-scaffolding
 
-// Page layout can be done using mixins applied to your semantic classes and IDs:
-body.two-col
-  #container
-    +container
-  #header, #footer
-    +column($blueprint-grid-columns)
-  #sidebar
-    // One third of the grid columns, rounding down. With 24 cols, this is 8.
-    $sidebar-columns: floor($blueprint-grid-columns / 3)
-    +column($sidebar-columns)
-  #content
-    // Two thirds of the grid columns, rounding up.
-    // With 24 cols, this is 16.
-    $content-columns: ceil(2 * $blueprint-grid-columns / 3)
-    // true means it's the last column in the row
-    +column($content-columns, true)
+#tabs-info
+  +clearfix
 
+#completed-over-average
+  float: right
+  font-size: 1.4em
+  margin-bottom: .5em
 
+ul#shelf-tabs
+  +inline-block-list
+  li
+    background: $border
+    padding: 2px 4px
+    margin: 0px 2px
+
+.goal
+  background: $lightborder
+  +border-radius(4px)
+  padding: 4px
+  .description
+    width: 80%
+    float: left
+  .actions
+    width: 20%
+    float: left
+  .goal_info
+    +clearfix
+    margin-bottom: 4px

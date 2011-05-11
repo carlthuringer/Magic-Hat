@@ -1,13 +1,15 @@
 source 'http://rubygems.org'
 
 gem 'compass'
-gem 'rails', '3.0.7'
-gem 'sqlite3'
+gem 'gravatar_image_tag'
 gem 'haml'
 gem 'haml-rails'
-gem 'will_paginate', '~> 3.0.pre2'
+gem 'rails', '3.0.7'
 gem 'rails3-generators'
-gem 'gravatar_image_tag'
+gem 'RedCloth'
+gem 'simple-navigation'
+gem 'sqlite3'
+gem 'will_paginate', '~> 3.0.pre2'
 
 group :development do
   gem 'annotate-models'

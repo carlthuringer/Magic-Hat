@@ -1,28 +1,23 @@
 - tasks = goal.tasks
 - incomplete_tasks = goal.incomplete_tasks
 - complete_tasks = goal.complete_tasks
-%tr.goal
-  %td.goal_title
-    = goal.title
-  %td.goal_description
-    = goal.description
-  %td.goal_actions
-    -# = link_to "Edit", edit_goal_path(goal)
-    = button_to "Edit", edit_goal_path(goal), :action => 'edit', :id => goal.id, :method => :get
-    = button_to "Delete", goal, :action => 'destroy', :id => goal.id, :confirm => "Are you sure?", :method => :delete
-    = link_to @shelf_verb, shelving_goal_path(goal), :method => :put
-- unless tasks.empty?
-  %tr.new_task
-  %td
-  %td
-    = link_to "New Task", new_task_path(:goal_id => goal)
-  %td
-  = render :partial => 'tasks/task', :collection => incomplete_tasks
-  = render :partial => 'tasks/task', :collection => complete_tasks
-- else
-  %tr.new_task
-    %td
-    %td
+.goal
+  .goal_info
+    %h4.title
+      = goal.title
+    .description
+      = goal.description
+    .actions
+      -# = link_to "Edit", edit_goal_path(goal)
+      = button_to "Edit", edit_goal_path(goal), :action => 'edit', :id => goal.id, :method => :get
+      = button_to "Delete", goal, :action => 'destroy', :id => goal.id, :confirm => "Are you sure?", :method => :delete
+      = link_to @shelf_verb, shelving_goal_path(goal), :method => :put, :class => "button"
+  - unless tasks.empty?
+    .new_task
+      = link_to "Add Task", new_task_path(:goal_id => goal), :class => 'button'
+    = render :partial => 'tasks/task', :collection => incomplete_tasks
+    = render :partial => 'tasks/task', :collection => complete_tasks
+  - else
+    .new_task
       There are no tasks yet.
-      = link_to "Create a new Task", new_task_path(:goal_id => goal)
-    %td
+      = link_to "Create a new Task", new_task_path(:goal_id => goal), :class => 'button'

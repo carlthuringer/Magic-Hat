@@ -1,24 +1,10 @@
-%h1 Dashboard
-%h3#tasks-completed Completed Today: #{@total_completed}
-%h3#velocity Per-week Average: #{@velocity}
-%ul
-  %li
-    = link_to "Active Goals", dashboard_path
-  %li
-    = link_to "Shelved Goals", shelved_path
-= link_to "Create new Goal", new_goal_path
+%h1.title Dashboard
+#tabs-info
+  #completed-over-average 
+    -# TODO Link this to a 'what is this' FAQ sort of page. Make some method that friendly links 'ok, back to what i was doing'
+    = link_to "#{@total_completed} today, #{@velocity} avg.", #
+= link_to "Add Goal", new_goal_path, :class => "button"
 = form_tag complete_tasks_path, :method => :put do
-  %table
-    %tr
-      %td
-        = submit_tag "Update Tasks"
-      %td
-      %td
-    = render @goals
-    %tr
-      %td
-        = submit_tag "Update Tasks"
-      %td
-      %td
-
-
+  = submit_tag "Update Tasks"
+  = render @goals
+  = submit_tag "Update Tasks"

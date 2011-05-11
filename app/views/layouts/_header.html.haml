@@ -1,7 +1,3 @@
-= link_to "Home", root_path
-- if signed_in?
-  = link_to "Sign out", signout_path, :method => :delete
-  = link_to "Dashboard", dashboard_path
-  = link_to "Profile", user_path(current_user)
--else
-  = link_to "Sign in", signin_path
+-# See config/navigation.rb for the source for the navigation list.
+= render_navigation(:level => 1)
+= render_navigation(:level => 2)
