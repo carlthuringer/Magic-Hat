@@ -68,12 +68,18 @@ describe DashboardController do
 
       describe "statistics" do
 
+        before :each do
+          5.times do
+            Factory(:task, :goal => @goal, :complete => Time.now)
+          end
+          get :index
+        end
         it "should display today's total" do
-          response.should have_selector('h3', :id => "tasks-completed")
+          response.should contain(@user.tasks_completed_today.to_s)
         end
 
         it "should display the current velocity" do
-          response.should have_selector('h3', :id => "velocity")
+          response.should contain(@user.velocity.to_s)
         end
       end
     end
