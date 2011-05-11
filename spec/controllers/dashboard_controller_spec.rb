@@ -42,7 +42,7 @@ describe DashboardController do
 
       it "should have edit, delete and shelve links for my goals" do
         response.should have_selector('a', :content => "Edit")
-        response.should have_selector('input', :type => "submit", :value => "Delete")
+        response.should have_selector('a', :content => "Delete")
         response.should have_selector('a', :content => "Shelve")
       end
 
@@ -58,7 +58,7 @@ describe DashboardController do
 
         it "should have edit and delete links for my tasks" do
           response.should have_selector('a', :content => "Edit", :href => "/tasks/#{@task.id}/edit")
-          response.should have_selector('input', :type => "submit", :value => "Delete")
+          response.should have_selector('a', :content => "Delete")
         end
 
         it "should have a checkbox for each task" do
