@@ -1,5 +1,7 @@
-%h1 Edit Task for #{@goal.title}
+%h1 Edit Task for
+%h2 #{@goal.title}
 = form_for @task do |f|
   = render :partial => "task_fields", :locals => { :f => f }
   .actions
     = f.submit "Save Edit"
+    = link_to "Cancel", :back, :class => "cancel"

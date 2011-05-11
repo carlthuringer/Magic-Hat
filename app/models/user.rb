@@ -75,6 +75,10 @@ class User < ActiveRecord::Base
     tasks.where(:complete => (1.day.ago)..(Time.now)).count
   end
 
+  def empty_profile
+    self.name.blank? && self.website.blank? && self.biography.blank?
+  end
+
   private
 
   def encrypt_password

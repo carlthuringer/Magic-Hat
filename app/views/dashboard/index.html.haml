@@ -1,10 +1,16 @@
 %h1.title Dashboard
-#tabs-info
-  #completed-over-average 
+- unless current_user.tasks.count == 0
+  #statistics
     -# TODO Link this to a 'what is this' FAQ sort of page. Make some method that friendly links 'ok, back to what i was doing'
     = link_to "#{@total_completed} today, #{@velocity} avg.", #
-= link_to "Add Goal", new_goal_path, :class => "button"
-= form_tag complete_tasks_path, :method => :put do
-  = submit_tag "Update Tasks"
-  = render @goals
-  = submit_tag "Update Tasks"
+- if current_user.goals.count == 0
+  #tutorial
+    :textile
+      Welcome to *Magic Hat*. The next step is to create your first goal.
+  = link_to "Add Goal", new_goal_path, :class => "button clear"
+- else
+  = link_to "Add Goal", new_goal_path, :class => "button clear"
+  = form_tag complete_tasks_path, :method => :put do
+    = submit_tag "Update Tasks"
+    = render @goals
+    = submit_tag "Update Tasks"

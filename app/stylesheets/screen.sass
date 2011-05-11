@@ -76,20 +76,25 @@ h1, h2, h3, h4, h5, h6
   text-align: center
 
 h1
-  font-size: 3em
-h2
   font-size: 2.5em
-h3
+h2
   font-size: 2em
-h4
+h3
   font-size: 1.6em
-h5
+h4
   font-size: 1.4em
-h6
+h5
   font-size: 1.2em
+h6
+  font-size: 1.1em
 
 h1.title
   display: none
+
+#tutorial
+  display: block
+  clear: both
+  font-size: 1.4em
 
 p
   +blueprint-typography
@@ -104,11 +109,15 @@ a
   text-decoration: none
   font-weight: bold
 
+a.cancel
+  +link-colors(red, red, red, red, red)
+
 a.button
   display: block
   +border-radius(4px)
   background: $border
   padding: 3px
+  margin-right: 4px
   text-align: center
 
 .signup_button
@@ -124,6 +133,9 @@ a.button
   padding: 15px
   text-decoration: none
   color: #fff
+
+.clear
+  clear: both
 
 .round
   +border-radius(12px)
@@ -149,6 +161,15 @@ form
       float: left
       font-size: 1.4em
       width: 170px
+  .field.textarea
+    label
+      float: none
+      text-align: center
+      width: 100%
+      margin-bottom: 0.3em
+    textarea
+      font-size: 1.4em
+      width: 100%
   div.actions
     input[type="submit"]
       margin-left: 100px
@@ -158,10 +179,8 @@ form
     input
       border: 1px solid red
 
-#tabs-info
+#statistics
   +clearfix
-
-#completed-over-average
   float: right
   font-size: 1.4em
   margin-bottom: .5em
@@ -177,11 +196,11 @@ ul#shelf-tabs
   background: $lightborder
   +border-radius(4px)
   padding: 4px
+  margin-bottom: 4px
   h4.title
     text-align: center
   .description
-    width: 80%
-    float: left
+    width: 100%
   .actions
     a
       width: 30%
@@ -196,7 +215,7 @@ ul#shelf-tabs
   margin-bottom: 4px
   +clearfix
   .task_info_wrapper
-    float: left
+    width: 100%
     +clearfix
   .task_status
     height: 48px
@@ -207,7 +226,7 @@ ul#shelf-tabs
     margin-right: 4px
   .task_actions
     a
-      width: 48%
+      width: 46%
       float: left
 
 

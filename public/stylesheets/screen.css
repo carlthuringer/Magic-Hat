@@ -235,32 +235,32 @@ h1, h2, h3, h4, h5, h6 {
 
 /* line 78, ../../app/stylesheets/screen.sass */
 h1 {
-  font-size: 3em;
+  font-size: 2.5em;
 }
 
 /* line 80, ../../app/stylesheets/screen.sass */
 h2 {
-  font-size: 2.5em;
+  font-size: 2em;
 }
 
 /* line 82, ../../app/stylesheets/screen.sass */
 h3 {
-  font-size: 2em;
+  font-size: 1.6em;
 }
 
 /* line 84, ../../app/stylesheets/screen.sass */
 h4 {
-  font-size: 1.6em;
+  font-size: 1.4em;
 }
 
 /* line 86, ../../app/stylesheets/screen.sass */
 h5 {
-  font-size: 1.4em;
+  font-size: 1.2em;
 }
 
 /* line 88, ../../app/stylesheets/screen.sass */
 h6 {
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 /* line 91, ../../app/stylesheets/screen.sass */
@@ -269,6 +269,13 @@ h1.title {
 }
 
 /* line 94, ../../app/stylesheets/screen.sass */
+#tutorial {
+  display: block;
+  clear: both;
+  font-size: 1.4em;
+}
+
+/* line 99, ../../app/stylesheets/screen.sass */
 p {
   margin-bottom: 1em;
 }
@@ -470,13 +477,13 @@ p .loud {
   color: #111111;
 }
 
-/* line 98, ../../app/stylesheets/screen.sass */
+/* line 103, ../../app/stylesheets/screen.sass */
 #elevator-pitch {
   font-size: 1.4em;
   text-align: justify;
 }
 
-/* line 102, ../../app/stylesheets/screen.sass */
+/* line 107, ../../app/stylesheets/screen.sass */
 a {
   color: #ff8620;
   text-decoration: none;
@@ -499,7 +506,28 @@ a:active {
   color: #ff8620;
 }
 
-/* line 107, ../../app/stylesheets/screen.sass */
+/* line 112, ../../app/stylesheets/screen.sass */
+a.cancel {
+  color: red;
+}
+/* line 18, ../../../../.rvm/gems/ruby-1.9.2-p180@magic_hat/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a.cancel:visited {
+  color: red;
+}
+/* line 21, ../../../../.rvm/gems/ruby-1.9.2-p180@magic_hat/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a.cancel:focus {
+  color: red;
+}
+/* line 24, ../../../../.rvm/gems/ruby-1.9.2-p180@magic_hat/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a.cancel:hover {
+  color: red;
+}
+/* line 27, ../../../../.rvm/gems/ruby-1.9.2-p180@magic_hat/gems/compass-0.11.1/frameworks/compass/stylesheets/compass/typography/links/_link-colors.scss */
+a.cancel:active {
+  color: red;
+}
+
+/* line 115, ../../app/stylesheets/screen.sass */
 a.button {
   display: block;
   -moz-border-radius: 4px;
@@ -510,10 +538,11 @@ a.button {
   border-radius: 4px;
   background: #2d3b31;
   padding: 3px;
+  margin-right: 4px;
   text-align: center;
 }
 
-/* line 114, ../../app/stylesheets/screen.sass */
+/* line 123, ../../app/stylesheets/screen.sass */
 .signup_button {
   color: white;
   margin-left: auto;
@@ -545,7 +574,12 @@ a.button {
   color: white;
 }
 
-/* line 128, ../../app/stylesheets/screen.sass */
+/* line 137, ../../app/stylesheets/screen.sass */
+.clear {
+  clear: both;
+}
+
+/* line 140, ../../app/stylesheets/screen.sass */
 .round {
   -moz-border-radius: 12px;
   -webkit-border-radius: 12px;
@@ -555,18 +589,18 @@ a.button {
   border-radius: 12px;
 }
 
-/* line 131, ../../app/stylesheets/screen.sass */
+/* line 143, ../../app/stylesheets/screen.sass */
 form {
   margin: auto;
   width: 300px;
 }
-/* line 134, ../../app/stylesheets/screen.sass */
+/* line 146, ../../app/stylesheets/screen.sass */
 form div.field {
   display: inline-block;
   padding: 5px 0;
   width: 300px;
 }
-/* line 138, ../../app/stylesheets/screen.sass */
+/* line 150, ../../app/stylesheets/screen.sass */
 form div.field label {
   float: left;
   display: inline-block;
@@ -578,40 +612,48 @@ form div.field label {
   font-size: 1.6em;
   margin-right: 0.3em;
 }
-/* line 148, ../../app/stylesheets/screen.sass */
+/* line 160, ../../app/stylesheets/screen.sass */
 form div.field input[type="text"] {
   float: left;
   font-size: 1.4em;
   width: 170px;
 }
-/* line 153, ../../app/stylesheets/screen.sass */
+/* line 165, ../../app/stylesheets/screen.sass */
+form .field.textarea label {
+  float: none;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 0.3em;
+}
+/* line 170, ../../app/stylesheets/screen.sass */
+form .field.textarea textarea {
+  font-size: 1.4em;
+  width: 100%;
+}
+/* line 174, ../../app/stylesheets/screen.sass */
 form div.actions input[type="submit"] {
   margin-left: 100px;
   font-size: 1.6em;
 }
-/* line 156, ../../app/stylesheets/screen.sass */
+/* line 177, ../../app/stylesheets/screen.sass */
 form .field_with_errors {
   color: red;
 }
-/* line 158, ../../app/stylesheets/screen.sass */
+/* line 179, ../../app/stylesheets/screen.sass */
 form .field_with_errors input {
   border: 1px solid red;
 }
 
-/* line 161, ../../app/stylesheets/screen.sass */
-#tabs-info {
+/* line 182, ../../app/stylesheets/screen.sass */
+#statistics {
   overflow: hidden;
   *zoom: 1;
-}
-
-/* line 164, ../../app/stylesheets/screen.sass */
-#completed-over-average {
   float: right;
   font-size: 1.4em;
   margin-bottom: 0.5em;
 }
 
-/* line 169, ../../app/stylesheets/screen.sass */
+/* line 188, ../../app/stylesheets/screen.sass */
 ul#shelf-tabs {
   margin: 0;
   padding: 0;
@@ -635,14 +677,14 @@ ul#shelf-tabs li {
 ul#shelf-tabs li {
   *display: inline;
 }
-/* line 171, ../../app/stylesheets/screen.sass */
+/* line 190, ../../app/stylesheets/screen.sass */
 ul#shelf-tabs li {
   background: #2d3b31;
   padding: 2px 4px;
   margin: 0px 2px;
 }
 
-/* line 176, ../../app/stylesheets/screen.sass */
+/* line 195, ../../app/stylesheets/screen.sass */
 .goal {
   background: #9abd8b;
   -moz-border-radius: 4px;
@@ -652,29 +694,29 @@ ul#shelf-tabs li {
   -khtml-border-radius: 4px;
   border-radius: 4px;
   padding: 4px;
+  margin-bottom: 4px;
 }
-/* line 180, ../../app/stylesheets/screen.sass */
+/* line 200, ../../app/stylesheets/screen.sass */
 .goal h4.title {
   text-align: center;
 }
-/* line 182, ../../app/stylesheets/screen.sass */
+/* line 202, ../../app/stylesheets/screen.sass */
 .goal .description {
-  width: 80%;
-  float: left;
+  width: 100%;
 }
-/* line 186, ../../app/stylesheets/screen.sass */
+/* line 205, ../../app/stylesheets/screen.sass */
 .goal .actions a {
   width: 30%;
   float: left;
 }
-/* line 189, ../../app/stylesheets/screen.sass */
+/* line 208, ../../app/stylesheets/screen.sass */
 .goal .goal_info {
   overflow: hidden;
   *zoom: 1;
   margin-bottom: 4px;
 }
 
-/* line 192, ../../app/stylesheets/screen.sass */
+/* line 211, ../../app/stylesheets/screen.sass */
 .task {
   background: #ffe9a3;
   -moz-border-radius: 4px;
@@ -688,13 +730,13 @@ ul#shelf-tabs li {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 198, ../../app/stylesheets/screen.sass */
+/* line 217, ../../app/stylesheets/screen.sass */
 .task .task_info_wrapper {
-  float: left;
+  width: 100%;
   overflow: hidden;
   *zoom: 1;
 }
-/* line 201, ../../app/stylesheets/screen.sass */
+/* line 220, ../../app/stylesheets/screen.sass */
 .task .task_status {
   height: 48px;
   width: 48px;
@@ -708,8 +750,8 @@ ul#shelf-tabs li {
   float: left;
   margin-right: 4px;
 }
-/* line 209, ../../app/stylesheets/screen.sass */
+/* line 228, ../../app/stylesheets/screen.sass */
 .task .task_actions a {
-  width: 48%;
+  width: 46%;
   float: left;
 }

@@ -2,16 +2,17 @@
   %h1
     = gravatar_for @user
     = link_to @user.name, @user
-  %strong Name
-  = @user.name
-  %br/
-  - if @user.website
-    %strong Web site
-    = link_to @user.website, @user.website
-    %br/
-  - if @user.biography
-    %strong Biography
-    %p #{@user.biography}
-    %br/
-  - if @user == current_user
-    = link_to "Edit my profile", edit_user_path(@user)
+  - if @user.empty_profile && @user == current_user
+    = link_to "Get started on your profile!", edit_user_path(@user), :id => "tutorial"
+  - else
+    - if @user.name
+      %strong Name
+      = @user.name
+    - if @user.website
+      %strong Web site
+      = link_to @user.website, @user.website
+    - if @user.biography
+      %strong Biography
+      %p #{@user.biography}
+    - if @user == current_user
+      = link_to "Edit my profile", edit_user_path(@user)
