@@ -6,7 +6,7 @@
     %h4.title
       = goal.title
     .description
-      = goal.description
+      %p #{ goal.description }
     .actions
       -# = link_to "Edit", edit_goal_path(goal)
       = link_to @shelf_verb, shelving_goal_path(goal), :method => :put, :class => "button"
