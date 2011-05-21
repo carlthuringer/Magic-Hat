@@ -113,14 +113,6 @@ describe UsersController do
         response.should have_selector("h1", :content => @user.name)
       end
 
-      it "should display the user's website" do
-        response.should have_selector("a", :href => @user.website)
-      end
-
-      it "should display the user's biography" do
-        response.should have_selector('p', :content => @user.biography)
-      end
-
       it "should have a profile image" do
         response.should have_selector("h1>img", :class => "gravatar")
       end
@@ -242,16 +234,6 @@ describe UsersController do
       response.should have_selector('a', :href => gravatar_url,
                                          :content => "change")
     end
-
-    it "should have a field for a website URL" do
-      get :edit, :id => @user
-      response.should have_selector('input', :id => "user_website")
-    end
-
-    it "should have a field for a biography" do
-      get :edit, :id => @user
-      response.should have_selector('textarea', :id => "user_biography")
-    end
   end
 
   describe "PUT 'edit'" do
@@ -283,9 +265,7 @@ describe UsersController do
 
       before :each do
         @attr = { :name => "New Name", :email => "newemail@example.org",
-                  :password => "barbaz", :password_confirmation => "barbaz",
-                  :website => "http://www.yahoo.com", 
-                  :biography => "The bird of Hermes is my name, eating my wings to make me tame" }
+                  :password => "barbaz", :password_confirmation => "barbaz" }
       end
 
       it "should change the user's attributes" do
@@ -293,8 +273,6 @@ describe UsersController do
         @user.reload
         @user.name.should == @attr[:name]
         @user.email.should == @attr[:email]
-        @user.website.should == @attr[:website]
-        @user.biography.should == @attr[:biography]
       end
 
       it "should redirect to the user show page" do

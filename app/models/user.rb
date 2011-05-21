@@ -11,18 +11,15 @@
 #  admin              :boolean
 #  created_at         :datetime
 #  updated_at         :datetime
-#  website            :string(256)
-#  biography          :text(1400)
 #
 
 require 'digest'
 
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :name, :email, :password, :website, :biography
+  attr_accessible :name, :email, :password
 
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  website_regex = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
 
   # Required before_validation to prevent empty form fields that aren't required from causing
   # a validation error.
@@ -33,8 +30,6 @@ class User < ActiveRecord::Base
   # Automatically create the virtual attribute 'password confirmation'
   validates :password, :presence     => true,
                        :length       => { :within => 6..40 }
-  validates :website, :format => { :with => website_regex, :allow_blank => true}
-  validates :biography, :length => { :within => 10..1400, :allow_blank => true }
 
   before_save :encrypt_password
 
@@ -98,12 +93,4 @@ class User < ActiveRecord::Base
     Digest::SHA2.hexdigest(string)
   end
 
-  protected
-
-  def clear_empty_web_bio_attrs
-    # This is required so that when integration tests submit a form with an empty field
-    # it doesn't complain about the "" value being invalid.
-    self.website = nil if self.website.blank?
-    self.biography = nil if self.website.blank?
-  end
 end

@@ -48,7 +48,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update_attributes params[:user]
-      flash[:success] = "Profile updated."
+      flash[:success] = "Account updated."
       redirect_to @user
     else
       @title = "Edit user"
