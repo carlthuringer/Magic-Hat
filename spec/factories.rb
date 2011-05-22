@@ -4,8 +4,6 @@ FactoryGirl.define do
     name                  "MC Foo Bar"
     email                 "foo@bar.com"
     password              "foobar"
-    website               "http://www.google.com"
-    biography             Faker::Lorem.paragraph(3)
   end
 
   sequence :email do |n|
