@@ -21,6 +21,7 @@ group :test do
   gem 'factory_girl_rails', ">= 1.1.beta1"
   gem 'spork'
   gem 'rspec'
+  gem 'rspec-core', "=2.6.0"
   gem 'webrat'
 end
 
