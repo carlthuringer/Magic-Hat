@@ -46,22 +46,22 @@ class Task < ActiveRecord::Base
 
   def deadline_string=(deadline_str)
     unless deadline_str.blank?
-      begin
-        self.deadline = Time.parse(deadline_str)
-      rescue ArgumentError
-        nil
-      end
+      self.deadline = ( parse_time(deadline_str, Chronic) || parse_time(deadline_str, Time) )
+      @deadline_invalid = true if self.deadline.nil?
+    end
+  end
+
+  private
+
+  def parse_time(string, parser)
+    begin
+      parser.parse(string)
+    rescue
     end
   end
 
   def deadline_string_no_errors
-    unless deadline_string.blank?
-      begin
-        temp = Time.parse(self.deadline_string)
-      rescue ArgumentError
-        errors.add(:deadline_string, "Invalid Format")
-      end
-    end
+    errors.add(:deadline_string, "Is Invalid") if @deadline_invalid
   end
 
 end

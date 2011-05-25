@@ -40,4 +40,26 @@ describe Task do
     end
   end
 
+  describe "deadline_string" do
+
+    before :each do
+      @task = Factory(:task, :goal => @goal)
+    end
+    it "uses Chronic to parse a common-language time" do
+      @task.deadline_string = "in two weeks"
+      @task.deadline_string.should == 2.weeks.from_now.to_s
+      @task.should be_valid
+    end
+
+    it "parses a rigid datetime format" do
+      @task.deadline_string = "2011-06-08 02:51:19 UTC"
+      @task.deadline_string.should == "2011-06-08 02:51:19 UTC"
+      @task.should be_valid
+    end
+
+    it "sets an error if the datetime is incomprehensible" do
+      @task.deadline_string = "foobar"
+      @task.should_not be_valid
+    end
+  end
 end

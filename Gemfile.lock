@@ -143,7 +143,7 @@ GEM
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
       rspec-mocks (~> 2.6.0)
-    rspec-core (2.6.0)
+    rspec-core (2.6.3)
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
@@ -183,6 +183,7 @@ DEPENDENCIES
   annotate-models
   autotest
   awesome_print
+  chronic
   compass
   database_cleaner
   factory_girl_rails (>= 1.1.beta1)
@@ -194,7 +195,7 @@ DEPENDENCIES
   rails (= 3.0.7)
   rails3-generators
   rspec
-  rspec-core (= 2.6.0)
+  rspec-core
   rspec-rails
   simple-navigation
   spork

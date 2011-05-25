@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'chronic'
 gem 'compass'
 gem 'gravatar_image_tag'
 gem 'haml'
@@ -21,7 +22,7 @@ group :test do
   gem 'factory_girl_rails', ">= 1.1.beta1"
   gem 'spork'
   gem 'rspec'
-  gem 'rspec-core', "=2.6.0"
+  gem 'rspec-core'
   gem 'webrat'
 end
 
