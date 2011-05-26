@@ -8,7 +8,6 @@ describe Goal do
     }
   end
 
-
   it "should create a new goal given valid attributes" do
     Goal.create!(@attr)
   end

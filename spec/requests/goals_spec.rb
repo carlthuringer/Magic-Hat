@@ -12,6 +12,15 @@ describe "Goals" do
       click_button
     end
 
+    describe "actions" do
+
+      it "should have a link back to the dashboard" do
+        visit new_goal_path
+        response.should have_selector('a', :href => dashboard_path)
+      end
+
+    end
+
     describe "failure" do
 
       it "should not make a new goal" do

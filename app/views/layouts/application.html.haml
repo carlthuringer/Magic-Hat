@@ -15,8 +15,8 @@
     %meta{ 'name' => 'apple-mobile-web-app-capable', 'content' => 'yes' }
     %link{ 'rel' => "apple-touch-icon", 'href' => 'images/magic_hat_rough.png' }
   %body.bp
+    = render 'layouts/header'
     %div.container 
-      = render 'layouts/header'
       - flash.each do |key, value|
         .flash{:class => key}
           = value

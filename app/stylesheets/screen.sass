@@ -44,6 +44,23 @@ body.bp
 ul li
   margin-left: 1.325em
 
+// Header
+.header-bar
+  height: 30px
+  background-color: $border
+  width: 320px
+  position: fixed
+  top: 0px
+  left: 0px
+  a.back
+    display: inline-block
+    height: 20px
+    font-size: 18px
+    padding: 2px 5px
+    margin: 2px 5px
+    background-color: $lighter
+    +border-radius(4px)
+
 ul.navigation
   +inline-block-list
   +border-radius(4px)
@@ -61,7 +78,11 @@ ul.navigation.sub
   float: left
   margin-left: 25px
 
+// Content Area
+.container
+  margin-top: 25px
 
+// Homepage
 h1.masthead
   text-align: center
   font-family: 'Crimson Text', serif

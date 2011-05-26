@@ -47,7 +47,8 @@ describe DashboardController do
       end
 
       it "should have a link to my shelved goals" do
-        response.should have_selector('a', :content => "Shelved")
+        pending "Going to replace this with a card model."
+        # response.should have_selector('a', :content => "Shelved")
       end
 
       describe "task display" do

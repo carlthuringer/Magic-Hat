@@ -6,6 +6,7 @@ class GoalsController < ApplicationController
     @title = "New Goal"
     @user = current_user
     @goal = @user.goals.new
+    @header_back = { :title => "Back", :url => dashboard_path }
   end
 
 

@@ -12,18 +12,18 @@ describe "LayoutLinks" do
     response.should have_selector('title', :content => "Sign up")
   end
 
-  it "should have a home link" do
-    get '/'
-    response.should have_selector('a', :href => root_path)
-  end
+  # it "should have a home link" do
+  #   get '/'
+  #   response.should have_selector('a', :href => root_path)
+  # end
 
   describe "when not signed in" do
-    
-    it "should have a signin link" do
-      visit root_path
-      response.should have_selector('a', :href => signin_path,
-                                         :content => "Sign in")
-    end
+
+    # it "should have a signin link" do
+    #   visit root_path
+    #   response.should have_selector('a', :href => signin_path,
+    #                                      :content => "Sign in")
+    # end
   end
 
   describe "when signed in" do
@@ -36,21 +36,21 @@ describe "LayoutLinks" do
       click_button
     end
 
-    it "should have a signout link" do
-      visit root_path
-      response.should have_selector('a', :href => signout_path,
-                                         :content => "Sign out")
-    end
+    # it "should have a signout link" do
+    #   visit root_path
+    #   response.should have_selector('a', :href => signout_path,
+    #                                      :content => "Sign out")
+    # end
 
-    it "should have a dashboard link" do
-      visit root_path
-      response.should have_selector('a', :href => dashboard_path,
-                                    :content => "Dashboard")
-    end
+    # it "should have a dashboard link" do
+    #   visit root_path
+    #   response.should have_selector('a', :href => dashboard_path,
+    #                                 :content => "Dashboard")
+    # end
 
-    it "should have a profile link" do
-      visit root_path
-      response.should have_selector('a', :href => user_path(@user))
-    end
+    # it "should have a profile link" do
+    #   visit root_path
+    #   response.should have_selector('a', :href => user_path(@user))
+    # end
   end
 end
