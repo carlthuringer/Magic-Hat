@@ -15,8 +15,9 @@
   %body
     %div{ :data => { :role => "page" } }
       = render 'layouts/header'
-      %div.container{ :data => { :role => "content" } }
+      %div{ :data => { :role => 'content' } }
+      %ul.flash{ :data => { :role => "listview", :theme => 'e' } }
         - flash.each do |key, value|
-          .flash{:class => key}
+          %li.flash{:class => key}
             = value
-        = yield
+      = yield

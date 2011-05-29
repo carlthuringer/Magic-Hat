@@ -7,4 +7,5 @@
       new_task_path(:goal_id => @goal)
   - else
     %li There are no tasks yet.
-    %li= link_to "Create a new Task", new_task_path(:goal_id => @goal)
+    %li= link_to "Create a new Task", new_task_path(:goal_id => @goal),
+      'data-rel' => 'dialog', 'data-transition' => 'slidedown'

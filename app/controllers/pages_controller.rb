@@ -5,7 +5,7 @@ class PagesController < ApplicationController
     if signed_in?
       redirect_to dashboard_path
     else
-      @title = "Home"
+      @title = "Magic Hat"
     end
   end
 

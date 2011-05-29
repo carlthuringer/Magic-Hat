@@ -2,4 +2,4 @@
 = form_for @goal do |f|
   = render :partial => "goal_fields", :locals => { :f => f }
   %div.actions
-    = f.submit "Create"
+    = f.submit "Create", 'data-ajax' => 'false'

@@ -3,4 +3,5 @@
 - complete_tasks = goal.complete_tasks
 %li.goal
   = link_to goal.title, goal
-  = link_to "Edit", edit_goal_path(goal)
+  = link_to "Edit", edit_goal_path(goal), 'data-rel' => 'dialog',
+    'data-transition' => 'slidedown'

@@ -49,7 +49,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes params[:user]
       flash[:success] = "Account updated."
-      redirect_to @user
+      redirect_to dashboard_path
     else
       @title = "Edit user"
       render 'edit'

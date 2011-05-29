@@ -1,8 +1,13 @@
 -# See config/navigation.rb for the source for the navigation list.
 -# = render_navigation(:level => 1)
 -# = render_navigation(:level => 2)
-.header-bar{ :data => { :role => "header", :position => "fixed" } }
+.header-bar{ :data => { :role => "header" } }
   %h1
     = @title
   -# = header_back
-  = link_to "Options", edit_user_path(current_user), :class => "ui-btn-right", 'data-icon' => 'gear', 'data-transition' => 'flip'
+  - if current_user
+    = link_to "Options", edit_user_path(current_user), :class => "ui-btn-right", 
+      'data-icon' => 'gear', 'data-transition' => 'flip'
+  - else
+    = link_to "Log in", signin_path, :class => "ui-btn-right",
+      'data-icon' => 'check', 'data-transition' => 'flip'

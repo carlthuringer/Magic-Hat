@@ -2,15 +2,14 @@
   #statistics
     -# TODO Link this to a 'what is this' FAQ sort of page. Make some method that friendly links 'ok, back to what i was doing'
     = link_to "#{@total_completed} today, #{@velocity} avg.", root_path
-- if current_user.goals.count == 0
-  #tutorial
-    :textile
-      Welcome to *Magic Hat*. The next step is to create your first goal.
-  = link_to "Add Goal", new_goal_path, :class => "button clear"
-- else
-  = form_tag complete_tasks_path, :method => :put do
-    %ul{ :data => { :role => "listview", :inset => 'true',
-      'split-icon' => 'gear' } }
-      = render @goals
-      %li{ :data => { :theme => 'b' } }
-        = link_to "Add Goal", new_goal_path
+%ul{ :data => { :role => "listview", :inset => 'true',
+  'split-icon' => 'gear' } }
+  - if current_user.goals.count == 0
+    %li#tutorial
+      :textile
+        Welcome to *Magic Hat*. The next step is to create your first goal.
+  - else
+    = render @goals
+  %li{ :data => { :theme => 'b' } }
+    = link_to "Add Goal", new_goal_path, 'data-inline' => 'true',
+      'data-icon' => 'plus', 'data-rel' => 'dialog', 'data-transition' => 'slidedown'

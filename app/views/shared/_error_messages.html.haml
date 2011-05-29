@@ -1,6 +1,6 @@
 - if object.errors.any?
   .error
     %p We found #{ pluralize(object.errors.count, "problem") } with your form:
-    %ul
+    %ul{ :data => { :role => 'listview', :inset => 'true', :theme => 'a' } }
       - object.errors.full_messages.each do |msg|
         %li= msg
