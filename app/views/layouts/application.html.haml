@@ -2,17 +2,8 @@
 %html
   %head
     %title #{ title }
-    -# = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
-    -# = stylesheet_link_tag 'print.css', :media => 'print'
     = stylesheet_link_tag 'jquery_mobile'
-    -# %link{:rel => "stylesheet", :href => "http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" }
-    -# %script{ :src => "http://code.jquery.com/jquery-1.5.2.min.js" }
-    -# %script{ :src => "http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js" }
-
-    -# [if IE]
-      -# = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
-    = javascript_include_tag 'jquery', 'application'
-    = javascript_include_tag 'jquery_mobile'
+    = javascript_include_tag 'jquery', 'jquery_ujs', 'jquery_mobile', 'application'
 
     %link{ 'href' => 'http://fonts.googleapis.com/css?family=Crimson+Text:regular,regularitalic,bolditalic', 'rel' => 'stylesheet', 'type' => 'text/css' }
     = csrf_meta_tag

@@ -29,6 +29,14 @@ class GoalsController < ApplicationController
     end
   end
 
+  def show
+    @goal = Goal.find params[:id]
+    @title = @goal.title
+    @tasks = @goal.tasks
+    @incomplete_tasks = @goal.incomplete_tasks
+    @complete_tasks = @goal.complete_tasks
+  end
+
   def edit
     @title = "Edit Goal"
     @goal = Goal.find params[:id]

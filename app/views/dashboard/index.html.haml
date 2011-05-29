@@ -9,7 +9,8 @@
   = link_to "Add Goal", new_goal_path, :class => "button clear"
 - else
   = form_tag complete_tasks_path, :method => :put do
-    %div{ :data => { :role => "collapsible-set" } }
-    = render @goals
-    = submit_tag "Update Checked Tasks"
-  = link_to "Add Goal", new_goal_path, :class => "button clear"
+    %ul{ :data => { :role => "listview", :inset => 'true',
+      'split-icon' => 'gear' } }
+      = render @goals
+      %li{ :data => { :theme => 'b' } }
+        = link_to "Add Goal", new_goal_path

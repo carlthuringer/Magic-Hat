@@ -1,23 +1,6 @@
 - tasks = goal.tasks
 - incomplete_tasks = goal.incomplete_tasks
 - complete_tasks = goal.complete_tasks
-.goal{ :data => { :role => "collapsible", :collapsed => "true" } }
-  %h3.title
-    = goal.title
-  .description
-    %p #{ goal.description }
-  .actions
-    -# = link_to "Edit", edit_goal_path(goal)
-    = link_to @shelf_verb, shelving_goal_path(goal), :method => :put, :class => "button", 'data-role' => 'button'
-    = link_to "Edit", edit_goal_path(goal), :action => 'edit', :id => goal.id, :method => :get, :class => 'button', 'data-role' => 'button'
-    = link_to "Delete", goal, :action => 'destroy', :id => goal.id, :confirm => "Delete this goal?", :method => :delete, :class => 'button', 'data-role' => 'button'
-  - unless tasks.empty?
-    .new_task
-      = link_to "Add Task", new_task_path(:goal_id => goal), :class => 'button', 'data-role' => 'button'
-    = render :partial => 'tasks/task', :collection => incomplete_tasks
-    = render :partial => 'tasks/task', :collection => complete_tasks
-  - else
-    .new_task
-      There are no tasks yet.
-      = link_to "Create a new Task", new_task_path(:goal_id => goal), :class => 'button', 'data-role' => 'button'
-
+%li.goal
+  = link_to goal.title, goal
+  = link_to "Edit", edit_goal_path(goal)

@@ -1,11 +1,10 @@
-.task{ :data => { :role => "collapsible", :collapsed => "true" } }
-  %h3 #{ task.description }
-  = task.description
-  %div{ :data => { :role => "fieldcontain" } }
-    %div{ :data => { :role => "controlgroup" } }
-      = check_box_tag "#{task.id}_check", task.id, !task.active?
-      = label_tag "#{task.id}_check", "Complete this task"
-  = task.deadline
-  .task_actions
-    = link_to "Edit", edit_task_path(task), :class => 'button', 'data-role' => 'button'
-    = link_to "Delete", task, :id => task.id, :confirm => "Delete this task?", :method => :delete, :class => 'button', 'data-role' => 'button'
+%li.task
+  %p= task.description
+  .actions{ :data => { :role => "controlgroup", :type => "horizontal" } }
+    = link_to "Complete", '#', 'data-role' => 'button', 'data-inline' => 'true',
+      'data-icon' => 'check'
+    = link_to "Edit", edit_task_path(task), 'data-role' => 'button',
+      'data-inline' => 'true', 'data-icon' => 'gear'
+    = link_to "Delete", task, :id => task.id, :confirm => "Delete this task?",
+      :method => :delete, 'data-role' => 'button', 'data-inline' => 'true',
+      'data-icon' => 'delete'
