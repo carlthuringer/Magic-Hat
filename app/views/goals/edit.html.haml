@@ -1,4 +1,6 @@
-= form_for @goal do |f|
-  = render :partial => "goal_fields", :locals => { :f => f }
-  %div.actions
-    = f.submit "Save Edit"
+%div{ :data => { :role => 'content' } }
+  // TODO Set flip transition, or some other reverse transition method...
+  = form_for @goal, :data => { :transition => 'flip' } do |f|
+    = render :partial => "goal_fields", :locals => { :f => f }
+    %div.actions
+      = f.submit "Save Edit"

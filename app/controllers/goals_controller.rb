@@ -46,7 +46,7 @@ class GoalsController < ApplicationController
     @goal = Goal.find params[:id]
     if @goal.update_attributes params[:goal]
       flash[:success] = "Goal updated!"
-      redirect_to dashboard_path
+      redirect_to @goal
     else
       @title = "Edit Goal"
       render 'edit'

@@ -1,11 +1,18 @@
-%h2= @goal.description
-%ul{ :data => { :role => 'listview', :inset => 'true' } }
-  - unless @tasks.empty?
-    = render :partial => 'tasks/task', :collection => @incomplete_tasks
-    = render :partial => 'tasks/task', :collection => @complete_tasks
-    %li{ :data => { :theme => 'b' } }= link_to "Add Task", 
-      new_task_path(:goal_id => @goal)
-  - else
-    %li There are no tasks yet.
-    %li= link_to "Create a new Task", new_task_path(:goal_id => @goal),
-      'data-rel' => 'dialog', 'data-transition' => 'slidedown'
+= render 'layouts/header', :right_button => { :text => "Edit",
+  :path => edit_goal_path(@goal), :options => { 'data-icon' => 'gear',
+  'data-transition' => 'flip' } }, :left_button => { :text => "Back",
+  :path => dashboard_path, :options => { 'data-icon' => 'arrow-l',
+  'data-transition' => 'slide', 'data-direction' => 'reverse' } }
+= render 'layouts/flash', :flash => flash
+%div{ :data => { :role => 'content' } }
+  %h2= @goal.description
+  %ul{ :data => { :role => 'listview', :inset => 'true' } }
+    - unless @tasks.empty?
+      = render :partial => 'tasks/task', :collection => @incomplete_tasks
+      = render :partial => 'tasks/task', :collection => @complete_tasks
+      %li{ :data => { :theme => 'b' } }= link_to "Add Task", 
+        new_task_path(:goal_id => @goal)
+    - else
+      %li There are no tasks yet.
+      %li= link_to "Create a new Task", new_task_path(:goal_id => @goal),
+        'data-rel' => 'dialog', 'data-transition' => 'slidedown'

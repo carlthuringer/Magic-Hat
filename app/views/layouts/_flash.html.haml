@@ -1,0 +1,4 @@
+%ul.flash{ :data => { :role => "listview", :inset => 'true', :theme => 'e' } }
+  - flash.each do |key, value|
+    %li.flash{:class => key}
+      = value

@@ -14,10 +14,4 @@
     %link{ 'rel' => "apple-touch-icon", 'href' => 'images/magic_hat_rough.png' }
   %body
     %div{ :data => { :role => "page" } }
-      = render 'layouts/header'
-      %div{ :data => { :role => 'content' } }
-      %ul.flash{ :data => { :role => "listview", :theme => 'e' } }
-        - flash.each do |key, value|
-          %li.flash{:class => key}
-            = value
       = yield
