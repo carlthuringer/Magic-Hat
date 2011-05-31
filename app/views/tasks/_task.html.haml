@@ -1,6 +1,7 @@
 %li.task
   %p= task.description
   .actions{ :data => { :role => "controlgroup", :type => "horizontal" } }
+    = check_box_tag
     = link_to "Complete", '#', 'data-role' => 'button', 'data-inline' => 'true',
       'data-icon' => 'check'
     = link_to "Edit", edit_task_path(task), 'data-role' => 'button',

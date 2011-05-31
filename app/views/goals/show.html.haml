@@ -10,9 +10,9 @@
     - unless @tasks.empty?
       = render :partial => 'tasks/task', :collection => @incomplete_tasks
       = render :partial => 'tasks/task', :collection => @complete_tasks
-      %li{ :data => { :theme => 'b' } }= link_to "Add Task", 
-        new_task_path(:goal_id => @goal)
+      %li{ :data => { :theme => 'b', :icon => 'plus' } }
+        = link_to "Add Task", new_task_path(:goal_id => @goal)
     - else
       %li There are no tasks yet.
-      %li= link_to "Create a new Task", new_task_path(:goal_id => @goal),
-        'data-rel' => 'dialog', 'data-transition' => 'slidedown'
+      %li{ :data => { :theme => 'b', :icon => 'plus' } }
+        = link_to "Create a new Task", new_task_path(:goal_id => @goal)

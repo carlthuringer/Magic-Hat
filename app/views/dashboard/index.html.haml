@@ -16,6 +16,5 @@
           Welcome to *Magic Hat*. The next step is to create your first goal.
     - else
       = render @goals
-    %li{ :data => { :theme => 'b' } }
-      = link_to "Add Goal", new_goal_path, 'data-inline' => 'true',
-        'data-icon' => 'plus', 'data-rel' => 'dialog', 'data-transition' => 'slidedown'
+    %li{ :data => { :theme => 'b', :icon => 'plus' } }
+      = link_to "Add Goal", new_goal_path
