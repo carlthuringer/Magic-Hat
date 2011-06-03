@@ -47,10 +47,10 @@ class TasksController < ApplicationController
       # id we have to convert the task ID to a string or else it won't match.
       if params[:ids]
         unless params[:ids].include?(task.id.to_s)
-          task.clear_complete_time
+          task.clear_complete
         end
       else
-        task.clear_complete_time
+        task.clear_complete
       end
     end
     if params[:ids]
@@ -60,6 +60,20 @@ class TasksController < ApplicationController
     end
 
     redirect_to dashboard_path
+  end
+
+  def complete_toggle
+    @task = Task.find params[:id]
+    case @task.complete
+    when nil
+      @task.mark_complete
+    when !nil
+      @task.clear_complete
+    end
+    respond_to do |format|
+      format.html { redirect_to dashboard_path }
+      format.js
+    end
   end
 
   def destroy

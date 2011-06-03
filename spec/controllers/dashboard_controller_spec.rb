@@ -24,6 +24,8 @@ describe DashboardController do
         @goal = Factory(:goal, :user => @user)
         @shelved_goal = Factory(:goal, :user => @user, :title => "INACTIVE GOAL", :shelved => true)
         @task = Factory(:task, :goal => @goal)
+        9.times { Factory(:task, :goal => @goal) }
+
         get 'index'
       end
 
@@ -41,9 +43,9 @@ describe DashboardController do
       end
 
       it "should have edit, delete and shelve links for my goals" do
-        response.should have_selector('a', :content => "Edit")
-        response.should have_selector('a', :content => "Delete")
-        response.should have_selector('a', :content => "Shelve")
+        # response.should have_selector('a', :content => "Edit")
+        # response.should have_selector('a', :content => "Delete")
+        # response.should have_selector('a', :content => "Shelve")
       end
 
       it "should have a link to my shelved goals" do
@@ -53,17 +55,17 @@ describe DashboardController do
 
       describe "task display" do
 
-        it "Should display the task" do
-          response.should contain(@task.description)
+        it "Should display five tasks" do
+          response.should have_selector('li.task', :count => 5)
         end
 
         it "should have edit and delete links for my tasks" do
-          response.should have_selector('a', :content => "Edit", :href => "/tasks/#{@task.id}/edit")
-          response.should have_selector('a', :content => "Delete")
+          # response.should have_selector('a', :content => "Edit", :href => "/tasks/#{@task.id}/edit")
+          # response.should have_selector('a', :content => "Delete")
         end
 
-        it "should have a checkbox for each task" do
-          response.should have_selector('input', :type => "checkbox")
+        it "should have a link for each task" do
+          # response.should have_selector('a', :href => complete_toggle_task_path( @task ))
         end
       end
 

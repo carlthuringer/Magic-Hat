@@ -132,8 +132,8 @@ describe GoalsController do
         put :update, :id => @goal, :goal => @attr
       end
 
-      it "should redirect to the dashboard" do
-        response.should redirect_to dashboard_path
+      it "should redirect to the goal" do
+        response.should redirect_to @goal
       end
 
       it "should have a flash message" do

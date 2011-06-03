@@ -1,11 +1,4 @@
-%li.task
-  %p= task.description
-  .actions{ :data => { :role => "controlgroup", :type => "horizontal" } }
-    = check_box_tag
-    = link_to "Complete", '#', 'data-role' => 'button', 'data-inline' => 'true',
-      'data-icon' => 'check'
-    = link_to "Edit", edit_task_path(task), 'data-role' => 'button',
-      'data-inline' => 'true', 'data-icon' => 'gear'
-    = link_to "Delete", task, :id => task.id, :confirm => "Delete this task?",
-      :method => :delete, 'data-role' => 'button', 'data-inline' => 'true',
-      'data-icon' => 'delete'
+%li#task_complete.task{ :id => task.id, :class => task.active? ? nil : 'task-active' }
+  = link_to task.description, complete_toggle_task_path(task),
+    'data-ajax' => 'false', :remote => true, :method => :put
+  = link_to "Edit", edit_task_path(task)

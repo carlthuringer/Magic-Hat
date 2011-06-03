@@ -1,5 +1,7 @@
 %h1 Sign in
 
+= render 'layouts/flash', :flash => flash
+
 = form_for(:session, :url => sessions_path) do |f|
   %div.field
     = f.label :email

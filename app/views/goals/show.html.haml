@@ -6,7 +6,7 @@
 = render 'layouts/flash', :flash => flash
 %div{ :data => { :role => 'content' } }
   %h2= @goal.description
-  %ul{ :data => { :role => 'listview', :inset => 'true' } }
+  %ul{ :data => { :role => 'listview', :inset => 'true', 'split-icon' => 'gear' } }
     - unless @tasks.empty?
       = render :partial => 'tasks/task', :collection => @incomplete_tasks
       = render :partial => 'tasks/task', :collection => @complete_tasks

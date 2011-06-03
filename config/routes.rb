@@ -9,6 +9,9 @@ MagicHat::Application.routes.draw do
   end
 
   resources :tasks, :except => :index do
+    member do
+      put :complete_toggle
+    end
     collection do
       put :complete
     end

@@ -31,7 +31,7 @@ class Task < ActiveRecord::Base
     self.save
   end
 
-  def clear_complete_time
+  def clear_complete
     self.complete = nil
     self.save
   end
