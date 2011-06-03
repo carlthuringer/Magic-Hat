@@ -25,6 +25,7 @@ describe DashboardController do
         @shelved_goal = Factory(:goal, :user => @user, :title => "INACTIVE GOAL", :shelved => true)
         @task = Factory(:task, :goal => @goal)
         9.times { Factory(:task, :goal => @goal) }
+        @important_tasks = @user.important_tasks
 
         get 'index'
       end
@@ -37,26 +38,41 @@ describe DashboardController do
         response.should have_selector("title", :content => @base_title + " | Dashboard")
       end
 
-      it "should show the user's active goals" do
-        response.should contain(@goal.title)
-        response.should_not contain(@shelved_goal.title)
-      end
+      describe "goal display" do
 
-      it "should have edit, delete and shelve links for my goals" do
-        # response.should have_selector('a', :content => "Edit")
-        # response.should have_selector('a', :content => "Delete")
-        # response.should have_selector('a', :content => "Shelve")
-      end
+        before do
+          4.times { Factory(:goal, :user => @user) }
+          @goals = @user.goals
+        end
 
-      it "should have a link to my shelved goals" do
-        pending "Going to replace this with a card model."
-        # response.should have_selector('a', :content => "Shelved")
+        it "should show the user's active goals" do
+          response.should contain(@goal.title)
+          response.should_not contain(@shelved_goal.title)
+        end
+
+        it "should have a form for each goal" do
+          @goals.each do |goal|
+            response.should have_selector('form', :id => "edit_goal_#{goal.id}")
+          end
+        end 
       end
 
       describe "task display" do
 
         it "Should display five tasks" do
           response.should have_selector('li.task', :count => 5)
+        end
+
+        it "Should include a form for each task" do
+          @important_tasks.each do |task|
+            response.should have_selector('form', :id => "edit_task_#{task.id}")
+          end
+        end
+
+        it "Should include the top five deadline soonest or oldest created tasks" do
+          @important_tasks.each do |task|
+            response.should have_selector("#task_complete_#{task.id}")
+          end
         end
 
         it "should have edit and delete links for my tasks" do

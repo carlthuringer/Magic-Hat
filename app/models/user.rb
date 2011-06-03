@@ -61,6 +61,10 @@ class User < ActiveRecord::Base
     goals.where(:shelved => true).order("updated_at DESC")
   end
 
+  def important_tasks
+    tasks.order('deadline ASC').limit(5)
+  end
+
   def velocity
     three_week_total = tasks.where(:complete => (3.weeks.ago)..(Time.now)).count
     three_week_total / 3
