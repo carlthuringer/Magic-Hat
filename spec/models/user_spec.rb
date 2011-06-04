@@ -78,6 +78,18 @@ describe User do
       end
       @user.velocity.should == 3
     end
+
+    describe "history" do
+
+      it "should return a marked calendar array" do
+        20.times do
+          Factory(:task, :goal => @goal, :complete => rand(30).days.ago)
+        end
+
+        @user.history.size.should == 28
+        @user.history.include?(1)
+      end
+    end
   end
 
   describe "password validations" do

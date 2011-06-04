@@ -22,7 +22,8 @@ describe DashboardController do
       before :each do
         @user = test_sign_in Factory :user
         @goal = Factory(:goal, :user => @user)
-        @shelved_goal = Factory(:goal, :user => @user, :title => "INACTIVE GOAL", :shelved => true)
+        4.times { Factory(:goal, :user => @user) }
+        @goals = @user.goals
         @task = Factory(:task, :goal => @goal)
         9.times { Factory(:task, :goal => @goal) }
         @important_tasks = @user.important_tasks
@@ -38,16 +39,28 @@ describe DashboardController do
         response.should have_selector("title", :content => @base_title + " | Dashboard")
       end
 
-      describe "goal display" do
+      describe "stats display" do
 
-        before do
-          4.times { Factory(:goal, :user => @user) }
-          @goals = @user.goals
+        it "should show a table with 4 rows" do
+          response.should have_selector('table')
+          response.should have_selector('tr', :count => 4)
         end
 
-        it "should show the user's active goals" do
-          response.should contain(@goal.title)
-          response.should_not contain(@shelved_goal.title)
+        it "should show a table with 28 cells" do
+          response.should have_selector('td', :count => 28)
+        end
+
+        it "should show a table with 4 row headings" do
+          response.should have_selector('th', :count => 4)
+        end
+      end
+
+      describe "goal display" do
+
+        it "should show the user's goals" do
+          @goals.each do |goal|
+            response.should contain(@goal.title)
+          end
         end
 
         it "should have a form for each goal" do
@@ -58,10 +71,6 @@ describe DashboardController do
       end
 
       describe "task display" do
-
-        it "Should display five tasks" do
-          response.should have_selector('li.task', :count => 5)
-        end
 
         it "Should include a form for each task" do
           @important_tasks.each do |task|
@@ -105,17 +114,17 @@ describe DashboardController do
   end
 
   describe "GET 'shelved'" do
-    before :each do
-      @user = test_sign_in Factory :user
-      @goal = Factory(:goal, :user => @user)
-      @shelved_goal = Factory(:goal, :user => @user, :title => "INACTIVE GOAL", :shelved => true)
-      @task = Factory(:task, :goal => @goal)
-    end
+    # before :each do
+    #   @user = test_sign_in Factory :user
+    #   @goal = Factory(:goal, :user => @user)
+    #   @shelved_goal = Factory(:goal, :user => @user, :title => "INACTIVE GOAL", :shelved => true)
+    #   @task = Factory(:task, :goal => @goal)
+    # end
 
-    it "should be successful" do
-      get 'shelved'
-      response.should render_template(:index)
-    end
+    # it "should be successful" do
+    #   get 'shelved'
+    #   response.should render_template(:index)
+    # end
 
   end
 end

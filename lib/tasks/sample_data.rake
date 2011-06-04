@@ -28,17 +28,20 @@ def make_users
 end
 
 def make_goals
-  User.all(:limit => 2).each do |user|
-    3.times do
-      user.goals.create!(:title => "Fake Title", :description => Faker::Lorem.sentence(5))
-    end
+  user = User.first
+  3.times do
+    user.goals.create!(:title => Faker::Lorem.words(3).join(' '), :description => Faker::Lorem.sentence(5))
   end
 end
 
 def make_tasks
-  Goal.all(:limit => 2).each do |goal|
-    5.times do
+  User.first.goals.all.each do |goal|
+    10.times do
       goal.tasks.create!(:description => Faker::Lorem.sentence(5))
     end
+  end
+  User.first.tasks.all(:limit => 28).each do |task|
+    task.complete = rand(28).days.ago
+    task.save
   end
 end

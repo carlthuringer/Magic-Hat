@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
     @important_tasks = current_user.important_tasks
     @total_completed = current_user.tasks_completed_today
     @velocity = current_user.velocity
-    @shelf_verb = "Shelve"
+    @history = current_user.history
   end
 
   def shelved

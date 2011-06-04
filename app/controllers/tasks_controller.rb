@@ -64,10 +64,9 @@ class TasksController < ApplicationController
 
   def complete_toggle
     @task = Task.find params[:id]
-    case @task.complete
-    when nil
+    if @task.complete == nil
       @task.mark_complete
-    when !nil
+    else
       @task.clear_complete
     end
     respond_to do |format|

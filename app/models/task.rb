@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110502210408
+# Schema version: 20110604192102
 #
 # Table name: tasks
 #
@@ -9,10 +9,12 @@
 #  created_at  :datetime
 #  updated_at  :datetime
 #  complete    :datetime
+#  deadline    :datetime
+#  type        :string(255)     default("plain")
 #
 
 class Task < ActiveRecord::Base
-  attr_accessible :description, :complete, :deadline
+  attr_accessible :description, :complete, :deadline, :type
 
   validates :description, :presence => true,
     :length => { :minimum => 5 }

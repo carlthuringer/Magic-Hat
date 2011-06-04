@@ -1,4 +1,3 @@
-
 = render 'layouts/header', :right_button => { :text => "Settings",
   :path => edit_user_path(current_user), :options => { 'data-icon' => 'gear',
   'data-transition' => 'flip' } }, :left_button => nil
@@ -13,6 +12,18 @@
         :textile
           Welcome to *Magic Hat*. The next step is to create your first goal.
     - else
+      %table
+        %tr
+          - count = 1
+          - week = 0
+          - @history.each do |record|
+            %td= record
+            - week += record
+            -if count % 7 == 0 
+              != "<th>#{week}</th>"
+              != "</tr><tr>" unless count == 28
+              - week = 0
+            - count += 1
       %ul{ :data => { :role => "listview", :inset => 'true',
         'split-icon' => 'gear' } }
         = render :partial => 'tasks/task', :collection => @important_tasks

@@ -5,6 +5,7 @@ class PagesController < ApplicationController
     if signed_in?
       redirect_to dashboard_path
     end
+    @title = "Magic Hat"
   end
 
   def contact

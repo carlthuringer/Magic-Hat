@@ -3,5 +3,10 @@
 - complete_tasks = goal.complete_tasks
 %li.goal
   = link_to goal.title, goal
-  = link_to "Edit", edit_goal_path(goal), 'data-rel' => 'dialog',
+  = link_to "Edit", edit_goal_path(goal),
     'data-transition' => 'slidedown'
+%li.goal_form{ :id => "form_for_goal_#{ goal.id }" }
+  = form_for goal do |f|
+    = render 'goals/goal_fields', :f => f
+    .actions
+      = f.submit "Save"

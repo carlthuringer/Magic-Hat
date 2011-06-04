@@ -62,4 +62,8 @@ describe Task do
       @task.should_not be_valid
     end
   end
+
+  describe "task_type" do
+
+  end
 end

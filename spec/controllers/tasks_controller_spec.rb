@@ -33,7 +33,8 @@ describe TasksController do
     before :each do
       @user = test_sign_in Factory :user
       @goal = Factory(:goal, :user => @user)
-      @attr = {:description => "POST 'create'", :goal_id => @goal.id }
+      @attr = {:description => "POST 'create'", :goal_id => @goal.id,
+        :kind => 'plain'}
     end
 
     describe "failure" do
@@ -85,6 +86,10 @@ describe TasksController do
 
     it "should have a field to edit the deadline." do
       response.should have_selector('input', :id => "task_deadline_string")
+    end
+
+    it "should have a field to edit the kind" do
+      response.should have_selector('select', :id => "task_kind")
     end
 
   end

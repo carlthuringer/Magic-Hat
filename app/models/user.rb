@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   end
 
   def important_tasks
-    tasks.order('deadline ASC').limit(5)
+    tasks.where(:complete => nil).order('deadline ASC').limit(5)
   end
 
   def velocity
@@ -76,6 +76,16 @@ class User < ActiveRecord::Base
 
   def empty_profile
     self.name.blank? && self.website.blank? && self.biography.blank?
+  end
+
+  def history
+    history = Array.new(28, 0)
+    task_history = tasks.where(:complete => (28.days.ago)..(Time.now))
+    task_history.each do |t|
+      t_completed_days_ago = (Time.now.to_i - t.complete.to_i) / 60 / 60 / 24 - 1
+      history[t_completed_days_ago] = history[t_completed_days_ago] + 1
+    end
+    return history
   end
 
   private
