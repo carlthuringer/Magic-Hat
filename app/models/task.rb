@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110604192102
+# Schema version: 20110604231631
 #
 # Table name: tasks
 #
@@ -10,7 +10,8 @@
 #  updated_at  :datetime
 #  complete    :datetime
 #  deadline    :datetime
-#  type        :string(255)     default("plain")
+#  kind        :string(255)     default("plain")
+#  habit_id    :integer
 #
 
 class Task < ActiveRecord::Base

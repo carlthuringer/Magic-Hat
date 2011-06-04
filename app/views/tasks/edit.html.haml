@@ -3,4 +3,6 @@
 = form_for @task do |f|
   = render :partial => "task_fields", :locals => { :f => f }
   .actions
-    = f.submit "Save Edit"
+    = f.submit "Save"
+    = link_to "Make Habit", new_habit_path(task),
+        :id => "create_habit_from_task_#{task.id}"

@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20110502210408
+# Schema version: 20110604231631
 #
 # Table name: users
 #
@@ -11,6 +11,7 @@
 #  admin              :boolean
 #  created_at         :datetime
 #  updated_at         :datetime
+#  habit_id           :integer
 #
 
 require 'digest'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110604192102) do
+ActiveRecord::Schema.define(:version => 20110604231631) do
 
   create_table "goals", :force => true do |t|
     t.string   "title"
@@ -24,6 +24,15 @@ ActiveRecord::Schema.define(:version => 20110604192102) do
   add_index "goals", ["id"], :name => "index_goals_on_id"
   add_index "goals", ["user_id"], :name => "index_goals_on_user_id"
 
+  create_table "habits", :force => true do |t|
+    t.string   "description"
+    t.string   "schedule_yaml"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "task_id"
+  end
+
   create_table "tasks", :force => true do |t|
     t.string   "description"
     t.integer  "goal_id"
@@ -32,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20110604192102) do
     t.datetime "complete"
     t.datetime "deadline"
     t.string   "kind",        :default => "plain"
+    t.integer  "habit_id"
   end
 
   add_index "tasks", ["goal_id"], :name => "index_tasks_on_goal_id"
@@ -44,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20110604192102) do
     t.boolean  "admin",              :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "habit_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
