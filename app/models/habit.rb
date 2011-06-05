@@ -14,4 +14,6 @@
 
 class Habit < ActiveRecord::Base
   include ScheduleAttributes
+
+  belongs_to :user
 end

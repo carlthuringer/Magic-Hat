@@ -36,6 +36,7 @@ class User < ActiveRecord::Base
 
   has_many :goals, :dependent => :destroy
   has_many :tasks, :through => :goals
+  has_many :habits
 
   # Return true if the user's submitted password matches the hashed one.
   def has_password?(submitted_password)

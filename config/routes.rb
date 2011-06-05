@@ -17,6 +17,8 @@ MagicHat::Application.routes.draw do
     end
   end
 
+  resources :habits
+
   get "sessions/new"
 
   match '/signup', :to => 'users#new'

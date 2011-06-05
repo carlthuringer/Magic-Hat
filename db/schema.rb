@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(:version => 20110604231631) do
     t.datetime "complete"
     t.datetime "deadline"
     t.string   "kind",        :default => "plain"
-    t.integer  "habit_id"
   end
 
   add_index "tasks", ["goal_id"], :name => "index_tasks_on_goal_id"
@@ -54,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20110604231631) do
     t.boolean  "admin",              :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "habit_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

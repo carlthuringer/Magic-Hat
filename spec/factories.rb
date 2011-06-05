@@ -23,4 +23,9 @@ FactoryGirl.define do
     association :goal
   end
 
+  factory :habit do
+    description "Factory habit"
+    association :user
+  end
+
 end
