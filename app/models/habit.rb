@@ -15,5 +15,18 @@
 class Habit < ActiveRecord::Base
   include ScheduleAttributes
 
-  belongs_to :user
+  attr_accessible :description
+  validates :description, :presence => true,
+    :length => { :within => (4..40) }
+  validates :schedule, :presence => true
+
+  belongs_to :goal
+  has_one :task
+
+  def generate
+    if task.try(:completed) != nil || task.nil?
+      due_date = schedule.next_occurrence
+      create_task(:description => description, :deadline => due_date)
+    end
+  end
 end

@@ -45,3 +45,10 @@ def make_tasks
     task.save
   end
 end
+
+def make_habits
+  task = User.first.tasks.first
+  task.create_habit(:description => task.description, :goal => task.goal,
+    :schedule_attributes => { :repeat => 1, :start_date => Time.now.to_s,
+      :interval_unit => 'day', :interval => 2 } )
+end

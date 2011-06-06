@@ -1,11 +1,4 @@
 %div{ :data => { :role => 'content' } }
   - @habits.each do |habit|
     .habit
-      = form_for habit do |f|
-        .field
-          = f.label :description
-          = f.text_field :description
-        .field
-          = fields_for :schedule_attributes, f, do |sattr|
-            .field
-              = sattr.text_field :date, habit.schedule_attributes.date
+      = render 'form', :habit => habit

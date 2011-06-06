@@ -22,6 +22,7 @@ class Goal < ActiveRecord::Base
   belongs_to :user
 
   has_many :tasks
+  has_many :habits
 
   def owned_by?(user)
     owner = User.find self.user_id

@@ -22,6 +22,7 @@ class Task < ActiveRecord::Base
   validate :deadline_string_no_errors
 
   belongs_to :goal
+  belongs_to :habit
 
   def owned_by?(user)
     goal = Goal.find self.goal_id
@@ -52,6 +53,10 @@ class Task < ActiveRecord::Base
       self.deadline = ( parse_time(deadline_str, Chronic) || parse_time(deadline_str, Time) )
       @deadline_invalid = true if self.deadline.nil?
     end
+  end
+
+  def make_habit(schedule)
+    create_habit(:description => description, :goal => task.goal)
   end
 
   private

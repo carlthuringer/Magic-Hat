@@ -4,6 +4,7 @@ describe Habit do
 
   before :each do
     @user = Factory :user
+
     @habit = Factory :habit, :user => @user
   end
   describe "schedule_attributes" do
@@ -36,7 +37,33 @@ describe Habit do
   describe "relationships" do
 
     it "knows to which user it belongs" do
+      pending "Might be irrelevant?"
       @habit.user_id.should == @user.id
+    end
+
+    it "knows to which goal it belongs" do
+      # @habit.goal_id.should == 
+    end
+
+  end
+
+  describe "tasks" do
+    it "generates a task when it doesn't have one" do
+      expect {
+        @habit.generate
+      }.to change(Task, :count).by 1
+    end
+
+    it "generates a new task when its current task is done" do
+      pending "need to set up goal relationship"
+      goal = Factory :goal, :user => @user
+      task = Factory :task, :goal => goal, :habit => @habit
+      @habit.task_id = task.id
+      @habit.save
+
+      expect {
+        @habit.generate
+      }.to change(Task, :count).by 1
     end
   end
 end

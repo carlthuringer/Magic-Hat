@@ -13,7 +13,6 @@ FactoryGirl.define do
   factory :goal do
     title "Example"
     description "An example description of the goal."
-    # shelved false
     association :user
   end
 
@@ -25,7 +24,11 @@ FactoryGirl.define do
 
   factory :habit do
     description "Factory habit"
-    association :user
+    schedule_atts.start_date Time.now.to_s
+    schedule_atts.interval_unit 'day'
+    schedule_atts.interval '2'
+    schedule_atts.repeat '1'
+    association :goal
   end
 
 end

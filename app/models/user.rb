@@ -35,8 +35,8 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
 
   has_many :goals, :dependent => :destroy
-  has_many :tasks, :through => :goals
-  has_many :habits
+  has_many :tasks, :through => :goals, :dependent => :destroy
+  has_many :habits, :through => :goals, :dependent => :destroy
 
   # Return true if the user's submitted password matches the hashed one.
   def has_password?(submitted_password)

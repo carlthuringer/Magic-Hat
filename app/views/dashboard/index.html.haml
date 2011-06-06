@@ -26,7 +26,7 @@
             - count += 1
       %ul{ :data => { :role => "listview", :inset => 'true',
         'split-icon' => 'gear' } }
-        = render :partial => 'tasks/task', :collection => @important_tasks
+        = render :partial => 'tasks/task', :collection => @important_tasks, :locals => { :hidden_form => true }
       %ul{ :data => { :role => "listview", :inset => 'true',
         'split-icon' => 'gear' } }
         = render @goals
