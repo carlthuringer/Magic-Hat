@@ -46,16 +46,6 @@ describe UsersController do
           end
         end
 
-        it "should paginate users" do
-          get :index
-          response.should have_selector("div.pagination")
-          response.should have_selector("span.disabled", :content => "Previous")
-          response.should have_selector("a", :href => "/users?page=2",
-                                             :content => "2")
-          response.should have_selector("a", :href => "/users?page=2",
-                                             :content => "Next")
-        end
-
         it "should not show a delete link" do
           get :index
           user = @users[1]
@@ -111,10 +101,6 @@ describe UsersController do
 
       it "should include the user's name" do
         response.should have_selector("h1", :content => @user.name)
-      end
-
-      it "should have a profile image" do
-        response.should have_selector("h1>img", :class => "gravatar")
       end
 
       it "should not have an edit link" do
@@ -226,13 +212,6 @@ describe UsersController do
     it "should have the right title" do
       get :edit, :id => @user
       response.should have_selector('title', :content => "Edit user")
-    end
-
-    it "should have a link to change the Gravatar" do
-      get :edit, :id => @user
-      gravatar_url = "http://gravatar.com/emails"
-      response.should have_selector('a', :href => gravatar_url,
-                                         :content => "change")
     end
   end
 

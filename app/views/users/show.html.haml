@@ -1,6 +1,5 @@
 .profile{:summary => "Profile information"}
   %h1
-    = gravatar_for @user
     = link_to @user.name, @user
   - if @user.empty_profile && @user == current_user
     = link_to "Get started on your profile!", edit_user_path(@user), :id => "tutorial"

@@ -1,20 +1,24 @@
 source 'http://rubygems.org'
 
 gem 'chronic'
-gem 'compass'
-gem 'gravatar_image_tag'
+gem 'coffee-script'
 gem 'haml'
 gem 'haml-rails'
 gem 'ice_cube'
 gem 'jquery-rails'
-gem 'rails', '3.0.7'
+gem 'json'
+gem 'rails', '3.1.0.rc1'
 gem 'rails3-generators'
 gem 'rake'
 gem 'RedCloth'
+gem 'sass'
 gem 'schedule_atts'
-gem 'simple-navigation'
 gem 'sqlite3'
-gem 'will_paginate', '~> 3.0.pre2'
+gem 'uglifier'
+
+group :production do
+  gem 'therubyracer-heroku', '0.8.1.pre3'
+end
 
 group :development do
   gem 'annotate-models'
