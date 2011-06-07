@@ -15,6 +15,8 @@
 #
 
 class Task < ActiveRecord::Base
+  include ScheduleAttributes
+
   attr_accessible :description, :complete, :deadline, :type
 
   validates :description, :presence => true,
@@ -22,7 +24,7 @@ class Task < ActiveRecord::Base
   validate :deadline_string_no_errors
 
   belongs_to :goal
-  belongs_to :habit
+  has_many :completions
 
   def owned_by?(user)
     goal = Goal.find self.goal_id
@@ -30,14 +32,16 @@ class Task < ActiveRecord::Base
     owner == user
   end
 
-  def mark_complete
-    self.complete = Time.now if self.complete == nil
+  def mark_complete(time = Time.now)
+    self.complete = time if self.complete == nil
     self.save
+    self.completions.create
   end
 
   def clear_complete
     self.complete = nil
     self.save
+    self.completions.last.destroy if self.completions.size > 0
   end
 
   def active?

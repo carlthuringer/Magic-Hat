@@ -24,10 +24,6 @@ describe Task do
       @task.should_not be_valid
     end
 
-    it "should default to completed == nil" do
-      @task.complete.should be_nil
-    end
-
     it "should default to deadline == nil" do
       @task.deadline.should be_nil
     end
@@ -63,7 +59,25 @@ describe Task do
     end
   end
 
-  describe "task_type" do
+  describe "completion" do
 
+    it "is able to record completion" do
+      expect {
+        @task.mark_complete
+      }.to change(Completion, :count).by 1
+    end
+
+    it "is able to clear completion" do
+      @task.mark_complete
+      expect {
+        @task.clear_complete
+      }.to change(Completion, :count).by -1
+    end
+
+    it "is able to record multiple completions" do
+      expect {
+        2.times{ @task.mark_complete }
+      }.to change(Completion, :count).by 2
+    end
   end
 end

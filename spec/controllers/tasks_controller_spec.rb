@@ -92,10 +92,6 @@ describe TasksController do
       response.should have_selector('select', :id => "task_kind")
     end
 
-    it "should have a link to make a habit" do
-      response.should have_selector('a', :id => "create_habit_from_task_#{@task.id}")
-    end
-
   end
 
   describe "PUT 'update'" do

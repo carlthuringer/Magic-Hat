@@ -8,5 +8,3 @@
     = render 'tasks/task_fields', :f => f
     .actions
       = f.submit "Save"
-      = link_to "Make Habit", new_habit_path(task),
-        :id => "create_habit_from_task_#{task.id}"
