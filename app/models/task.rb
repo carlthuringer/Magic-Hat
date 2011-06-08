@@ -17,7 +17,7 @@
 class Task < ActiveRecord::Base
   include ScheduleAttributes
 
-  attr_accessible :description, :complete, :deadline, :type
+  attr_accessible :description, :complete, :deadline, :schedule_yaml
 
   validates :description, :presence => true,
     :length => { :minimum => 5 }
@@ -33,8 +33,8 @@ class Task < ActiveRecord::Base
   end
 
   def mark_complete(time = Time.now)
-    self.complete = time if self.complete == nil
-    self.save
+    # self.complete = time if self.complete == nil
+    # self.save
     self.completions.create
   end
 
@@ -45,7 +45,8 @@ class Task < ActiveRecord::Base
   end
 
   def active?
-    self.complete == nil
+    # self.complete == nil
+    self.completions.empty? && self.schedule_yaml.nil?
   end
 
   def deadline_string
@@ -59,8 +60,19 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def make_habit(schedule)
-    create_habit(:description => description, :goal => task.goal)
+  def toggle_habit
+    if not habit?
+      self.schedule_attributes = { :repeat => 1, :start_date => Time.now.to_s,
+        :interval_unit => 'day', :interval => '2' }
+      self.save
+    else
+      self.schedule_attributes = { :repeat => '0' }
+      self.save
+    end
+  end
+
+  def habit?
+    !schedule_yaml.nil?
   end
 
   private

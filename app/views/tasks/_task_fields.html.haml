@@ -4,8 +4,4 @@
   = f.text_field :description
 .field
   = f.label :deadline_string, "Deadline"
-  = f.text_field :deadline_string
-.field
-  = f.label :kind
-  = f.select :kind, task_kinds
-  %span Put in the date and time of the deadline like so: "11-23-2012 10:22 PM"
+  = f.text_field :deadline_string, :placeholder => "In three days"

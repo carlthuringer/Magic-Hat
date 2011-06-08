@@ -6,5 +6,7 @@
 %li.task-form{ :class => "form_for_task_#{ task.id }" }
   = form_for task do |f|
     = render 'tasks/task_fields', :f => f
+    - if task.habit?
+      = render 'tasks/habit_fields', :f => f
     .actions
       = f.submit "Save"

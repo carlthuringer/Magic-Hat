@@ -80,4 +80,17 @@ describe Task do
       }.to change(Completion, :count).by 2
     end
   end
+
+  describe "habit" do
+
+    it "can be converted into a habit" do
+      @task.toggle_habit
+      @task.reload
+      @task.should be_habit
+    end
+
+    it "has no schedule by default" do
+      @task.should_not be_habit
+    end
+  end
 end

@@ -59,7 +59,7 @@ describe User do
         @tasks << Factory(:task, :goal => @goal, :complete => Time.now)
       end
       @tasks[3..4].each do |task|
-        task.complete = 1.week.ago
+        task.mark_complete(1.week.ago)
         task.save
       end
     end
@@ -69,7 +69,7 @@ describe User do
     end
 
     it "should report 2 tasks completed today" do
-      @user.tasks_completed_today.should == 3
+      @user.tasks_completed_today.should == 2
     end
 
     it "should calculate a rounded velocity average based on tasks per week, versus the past three weeks." do
@@ -220,6 +220,20 @@ describe User do
 
     it "should discover its own tasks through its association" do
       @user.tasks.first.should == @task
+    end
+  end
+
+  describe "completion associations" do
+
+    before :each do
+      @user = Factory :user
+      @goal = Factory :goal, :user => @user
+      @task = Factory :task, :goal => @goal
+      @task.mark_complete
+    end
+
+    it "should discover its completions through its association" do
+      @user.completions.first.task_id.should == @task.id
     end
   end
 end

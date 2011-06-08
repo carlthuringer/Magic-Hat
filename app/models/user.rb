@@ -74,6 +74,7 @@ class User < ActiveRecord::Base
 
   def tasks_completed_today
     tasks.where(:complete => (1.day.ago)..(Time.now)).count
+    completions.where(:created_at => (1.day.ago)..(Time.now)).count
   end
 
   def empty_profile

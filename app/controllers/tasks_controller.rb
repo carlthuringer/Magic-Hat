@@ -30,8 +30,12 @@ class TasksController < ApplicationController
     @goal = Goal.find @task.goal_id
     @task.description = params[:task][:description]
     @task.deadline_string=params[:task][:deadline_string]
-    logger.info(@task.to_yaml)
-    if @task.save 
+    toggle = @task.toggle_habit if params[:commit] == "habit"
+    if @task.save && toggle
+      flash[:success] = "Task updated!"
+      # redirect_to dashboard_path
+      redirect_to edit_task_path @task
+    elsif @task.save
       flash[:success] = "Task updated!"
       redirect_to dashboard_path
     else

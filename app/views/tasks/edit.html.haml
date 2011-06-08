@@ -2,5 +2,8 @@
 %h2 #{@goal.title}
 = form_for @task do |f|
   = render :partial => "task_fields", :locals => { :f => f }
+  - if @task.habit?
+    = render 'habit_fields', :f => f
   .actions
     = f.submit "Save"
+    = f.submit "Make Habit", :name => "habit", :id => "task_#{@task.id}_toggle_habit"

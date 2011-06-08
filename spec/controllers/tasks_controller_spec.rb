@@ -65,33 +65,58 @@ describe TasksController do
       @user = test_sign_in Factory :user
       @goal = Factory(:goal, :user => @user)
       @task = Factory(:task, :goal => @goal)
-      get :edit, :id => @task
     end
 
-    it "should be successful" do
-      response.should be_successful
+    describe "non habit" do
+
+      before :each do
+        get :edit, :id => @task
+      end
+
+      it "should be successful" do
+        response.should be_successful
+      end
+
+      it "should have the right title" do
+        response.should have_selector('title', :content => "Magic Hat | Edit Task")
+      end
+
+      it "should have a heading indicating the parent goal" do
+        response.should have_selector('h2', :content => @goal.title)
+      end
+
+      it "should have a field to edit the description." do
+        response.should have_selector('input', :id => "task_description")
+      end
+
+      it "should have a field to edit the deadline." do
+        response.should have_selector('input', :id => "task_deadline_string")
+      end
+
+      it "does not have a field for the start date" do
+        response.should_not have_selector('input',
+          :id => "task_schedule_attributes_start_date")
+      end
+
+      it "has a button to convert this task into a habit" do
+        response.should have_selector('input',
+          :id => "task_#{@task.id}_toggle_habit")
+      end
     end
 
-    it "should have the right title" do
-      response.should have_selector('title', :content => "Magic Hat | Edit Task")
-    end
+    describe "habits" do
 
-    it "should have a heading indicating the parent goal" do
-      response.should have_selector('h2', :content => @goal.title)
-    end
+      before :each do
+        @task.toggle_habit
+        get :edit, :id => @task
+      end
 
-    it "should have a field to edit the description." do
-      response.should have_selector('input', :id => "task_description")
+      it "has a field for the start date" do
+        @task.toggle_habit
+        response.should have_selector('input',
+          :id => "task_schedule_attributes_start_date")
+      end
     end
-
-    it "should have a field to edit the deadline." do
-      response.should have_selector('input', :id => "task_deadline_string")
-    end
-
-    it "should have a field to edit the kind" do
-      response.should have_selector('select', :id => "task_kind")
-    end
-
   end
 
   describe "PUT 'update'" do
@@ -127,21 +152,37 @@ describe TasksController do
       before :each do
         @attr = { :description => "SHOULD BE EDITED", 
           :deadline_string => "11-23-2012" }
-
-        put :update, :id => @task, :task => @attr
       end
 
-      it "should change the Task's attributes" do
-        @task.reload
-        @task.description.should == @attr[:description]
+      describe "regular submission" do
+
+        before :each do 
+          put :update, :id => @task, :task => @attr
+        end
+
+        it "should change the Task's attributes" do
+          @task.reload
+          @task.description.should == @attr[:description]
+        end
+
+        it "should redirect to the dashboard" do
+          response.should redirect_to dashboard_path
+        end
+
+        it "should have a flash message" do
+          flash[:success].should =~ /task updated/i
+        end
       end
 
-      it "should redirect to the dashboard" do
-        response.should redirect_to dashboard_path
-      end
+      describe "habit submission" do
 
-      it "should have a flash message" do
-        flash[:success].should =~ /task updated/i
+        before :each do 
+          put :update, :id => @task, :task => @attr, :commit => "habit"
+        end
+
+        it "should redirect to the task edit page if submitted with the habit button" do
+          response.should redirect_to edit_task_path @task
+        end
       end
     end
   end

@@ -1,0 +1,15 @@
+= f.fields_for :schedule_attributes do |sattr|
+  .field
+    .field
+      = sattr.text_field :repeat, :type => :hidden,
+        :initial_value => "1"
+    .field
+      = sattr.label :start_date, "Starting date"
+      = sattr.text_field :start_date
+    .field
+      = sattr.label :interval_unit, "Every (day, week)"
+      = sattr.text_field :interval_unit
+    .field
+      = sattr.label :interval, "Interval"
+      = sattr.text_field :interval
+

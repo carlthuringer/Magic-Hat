@@ -6,7 +6,7 @@ describe Completion do
 
     it "knows to which task it belongs" do
       task = Factory :task
-      completion = Completion.new(:task_id => task.id)
+      completion = task.completions.build
       completion.task.should == task
     end
   end
