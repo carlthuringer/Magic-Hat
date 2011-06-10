@@ -34,7 +34,7 @@ class TasksController < ApplicationController
     if @task.save && toggle
       flash[:success] = "Task updated!"
       # redirect_to dashboard_path
-      redirect_to edit_task_path @task
+      redirect_to dashboard_path
     elsif @task.save
       flash[:success] = "Task updated!"
       redirect_to dashboard_path

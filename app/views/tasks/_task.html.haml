@@ -6,7 +6,8 @@
 %li.task-form{ :class => "form_for_task_#{ task.id }" }
   = form_for task do |f|
     = render 'tasks/task_fields', :f => f
-    - if task.habit?
-      = render 'tasks/habit_fields', :f => f
+    = render 'tasks/habit_fields', :f => f, :task => task
     .actions
-      = f.submit "Save"
+      = f.submit "Save", :data => { :ajax => "false" }
+      = link_to "Make Habit", '#', :id => "task_#{task.id}_toggle_habit",
+        :class => "task-toggle-habit", :data => { :role => "button" }

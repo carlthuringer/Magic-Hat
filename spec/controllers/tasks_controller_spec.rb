@@ -93,13 +93,12 @@ describe TasksController do
         response.should have_selector('input', :id => "task_deadline_string")
       end
 
-      it "does not have a field for the start date" do
-        response.should_not have_selector('input',
-          :id => "task_schedule_attributes_start_date")
+      it "should have a div with class hidden" do
+        response.should have_selector('div', :class => "hidden")
       end
 
       it "has a button to convert this task into a habit" do
-        response.should have_selector('input',
+        response.should have_selector('a',
           :id => "task_#{@task.id}_toggle_habit")
       end
     end
@@ -181,7 +180,7 @@ describe TasksController do
         end
 
         it "should redirect to the task edit page if submitted with the habit button" do
-          response.should redirect_to edit_task_path @task
+          response.should redirect_to dashboard_path
         end
       end
     end
