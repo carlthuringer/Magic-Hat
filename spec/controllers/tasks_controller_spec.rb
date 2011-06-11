@@ -150,7 +150,7 @@ describe TasksController do
 
       before :each do
         @attr = { :description => "SHOULD BE EDITED", 
-          :deadline_string => "11-23-2012" }
+          :deadline_string => "11-23-2012"}
       end
 
       describe "regular submission" do
@@ -176,11 +176,17 @@ describe TasksController do
       describe "habit submission" do
 
         before :each do 
-          put :update, :id => @task, :task => @attr, :commit => "habit"
+          put :update, :id => @task, :task => @attr.merge( :schedule_attributes =>
+            { :repeat => "1", :start_date => Time.now.to_s, :interval_unit => "day", :interval=> "2"}),
+            :commit => "habit"
         end
 
-        it "should redirect to the task edit page if submitted with the habit button" do
-          response.should redirect_to dashboard_path
+        it "becomes a habit" do
+          @task.reload
+          @task.schedule_yaml.should_not be_nil
+        end
+
+        it "has the specified schedule" do
         end
       end
     end

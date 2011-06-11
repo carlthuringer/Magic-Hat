@@ -30,13 +30,8 @@ class TasksController < ApplicationController
     @goal = Goal.find @task.goal_id
     @task.description = params[:task][:description]
     @task.deadline_string=params[:task][:deadline_string]
-    toggle = @task.toggle_habit if params[:commit] == "habit"
-    if @task.save && toggle
-      flash[:success] = "Task updated!"
-      # redirect_to dashboard_path
-      redirect_to dashboard_path
-    elsif @task.save
-      flash[:success] = "Task updated!"
+    @task.schedule_attributes = params[:task][:schedule_attributes]
+    if @task.save
       redirect_to dashboard_path
     else
       @title = "Edit Task"
