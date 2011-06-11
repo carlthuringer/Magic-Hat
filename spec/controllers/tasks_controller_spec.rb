@@ -94,7 +94,7 @@ describe TasksController do
       end
 
       it "should have a div with class hidden" do
-        response.should have_selector('div', :class => "hidden")
+        response.should have_selector('div', :class => "habit-fields hidden")
       end
 
       it "has a button to convert this task into a habit" do
