@@ -1,4 +1,4 @@
-= f.fields_for :schedule_attributes do |sattr|
+= f.fields_for :schedule_attributes, task.schedule_attributes do |sattr|
   %div{ :class => task.habit? ? "habit-fields" : "habit-fields hidden" }
     .field
       = sattr.text_field :repeat, :type => :hidden

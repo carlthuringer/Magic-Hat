@@ -30,7 +30,9 @@ class TasksController < ApplicationController
     @goal = Goal.find @task.goal_id
     @task.description = params[:task][:description]
     @task.deadline_string=params[:task][:deadline_string]
-    @task.schedule_attributes = params[:task][:schedule_attributes]
+    if params[:task][:repeat] == "1"
+      @task.schedule_attributes = params[:task][:schedule_attributes]
+    end
     if @task.save
       redirect_to dashboard_path
     else

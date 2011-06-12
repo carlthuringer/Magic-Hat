@@ -72,7 +72,7 @@ class Task < ActiveRecord::Base
   end
 
   def habit?
-    !schedule.next_occurrence.nil?
+    !schedule_yaml.nil?
   end
 
   private
