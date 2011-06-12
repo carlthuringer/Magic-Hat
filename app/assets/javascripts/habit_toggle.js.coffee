@@ -1,8 +1,15 @@
 $ ->
   $('div').live 'pagebeforeshow', (event, ui)->
     $('.habit-fields.hidden').hide()
-    $('a.task-toggle-habit').click ->
-      my_habit_fields = $(this).parents('.actions').prev('.habit-fields')
-      my_habit_fields.slideToggle('fast')
-      repeat = $('input[name*="task[schedule_attributes][repeat]"]')
-      if repeat.val == '1' then repeat.val("0") else repeat.val("1")
+    $('input[name*="task[schedule_attributes][repeat]"]').map (i, e) ->
+      if e.checked
+        $(this).parent('div.ui-checkbox').next('input[name*="task[schedule_attributes][repeat]"]').val("1")
+      else
+        $(this).parent('div.ui-checkbox').next('input[name*= task[schedule_attributes][repeat] ]').val("0")
+
+    $('input[name*="task[schedule_attributes][repeat]"]').change ->
+      $(this).parents('div').parents('div').next('.habit-fields').slideToggle('fast')
+      if $(this).is(":checked")
+        $(this).parent('div.ui-checkbox').next('input[name*="task[schedule_attributes][repeat]"]').val("1")
+      else
+        $(this).parent('div.ui-checkbox').next('input[name*="task[schedule_attributes][repeat]"]').val("0")

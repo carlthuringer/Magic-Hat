@@ -34,7 +34,7 @@ describe TasksController do
       @user = test_sign_in Factory :user
       @goal = Factory(:goal, :user => @user)
       @attr = {:description => "POST 'create'", :goal_id => @goal.id,
-        :kind => 'plain'}
+        :schedule_attributes => { :repeat => "0" }}
     end
 
     describe "failure" do
@@ -129,7 +129,8 @@ describe TasksController do
     describe "failure" do
 
       before :each do
-        @attr = { :description => "", :active => "0" }
+        @attr = { :description => "", :active => "0", :schedule_attributes =>
+          { :repeat => "0" } }
         put :update, :id => @task, :task => @attr
       end
 
@@ -150,7 +151,8 @@ describe TasksController do
 
       before :each do
         @attr = { :description => "SHOULD BE EDITED", 
-          :deadline_string => "11-23-2012"}
+          :deadline_string => "11-23-2012", :schedule_attributes =>
+          { :repeat => "0"}}
       end
 
       describe "regular submission" do
@@ -175,7 +177,7 @@ describe TasksController do
 
       describe "habit submission" do
 
-        before :each do 
+        before :each do
           put :update, :id => @task, :task => @attr.merge( :schedule_attributes =>
             { :repeat => "1", :start_date => Time.now.to_s, :interval_unit => "day", :interval=> "2"}),
             :commit => "habit"
@@ -183,11 +185,17 @@ describe TasksController do
 
         it "becomes a habit" do
           @task.reload
-          @task.schedule_yaml.should_not be_nil
+          @task.should be_habit
         end
 
-        it "has the specified schedule" do
+        it "is changed back into a regular task" do
+          put :update, :id => @task, :task => @attr.merge( :schedule_attributes =>
+            { :repeat => "0", :start_date => Time.now.to_s, :interval_unit => "day", :interval=> "2"}),
+            :commit => "habit"
+          @task.reload
+          @task.should_not be_habit
         end
+
       end
     end
   end

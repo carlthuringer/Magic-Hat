@@ -1,7 +1,8 @@
 = f.fields_for :schedule_attributes, task.schedule_attributes do |sattr|
+  .field
+    = sattr.label :repeat, "Make a habit?"
+    = sattr.check_box :repeat, :checked => task.habit? ? true : false
   %div{ :class => task.habit? ? "habit-fields" : "habit-fields hidden" }
-    .field
-      = sattr.text_field :repeat, :type => :hidden
     .field
       = sattr.label :start_date, "Starting date"
       = sattr.text_field :start_date

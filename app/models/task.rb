@@ -72,7 +72,7 @@ class Task < ActiveRecord::Base
   end
 
   def habit?
-    !schedule_yaml.nil?
+    schedule_yaml?
   end
 
   private

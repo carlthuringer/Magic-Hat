@@ -30,10 +30,13 @@ class TasksController < ApplicationController
     @goal = Goal.find @task.goal_id
     @task.description = params[:task][:description]
     @task.deadline_string=params[:task][:deadline_string]
-    if params[:task][:repeat] == "1"
+    if params[:task][:schedule_attributes][:repeat] == "1"
       @task.schedule_attributes = params[:task][:schedule_attributes]
+    else
+      @task.schedule_yaml = nil
     end
     if @task.save
+      flash[:success] = "Task Updated!"
       redirect_to dashboard_path
     else
       @title = "Edit Task"
