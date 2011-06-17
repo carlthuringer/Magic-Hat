@@ -1,17 +1,18 @@
-%h1 Sign in
-
+= render 'layouts/header', :right_button => nil,
+  :left_button => { :text => "Back",
+  :path => root_path, :options => { 'data-icon' => 'gear',
+  'data-transition' => 'slide', 'data-direction' => 'reverse' } }
 = render 'layouts/flash', :flash => flash
 
 = form_for(:session, :url => sessions_path) do |f|
   %div.field
     = f.label :email
-    = f.text_field :email
+    = f.email_field :email
   %div.field
     = f.label :password
     = f.text_field :password
   %div.actions
     = f.submit "Sign in"
-    = link_to "Cancel", :back, :class => "cancel"
 
 %p
   New User? 

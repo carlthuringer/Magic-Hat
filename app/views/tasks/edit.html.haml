@@ -5,5 +5,3 @@
   = render 'habit_fields', :f => f, :task => @task
   .actions
     = f.submit "Save", :data => { :ajax => "false" }
-    = link_to "Make Habit", '#', :name => "habit", :id => "task_#{@task.id}_toggle_habit",
-      :class => "task-toggle-habit", :data => { :role => "button" }

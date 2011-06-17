@@ -1,0 +1,20 @@
+%table{:cellspacing => "0"}
+  - count = 1
+  - week = 0
+  - days = %w{S M T W Th F S}
+  %thead
+    %tr
+      - 7.times do |i|
+        != "<td>#{days[i]}</td>"
+  %tbody
+    %tr
+      - history.each do |record|
+        %td{ :class => "bar bar-#{record}"}
+          = record
+        -if count % 7 == 0 
+          -if count == 7
+            </tr><tfoot>
+          -else
+            != "</tr><tr>" unless count == 28
+          - week = 0
+        - count += 1

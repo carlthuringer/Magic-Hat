@@ -41,7 +41,7 @@ def make_tasks
     end
   end
   User.first.tasks.all(:limit => 28).each do |task|
-    task.complete = rand(28).days.ago
+    task.mark_complete rand(28).days.ago
     task.save
   end
 end

@@ -21,5 +21,10 @@ MagicHat::Application.configure do
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
+
+  # Timecop console
+  config.after_initialize do
+    require 'timecop_console'
+  end
 end
 

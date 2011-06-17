@@ -64,17 +64,16 @@ class User < ActiveRecord::Base
   end
 
   def important_tasks
-    tasks.where(:complete => nil).order('deadline ASC').limit(5)
+    tasks.order("deadline DESC").select {|task| task.incomplete_or_habit? }
   end
 
   def velocity
-    three_week_total = tasks.where(:complete => (3.weeks.ago)..(Time.now)).count
+    three_week_total = completions.where(:time => (3.weeks.ago)..(Time.now)).count
     three_week_total / 3
   end
 
   def tasks_completed_today
-    tasks.where(:complete => (1.day.ago)..(Time.now)).count
-    completions.where(:created_at => (1.day.ago)..(Time.now)).count
+    completions.where(:time => (1.day.ago)..(Time.now)).count
   end
 
   def empty_profile
@@ -83,10 +82,9 @@ class User < ActiveRecord::Base
 
   def history
     history = Array.new(28, 0)
-    task_history = tasks.where(:complete => (28.days.ago)..(Time.now))
-    task_history.each do |t|
-      t_completed_days_ago = (Time.now.to_i - t.complete.to_i) / 60 / 60 / 24 - 1
-      history[t_completed_days_ago] = history[t_completed_days_ago] + 1
+    completions.where(:time => (28.days.ago)..(Time.now)).each do |c|
+      c_completed_days_ago = (Time.now.to_i - c.time.to_i) / 60 / 60 / 24 - 1
+      history[c_completed_days_ago] = history[c_completed_days_ago] + 1
     end
     return history
   end

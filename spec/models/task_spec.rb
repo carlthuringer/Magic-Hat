@@ -48,8 +48,8 @@ describe Task do
     end
 
     it "parses a rigid datetime format" do
-      @task.deadline_string = "2011-06-08 02:51:19 UTC"
-      @task.deadline_string.should == "2011-06-08 02:51:19 UTC"
+      @task.deadline_string = "2011-06-08 02:51:19 -0500"
+      @task.deadline_string.should == "2011-06-08 02:51:19 -0500"
       @task.should be_valid
     end
 
@@ -91,6 +91,22 @@ describe Task do
 
     it "has no schedule by default" do
       @task.should_not be_habit
+    end
+  end
+
+  describe "#incomplete_or_habit" do
+
+    it "returns true if the habit has no completions" do
+      @task.toggle_habit
+      @task.reload
+      @task.incomplete_or_habit.should be_true
+    end
+
+    it "returns false if the habit has a recent completion" do
+      @task.toggle_habit
+      @task.completions.create!
+      @task.reload
+      @task.incomplete_or_habit.should be_false
     end
   end
 end

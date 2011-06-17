@@ -96,11 +96,6 @@ describe TasksController do
       it "should have a div with class hidden" do
         response.should have_selector('div', :class => "habit-fields hidden")
       end
-
-      it "has a button to convert this task into a habit" do
-        response.should have_selector('a',
-          :id => "task_#{@task.id}_toggle_habit")
-      end
     end
 
     describe "habits" do
@@ -112,8 +107,8 @@ describe TasksController do
 
       it "has a field for the start date" do
         @task.toggle_habit
-        response.should have_selector('input',
-          :id => "task_schedule_attributes_start_date")
+        response.should have_selector('select',
+          :id => "task_schedule_attributes_start_date_1i")
       end
     end
   end

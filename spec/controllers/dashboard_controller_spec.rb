@@ -25,8 +25,11 @@ describe DashboardController do
         4.times { Factory(:goal, :user => @user) }
         @goals = @user.goals
         @task = Factory(:task, :goal => @goal)
-        9.times { Factory(:task, :goal => @goal) }
+        2.times { Factory(:task, :goal => @goal) }
         @important_tasks = @user.important_tasks
+        @habit = Factory :task, :goal => @goal
+        @habit.toggle_habit
+        @habit.mark_complete
 
         get 'index'
       end
@@ -37,22 +40,6 @@ describe DashboardController do
 
       it "should have the right title" do
         response.should have_selector("title", :content => @base_title + " | Dashboard")
-      end
-
-      describe "stats display" do
-
-        it "should show a table with 4 rows" do
-          response.should have_selector('table')
-          response.should have_selector('tr', :count => 4)
-        end
-
-        it "should show a table with 28 cells" do
-          response.should have_selector('td', :count => 28)
-        end
-
-        it "should show a table with 4 row headings" do
-          response.should have_selector('th', :count => 4)
-        end
       end
 
       describe "goal display" do
@@ -92,13 +79,24 @@ describe DashboardController do
         it "should have a link for each task" do
           # response.should have_selector('a', :href => complete_toggle_task_path( @task ))
         end
+
+        it "does not show the habit with a completion within 15 hours of now" do
+          response.should_not have_selector("#task_complete_#{@habit.id}")
+        end
+
+        it "shows the habit when the completion is more than 15 hours ago" do
+          Timecop.freeze(Date.today + 3) do
+            get :index
+            response.should have_selector("#task_complete_#{@habit.id}")
+          end
+        end
       end
 
       describe "statistics" do
 
         before :each do
           5.times do
-            Factory(:task, :goal => @goal, :complete => Time.now)
+            Factory(:task, :goal => @goal).mark_complete
           end
           get :index
         end

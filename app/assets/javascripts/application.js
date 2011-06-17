@@ -4,6 +4,7 @@
 // This is a manifest list that will be compiled into all the files listed.
 // = require jquery
 // = require jquery_ujs
-// = require_tree .
-
-
+// = require jquery_mobile
+// = require mobile
+// = require habit_toggle
+// = require form_toggle

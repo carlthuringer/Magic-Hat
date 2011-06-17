@@ -30,6 +30,14 @@ class TasksController < ApplicationController
     @goal = Goal.find @task.goal_id
     @task.description = params[:task][:description]
     @task.deadline_string=params[:task][:deadline_string]
+
+    if params[:task][:schedule_attributes]["start_date(1i)"]
+      params[:task][:schedule_attributes][:start_date] =
+        Date.civil(params[:task][:schedule_attributes]["start_date(1i)"].to_i,
+                   params[:task][:schedule_attributes]["start_date(2i)"].to_i,
+                   params[:task][:schedule_attributes]["start_date(3i)"].to_i).to_s
+    end
+
     if params[:task][:schedule_attributes][:repeat] == "1"
       @task.schedule_attributes = params[:task][:schedule_attributes]
     else
@@ -68,7 +76,7 @@ class TasksController < ApplicationController
 
   def complete_toggle
     @task = Task.find params[:id]
-    if @task.complete == nil
+    if @task.incomplete_or_habit
       @task.mark_complete
     else
       @task.clear_complete

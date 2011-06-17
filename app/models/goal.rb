@@ -30,7 +30,8 @@ class Goal < ActiveRecord::Base
   end
 
   def incomplete_tasks
-    tasks.where("complete IS NULL").order("deadline ASC").order("updated_at DESC")
+    result = tasks.order(["deadline ASC", "updated_at DESC"])
+    result = tasks.select {|task| task.incomplete_or_habit?}
   end
 
   def complete_tasks

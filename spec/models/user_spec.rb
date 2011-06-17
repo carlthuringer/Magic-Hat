@@ -56,8 +56,13 @@ describe User do
       @goal = Factory(:goal, :user => @user)
       @tasks = []
       5.times do
-        @tasks << Factory(:task, :goal => @goal, :complete => Time.now)
+        @tasks << Factory(:task, :goal => @goal)
       end
+
+      @tasks[0..1].each do |task|
+        task.mark_complete
+      end
+
       @tasks[3..4].each do |task|
         task.mark_complete(1.week.ago)
         task.save
@@ -74,16 +79,23 @@ describe User do
 
     it "should calculate a rounded velocity average based on tasks per week, versus the past three weeks." do
       5.times do
-        @tasks << Factory(:task, :goal => @goal, :complete => 2.weeks.ago)
+        @tasks << Factory(:task, :goal => @goal)
       end
-      @user.velocity.should == 3
+
+      @tasks.each do |task|
+        task.mark_complete(2.weeks.ago)
+        task.save
+      end
+
+      @user.velocity.should == 4
     end
 
     describe "history" do
 
       it "should return a marked calendar array" do
         20.times do
-          Factory(:task, :goal => @goal, :complete => rand(30).days.ago)
+          task = Factory(:task, :goal => @goal)
+          task.mark_complete(rand(30).days.ago)
         end
 
         @user.history.size.should == 28
@@ -236,4 +248,44 @@ describe User do
       @user.completions.first.task_id.should == @task.id
     end
   end
+
+  describe "#important_tasks" do
+
+    before :each do
+      @user = Factory :user
+      @goal = Factory :goal, :user => @user
+    end
+
+    it "should respond with a list of tasks that have no completions" do
+      5.times { Factory :task, :goal => @goal }
+      @user.important_tasks.each do |task|
+        task.completions.should be_empty
+      end
+    end
+
+    it "should not show the task with a completion" do
+      @task = Factory :task, :goal => @goal
+      @task.mark_complete
+      @user.reload
+      @user.important_tasks.should be_empty
+    end
+
+    it "should not show the habit with a completion" do
+      @habit = Factory :task, :goal => @goal
+      @habit.mark_complete
+      @user.reload
+      @user.important_tasks.should be_empty
+    end
+
+    it "should show the habit when its completion is old" do
+      @habit = Factory :task, :goal => @goal
+      @habit.mark_complete
+      @habit.toggle_habit
+      @user.reload
+      Timecop.freeze(Date.today + 3) do
+        @user.important_tasks.should_not be_empty
+      end
+    end
+  end
+
 end

@@ -38,5 +38,7 @@ group :development, :test do
   gem 'awesome_print'
   gem 'faker'
   gem 'rspec-rails'
+  gem 'timecop'
+  gem 'timecop-console'
   gem 'metric_fu'
 end

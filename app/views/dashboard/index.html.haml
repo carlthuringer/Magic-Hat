@@ -4,29 +4,24 @@
 = render 'layouts/flash', :flash => flash
 %div{ :data => { :role => 'content' } }
   - unless current_user.tasks.count == 0
-    #statistics
-      -# TODO Link this to a 'what is this' FAQ sort of page. Make some method that friendly links 'ok, back to what i was doing'
-      = link_to "#{@total_completed} today, #{@velocity} avg.", root_path
     - if current_user.goals.count == 0
       %li#tutorial
         :textile
           Welcome to *Magic Hat*. The next step is to create your first goal.
     - else
-      %table
-        %tr
-          - count = 1
-          - week = 0
-          - @history.each do |record|
-            %td= record
-            - week += record
-            -if count % 7 == 0 
-              != "<th>#{week}</th>"
-              != "</tr><tr>" unless count == 28
-              - week = 0
-            - count += 1
-      %ul{ :data => { :role => "listview", :inset => 'true',
-        'split-icon' => 'gear' } }
-        = render :partial => 'tasks/task', :collection => @important_tasks, :locals => { :hidden_form => true }
+      #statistics.ui-corner-all.ui-shadow.ui-btn-up-c
+        -# TODO Link this to a 'what is this' FAQ sort of page. Make some method that friendly links 'ok, back to what i was doing'
+        %span#stats-grid-plus-minus
+          = link_to "+", "#", :id => "expand-stats-grid", 'data-role' => 'button',
+            'data-icon' => 'plus', 'data-iconpos' => 'notext'
+        -# = link_to "#{@total_completed} today, #{@velocity} avg.", root_path
+        = render :partial => 'stats_grid', :locals => { :history => @history }
+      - unless @important_tasks.empty?
+        %h3 Tasks
+        %ul{ :data => { :role => "listview", :inset => 'true',
+          'split-icon' => 'gear' } }
+          = render :partial => 'tasks/task', :collection => @important_tasks, :locals => { :hidden_form => true }
+      %h3 Goals
       %ul{ :data => { :role => "listview", :inset => 'true',
         'split-icon' => 'gear' } }
         = render @goals

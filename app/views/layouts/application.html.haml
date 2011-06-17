@@ -15,3 +15,11 @@
   %body
     %div{ :data => { :role => "page" } }
       = yield
+    #debug_console
+      The time is 
+      = Time.now.to_s(:db)
+      - form_remote_tag :url => update_time_path do
+        = submit_tag "Time Travel"
+        - %w(year month day hour min sec).each do |field|
+          = text_field_tag field, Time.now.send(field), :size => 4
+      = link_to_remote "Reset", :url => reset_time_path
