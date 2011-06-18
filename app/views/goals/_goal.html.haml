@@ -13,3 +13,6 @@
     = render 'goals/goal_fields', :f => f
     .actions
       = f.submit "Save"
+      = link_to "Delete", goal, :action => 'destroy', :id => goal.id,
+          :confirm => "Delete this goal?", :method => :delete, :data => { :role => 'button',
+          :theme => 'f', :ajax => 'false' }

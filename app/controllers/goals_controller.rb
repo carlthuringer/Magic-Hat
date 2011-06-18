@@ -14,7 +14,7 @@ class GoalsController < ApplicationController
     @goal = current_user.goals.build params[:goal]
     if @goal.save
       flash[:success] = "Goal created!"
-      redirect_to dashboard_path
+      redirect_to @goal
     else
       render 'new'
     end

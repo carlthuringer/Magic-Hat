@@ -33,4 +33,4 @@
       'split-icon' => 'gear' } }
       = render @goals
       %li{ :data => { :theme => 'b', :icon => 'plus' } }
-        = link_to "Add Goal", new_goal_path
+        = link_to "Add Goal", new_goal_path, :data => { :ajax => 'false' }

@@ -5,13 +5,14 @@
     :options => { 'data-icon' => 'arrow-l',
       'data-transition' => 'slide',
       'data-direction' => 'reverse' } }
-%h2 New task for #{@goal.title}
-%ul{ :data => { :role => "listview" }}
-  %li.new-task-form
-    = form_for @task do |f|
-      = render 'task_fields', :f => f
-      = render 'habit_fields', :f => f, :task => @task
-      .field
-      = f.hidden_field :goal_id
-      .actions
-        = f.submit "Save", :goal_id => @goal.id
+%div{ :data => { :role => "content" } }
+  %h2 New task for #{@goal.title}
+  %ul{ :data => { :role => "listview" }}
+    %li.new-task-form
+      = form_for @task do |f|
+        = render 'task_fields', :f => f
+        = render 'habit_fields', :f => f, :task => @task
+        .field
+        = f.hidden_field :goal_id
+        .actions
+          = f.submit "Save", :goal_id => @goal.id

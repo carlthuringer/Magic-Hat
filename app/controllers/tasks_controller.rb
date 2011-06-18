@@ -28,7 +28,7 @@ class TasksController < ApplicationController
     end
 
     if @task.save
-      redirect_to dashboard_path
+      redirect_to @goal
     else
       @title = "New Task"
       render :new
@@ -61,7 +61,7 @@ class TasksController < ApplicationController
     end
     if @task.save
       flash[:success] = "Task Updated!"
-      redirect_to dashboard_path
+      redirect_to @goal
     else
       @title = "Edit Task"
       render :edit
@@ -106,7 +106,7 @@ class TasksController < ApplicationController
   def destroy
     @task = Task.find params[:id]
     @task.destroy
-    redirect_to dashboard_path
+    redirect_to @goal
   end
 
   private

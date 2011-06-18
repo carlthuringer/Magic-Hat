@@ -11,3 +11,6 @@
     = render 'tasks/habit_fields', :f => f, :task => task
     .actions
       = f.submit "Save", :data => { :ajax => "false" }
+      = link_to "Delete", task, :action => 'destroy', :id => task.id,
+          :confirm => "Delete this task?", :method => :delete, :data => { :role => 'button',
+          :theme => 'f', :ajax => 'false' }
