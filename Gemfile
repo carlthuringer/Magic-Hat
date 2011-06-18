@@ -14,7 +14,6 @@ gem 'rake'
 gem 'RedCloth'
 gem 'sass'
 gem 'schedule_atts'
-gem 'sqlite3'
 gem 'thin'
 gem 'uglifier'
 
