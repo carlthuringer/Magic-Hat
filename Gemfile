@@ -28,9 +28,9 @@ group :test do
   gem 'autotest'
   gem 'database_cleaner'
   gem 'factory_girl_rails', ">= 1.1.beta1"
+  gem 'autotest-fsevent'
   gem 'spork'
-  gem 'rspec'
-  gem 'rspec-core'
+  gem 'timecop'
   gem 'webrat'
 end
 
@@ -38,7 +38,5 @@ group :development, :test do
   gem 'awesome_print'
   gem 'faker'
   gem 'rspec-rails'
-  gem 'timecop'
-  gem 'timecop-console'
   gem 'metric_fu'
 end

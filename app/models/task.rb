@@ -50,7 +50,7 @@ class Task < ActiveRecord::Base
 
   def deadline_string=(deadline_str)
     unless deadline_str.blank?
-      self.deadline = ( parse_time(deadline_str, Chronic) || parse_time(deadline_str, Time) )
+      self.deadline = parse_natural_time(deadline_str)
       @deadline_invalid = true if self.deadline.nil?
     end
   end
@@ -89,10 +89,7 @@ class Task < ActiveRecord::Base
   private
 
   def parse_time(string, parser)
-    begin
-      parser.parse(string)
-    rescue
-    end
+    parser.parse(string) rescue nil
   end
 
   def deadline_string_no_errors

@@ -76,7 +76,7 @@ class TasksController < ApplicationController
 
   def complete_toggle
     @task = Task.find params[:id]
-    if @task.incomplete_or_habit
+    if @task.incomplete_or_habit?
       @task.mark_complete
     else
       @task.clear_complete

@@ -99,14 +99,14 @@ describe Task do
     it "returns true if the habit has no completions" do
       @task.toggle_habit
       @task.reload
-      @task.incomplete_or_habit.should be_true
+      @task.should be_incomplete_or_habit
     end
 
     it "returns false if the habit has a recent completion" do
       @task.toggle_habit
       @task.completions.create!
       @task.reload
-      @task.incomplete_or_habit.should be_false
+      @task.should_not be_incomplete_or_habit
     end
   end
 end
