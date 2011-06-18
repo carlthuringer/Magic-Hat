@@ -1,13 +1,23 @@
-- if @user.errors.blank?
-  %p To secure your login, we will need an e-mail and password. You're almost ready to begin!
-= form_for(@user) do |f|
-  = render 'shared/error_messages', :object => f.object
-  -# = render :partial =>  "fields", :locals => { :f => f }
-  .field
-    = f.label :email
-    = f.text_field :email, :placeholder => "you@youremail.com"
-  .field
-    = f.label :password
-    = f.text_field :password
-  .actions
-    = f.submit "Sign up"
+= render 'layouts/header', :right_button => {  :text => "Log in",
+  :path => signin_path, 
+  :options => { 'data-transition' => 'slide',
+    'data-theme' => 'b'} }, 
+  :left_button => { :text => "Back",
+  :path => root_path,
+  :options => { 'data-transition' => 'slide',
+  'data-direction' => 'reverse' } }
+
+%div{ :data => { :role => "content" } }
+  - if @user.errors.blank?
+    %p To secure your login, we will need an e-mail and password. You're almost ready to begin!
+  = form_for(@user) do |f|
+    = render 'shared/error_messages', :object => f.object
+    -# = render :partial =>  "fields", :locals => { :f => f }
+    .field
+      = f.label :email
+      = f.text_field :email, :placeholder => "you@youremail.com"
+    .field
+      = f.label :password
+      = f.text_field :password
+    .actions
+      = f.submit "Sign up"
