@@ -49,5 +49,7 @@ MagicHat::Application.configure do
 
   # Compress both stylesheets and javascript
   config.assets.js_compressor = :uglifier
-  config.assets.css_compressor = :scss
+  # TODO probably possible to put this back later? Disabled because it doesn't
+  # work in 3.1 RC4 on Heroku
+  # config.assets.css_compressor = :scss
 end
