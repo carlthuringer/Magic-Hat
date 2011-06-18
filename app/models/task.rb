@@ -41,7 +41,7 @@ class Task < ActiveRecord::Base
   end
 
   def active?
-    self.completions.empty? && self.schedule_yaml.nil?
+    self.incomplete_or_habit?
   end
 
   def deadline_string

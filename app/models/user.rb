@@ -56,15 +56,11 @@ class User < ActiveRecord::Base
   end
 
   def active_goals
-    goals.where(:shelved => false).order("updated_at DESC")
-  end
-
-  def shelved_goals
-    goals.where(:shelved => true).order("updated_at DESC")
+    goals.order("updated_at DESC")
   end
 
   def important_tasks
-    tasks.order("deadline DESC").select {|task| task.incomplete_or_habit? }
+    tasks.order("deadline ASC").select {|task| task.incomplete_or_habit? }
   end
 
   def velocity
@@ -87,6 +83,18 @@ class User < ActiveRecord::Base
       c_completed_days_ago = (Time.now.to_i - c.time.to_i) / 60 / 60 / 24 - 1
       history[c_completed_days_ago] = history[c_completed_days_ago] + 1
     end
+    # TODO there is probably a much more efficient way to reverse the order of weeks.
+    fliparray = []
+    4.times do
+      temp = []
+      7.times do
+        temp << history.pop
+      end
+      temp.reverse
+      fliparray = fliparray + temp.reverse
+    end
+    history = fliparray
+
     return history
   end
 

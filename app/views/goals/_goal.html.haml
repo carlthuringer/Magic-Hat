@@ -2,7 +2,10 @@
 - incomplete_tasks = goal.incomplete_tasks
 - complete_tasks = goal.complete_tasks
 %li.goal
-  = link_to goal.title, goal
+  = link_to goal do
+    %h3= goal.title
+    %p.ui-li-desc.ui-li-count= goal.incomplete_tasks.count
+    %p.ui-li-desc= goal.description
   = link_to "Edit", '#', 'data-transition' => 'slidedown',
     :id => "form-reveal-button"
 %li.goal-form{ :id => "form_for_goal_#{ goal.id }" }

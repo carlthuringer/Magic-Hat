@@ -1,5 +1,5 @@
 .ui-mobile
-  .task-form
+  .task-form, .new-task-form
     .ui-select
       display: inline
     .habit-fields
@@ -36,8 +36,11 @@
       text-align: center
       font-weight: normal
       border-right: 1px #333 solid
+      border-bottom: 1px #333 solid
     tr td:last-child
-      border: 0px
+      border-right: 0px
+    tfoot tr:last-child td
+      border-bottom: 0px
     td.bar
       text-indent: -9999px
       overflow: hidden
@@ -67,4 +70,27 @@
     position: absolute
     top: 0px
     left: 0px
+li.task a
+  margin-left: 20px
+  .check-box
+    background-image: url(/assets/icons-18-white.png)
+    height: 18px
+    width: 18px
+    display: block
+    position: absolute
+    left: 8px
+    background-position: -683px 50%
+li.task.task-active a
+  .check-box
+    background-position: -648px 50%
+
+li
+  .ui-li-desc, .ui-li-heading
+    text-overflow: initial
+    overflow: initial
+    white-space: initial
+  .ui-li .ui-btn-text a.ui-link-inherit
+    text-overflow: initial
+    overflow: initial
+    white-space: initial
 

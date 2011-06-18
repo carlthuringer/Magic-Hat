@@ -20,7 +20,13 @@
         %h3 Tasks
         %ul{ :data => { :role => "listview", :inset => 'true',
           'split-icon' => 'gear' } }
-          = render :partial => 'tasks/task', :collection => @important_tasks, :locals => { :hidden_form => true }
+          - current_date = nil
+          - @important_tasks.each do |task|
+            - if task.deadline?
+              - if (current_date == nil) || (current_date != task.deadline.to_s(:date))
+                %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
+                - current_date = task.deadline.to_s(:date)
+            = render :partial => 'tasks/task', :locals => { :task => task }
       %h3 Goals
       %ul{ :data => { :role => "listview", :inset => 'true',
         'split-icon' => 'gear' } }

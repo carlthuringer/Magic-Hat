@@ -36,6 +36,6 @@ class Goal < ActiveRecord::Base
   def complete_tasks
     # This is a potential bottleneck in the future
     # See 'squeel' gem for a possible solution
-    tasks.order(["deadline DESC", "updated_at DESC"]).select { |task| task.incomplete_or_habit? }
+    tasks.order(["deadline DESC", "updated_at DESC"]).select { |task| not task.incomplete_or_habit? }
   end
 end

@@ -1,6 +1,8 @@
 %li.task{ :id => "task_complete_#{task.id}", :class => task.active? ? nil : 'task-active' }
-  = link_to task.description, complete_toggle_task_path(task),
-    'data-ajax' => 'false', :remote => true, :method => :put
+  = link_to complete_toggle_task_path(task), 'data-ajax' => 'false', :remote => true, :method => :put do
+    %span.check-box
+    = task.description
+    %p.ui-li-aside= task.deadline.to_s(:time) if task.deadline?
   = link_to "Edit", '#', :class => "form_for_task_#{ task.id }",
     :id => "form-reveal-button"
 %li.task-form{ :class => "form_for_task_#{ task.id }" }

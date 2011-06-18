@@ -1,8 +1,17 @@
-%h1 New Task for
-%h2 #{@goal.title}
-= form_for @task do |f|
-  = render :partial => 'task_fields', :locals => { :f => f }
-  .field
-  = f.hidden_field :goal_id
-  .actions
-    = f.submit "Save Task", :goal_id => @goal.id
+= render 'layouts/header',
+  :right_button => nil,
+  :left_button => { :text => "Back",
+    :path => dashboard_path,
+    :options => { 'data-icon' => 'gear',
+      'data-transition' => 'slide',
+      'data-direction' => 'reverse' } }
+%h2 New task for #{@goal.title}
+%ul{ :data => { :role => "listview" }}
+  %li.new-task-form
+    = form_for @task do |f|
+      = render 'task_fields', :f => f
+      = render 'habit_fields', :f => f, :task => @task
+      .field
+      = f.hidden_field :goal_id
+      .actions
+        = f.submit "Save", :goal_id => @goal.id

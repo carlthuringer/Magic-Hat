@@ -1,5 +1,13 @@
-%h1 New Goal
-= form_for @goal do |f|
-  = render :partial => "goal_fields", :locals => { :f => f }
-  %div.actions
-    = f.submit "Create", 'data-ajax' => 'false'
+= render 'layouts/header',
+  :right_button => nil,
+  :left_button => { :text => "Back",
+    :path => dashboard_path,
+    :options => { 'data-icon' => 'gear',
+      'data-transition' => 'slide',
+      'data-direction' => 'reverse' } }
+%ul{ :data => { :role => "listview" }}
+  %li
+    = form_for @goal do |f|
+      = render :partial => "goal_fields", :locals => { :f => f }
+      %div.actions
+        = f.submit "Create", 'data-ajax' => 'false'
