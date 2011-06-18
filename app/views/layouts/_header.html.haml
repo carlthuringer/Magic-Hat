@@ -10,6 +10,3 @@
   - if right_button
     = link_to right_button[:text], right_button[:path],
       right_button[:options].merge(:class => 'ui-btn-right')
-  - else
-    = link_to "Log in", signin_path, :class => "ui-btn-right",
-      'data-icon' => 'check', 'data-transition' => 'flip'
