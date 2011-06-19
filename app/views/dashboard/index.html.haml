@@ -18,7 +18,6 @@
       -# = link_to "#{@total_completed} today, #{@velocity} avg.", root_path
       = render :partial => 'stats_grid', :locals => { :history => @history }
     - unless @important_tasks.empty?
-      %h3 Tasks
       %ul{ :data => { :role => "listview", :inset => 'true',
         'split-icon' => 'gear' } }
         - current_date = nil
@@ -28,7 +27,6 @@
               %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
               - current_date = task.deadline.to_s(:date)
           = render :partial => 'tasks/task', :locals => { :task => task }
-    %h3 Goals
     %ul{ :data => { :role => "listview", :inset => 'true',
       'split-icon' => 'gear' } }
       = render @goals

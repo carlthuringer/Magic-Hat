@@ -1,4 +1,4 @@
-%li.task{ :id => "task_complete_#{task.id}", :class => task.active? ? nil : 'task-active' }
+%li.task{ :class => task.active? ? "task_complete_#{task.id}" : "task-active task_complete_#{task.id}" }
   = link_to complete_toggle_task_path(task), 'data-ajax' => 'false', :remote => true, :method => :put do
     %span.check-box
     = task.description

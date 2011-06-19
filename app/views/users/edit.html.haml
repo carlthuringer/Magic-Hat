@@ -1,7 +1,14 @@
-%h1 Editing
-%h2 #{ @user.name }
-= form_for(@user) do |f|
-  %div
-  = render :partial =>  "fields", :locals => { :f => f }
-  .actions
-    = f.submit "Update"
+= render 'layouts/header',
+  :right_button => nil,
+  :left_button => { :text => "Back",
+    :path => dashboard_path,
+    :options => { 'data-icon' => 'arrow-l',
+      'data-transition' => 'flip',
+      'data-direction' => 'reverse' } }
+%div{ :data => { :role => "content" } }
+  %h2 Settings
+  = form_for(@user) do |f|
+    %div
+    = render :partial =>  "fields", :locals => { :f => f }
+    .actions
+      = f.submit "Update"
