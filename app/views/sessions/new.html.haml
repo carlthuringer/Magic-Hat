@@ -1,6 +1,6 @@
 = render 'layouts/header', :right_button => nil,
   :left_button => { :text => "Back",
-  :path => root_path, :options => { 'data-icon' => 'gear',
+  :path => root_path, :options => { 'data-icon' => 'arrow-l',
   'data-transition' => 'slide', 'data-direction' => 'reverse' } }
 = render 'layouts/flash', :flash => flash
 
@@ -10,7 +10,7 @@
     = f.email_field :email
   %div.field
     = f.label :password
-    = f.text_field :password
+    = f.password_field :password
   %div.actions
     = f.submit "Sign in"
 

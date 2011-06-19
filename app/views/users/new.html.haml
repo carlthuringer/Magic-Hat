@@ -5,7 +5,8 @@
   :left_button => { :text => "Back",
   :path => root_path,
   :options => { 'data-transition' => 'slide',
-  'data-direction' => 'reverse' } }
+  'data-direction' => 'reverse' ,
+  'data-icon' => 'arrow-l'} }
 
 %div{ :data => { :role => "content" } }
   - if @user.errors.blank?
@@ -18,6 +19,6 @@
       = f.text_field :email, :placeholder => "you@youremail.com"
     .field
       = f.label :password
-      = f.text_field :password
+      = f.password_field :password
     .actions
       = f.submit "Sign up"
