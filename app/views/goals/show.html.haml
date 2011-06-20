@@ -2,7 +2,8 @@
   :path => edit_goal_path(@goal), :options => { 'data-icon' => 'gear',
   'data-transition' => 'flip' } }, :left_button => { :text => "Dashboard",
   :path => dashboard_path, :options => { 'data-icon' => 'arrow-l',
-  'data-transition' => 'slide', 'data-direction' => 'reverse' } }
+  'data-transition' => 'slide', 'data-direction' => 'reverse',
+  'data-ajax' => 'false' } }
 %div{ :data => { :role => 'content' } }
   = render 'layouts/flash', :flash => flash
   %h3= @goal.description
