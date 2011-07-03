@@ -72,9 +72,10 @@ describe GoalsController do
         end.should change(Goal, :count).by 1
       end
 
-      it "should redirect to the dashboard" do
+      it "should redirect to the goal" do
         post :create, :goal => @attr
-        response.should redirect_to dashboard_path
+        goal = @user.goals.first
+        response.should redirect_to goal
       end
 
       it "should have a flash message" do

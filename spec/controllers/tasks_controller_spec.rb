@@ -53,7 +53,7 @@ describe TasksController do
       it "should create a new task" do
         expect {
           post :create, :task => @attr
-          response.should redirect_to dashboard_path
+          response.should redirect_to @goal
         }.to change(Task, :count).by 1
       end
     end
@@ -161,8 +161,8 @@ describe TasksController do
           @task.description.should == @attr[:description]
         end
 
-        it "should redirect to the dashboard" do
-          response.should redirect_to dashboard_path
+        it "should redirect to the goal" do
+          response.should redirect_to @goal
         end
 
         it "should have a flash message" do
@@ -291,9 +291,9 @@ describe TasksController do
         }.to change(Task, :count).by -1
       end
 
-      it "should redirect to the dashboard" do
+      it "should redirect to the goal" do
         delete :destroy, :id => @task
-        response.should redirect_to dashboard_path
+        response.should redirect_to goal_path @task.goal_id
       end
     end
   end
@@ -344,8 +344,9 @@ describe TasksController do
       end
 
       it "should not allow user to POST 'create' task for goal they don't own" do
-        post :create, :task => { :description => "POST 'create' test", :goal_id => @other_goal.id }
-        response.should redirect_to dashboard_path
+        post :create, :task => { :description => "POST 'create' test", :goal_id => @other_goal.id,
+          :schedule_attributes => { :repeat => "0" } }
+        response.should redirect_to @other_goal
       end
 
       it "should not allow user to PUT 'update' task they don't own" do

@@ -50,7 +50,7 @@ describe "Users" do
     describe "success" do
 
       it "should sign a user in and out" do
-        pending "Need to redo the signin/out mechanism."
+        pending "Need to provide a signout mechanism"
         user = Factory :user
         visit signin_path
         fill_in :email, :with => user.email

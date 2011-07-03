@@ -1,6 +1,5 @@
 %table{:cellspacing => "0"}
   - count = 1
-  - week = 0
   - days = %w{S M T W Th F S}
   %thead
     %tr
@@ -8,13 +7,12 @@
         != "<td>#{days[i]}</td>"
   %tbody
     %tr
-      - history.each do |record|
-        %td{ :class => "bar bar-#{record}"}
+      -# TODO See about building a PORO for handling the calendar-ish data formatting of History
+      - history.each_index do |index|
+        - record = history[ 27 - index - (6 - Time.now.wday)] 
+        - record = 0 if record.nil?
+        %td{ :class => "bar bar-#{ record <= 9 ? record : 9 }"}
           = record
         -if count % 7 == 0 
-          -if count == 7
-            </tr><tfoot>
-          -else
-            != "</tr><tr>" unless count == 28
-          - week = 0
+          != "</tr><tr>" unless count == 28
         - count += 1

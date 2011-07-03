@@ -15,8 +15,8 @@ describe "Goals" do
     describe "actions" do
 
       it "should have a link back to the dashboard" do
-        # visit new_goal_path
-        # response.should have_selector('a', :href => dashboard_path)
+        visit new_goal_path
+        response.should have_selector('a', :href => dashboard_path)
       end
 
     end
@@ -65,27 +65,25 @@ describe "Goals" do
 
     describe "failure" do
       it "should not save the goal and report an error" do
-        pending "Doesn't work... investigate whether fixtures persist."
-        # click_link "Edit"
-        # fill_in "Description", :with => ""
-        # click_button
-        # response.should render_template 'dashboard/index'
-        # response.should have_selector('div', :class => "error")
+        click_link "Edit"
+        fill_in "Description", :with => ""
+        click_button
+        response.should render_template 'dashboard/index'
+        response.should have_selector('div', :class => "error")
       end
     end
 
     describe "success" do
       it "should save the goal" do
-        pending "Doesn't work... investigate whether fixtures persist."
-        # within 'li.goal' do |scope|
-        #   scope.click_link "Edit"
-        # end
-        # within 'li.goal_form' do |scope|
-        #   scope.fill_in "Description", :with => "EDITED GOAL TEST"
-        #   scope.click_button
-        # end
-        # response.should render_template 'dashboard/index'
-        # response.should have_selector('h2', :content => "EDITED GOAL TEST")
+        within 'li.goal' do |scope|
+          scope.click_link "Edit"
+        end
+        within 'li.goal-form' do |scope|
+          scope.fill_in "Description", :with => "EDITED GOAL TEST"
+          scope.click_button
+        end
+        response.should render_template 'dashboard/index'
+        response.should have_selector('h3', :content => "EDITED GOAL TEST")
       end
     end
   end

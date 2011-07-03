@@ -67,27 +67,27 @@ describe DashboardController do
 
         it "Should include the top five deadline soonest or oldest created tasks" do
           @important_tasks.each do |task|
-            response.should have_selector("#task_complete_#{task.id}")
+            response.should have_selector(".task_complete_#{task.id}")
           end
         end
 
         it "should have edit and delete links for my tasks" do
-          # response.should have_selector('a', :content => "Edit", :href => "/tasks/#{@task.id}/edit")
-          # response.should have_selector('a', :content => "Delete")
+          response.should have_selector('a', :content => "Edit")
+          response.should have_selector('a', :content => "Delete")
         end
 
         it "should have a link for each task" do
-          # response.should have_selector('a', :href => complete_toggle_task_path( @task ))
+          response.should have_selector('a', :href => complete_toggle_task_path( @task ))
         end
 
         it "does not show the habit with a completion within 15 hours of now" do
-          response.should_not have_selector("#task_complete_#{@habit.id}")
+          response.should_not have_selector(".task_complete_#{@habit.id}")
         end
 
         it "shows the habit when the completion is more than 15 hours ago" do
           Timecop.freeze(Date.today + 3) do
             get :index
-            response.should have_selector("#task_complete_#{@habit.id}")
+            response.should have_selector(".task_complete_#{@habit.id}")
           end
         end
       end
