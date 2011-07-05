@@ -338,7 +338,7 @@ describe TasksController do
 
       before :each do
         test_sign_in @user
-        @other_user = Factory(:user, :email => Factory(:email))
+        @other_user = Factory(:user)
         @other_goal = Factory(:goal, :user => @other_user)
         @other_task = Factory(:task, :goal => @other_goal)
       end
@@ -360,5 +360,4 @@ describe TasksController do
       end
     end
   end
-
 end

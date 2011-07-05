@@ -114,7 +114,7 @@ describe GoalsController do
     describe "failure" do
 
       it "should redirect unauthorized users" do
-        unauthorized_user = test_sign_in Factory(:user, :email => Factory(:email))
+        unauthorized_user = test_sign_in Factory(:user)
         put :update, :id => @goal, :goal => @attr
         response.should redirect_to root_path
       end
@@ -155,7 +155,7 @@ describe GoalsController do
 
     describe "failure" do
       it "should redirect unauthorized users silently" do
-        unauthorized_user = test_sign_in Factory(:user, :email => Factory(:email))
+        unauthorized_user = test_sign_in Factory(:user)
         put :shelving, :id => @goal
         response.should redirect_to root_path
       end
@@ -185,7 +185,7 @@ describe GoalsController do
 
       before :each do
         @user = Factory :user
-        wrong_user = Factory(:user, :email => Factory(:email))
+        wrong_user = Factory(:user)
         test_sign_in wrong_user
         @goal = Factory(:goal, :user => @user)
       end
