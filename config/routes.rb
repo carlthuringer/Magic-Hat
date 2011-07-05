@@ -1,6 +1,6 @@
 MagicHat::Application.routes.draw do
   root :to => 'pages#home'
-  resources :users
+  resources :users, except: :index
   resources :sessions, :only => [:new, :create, :destroy]
   resources :goals, :except => :index do
     member do

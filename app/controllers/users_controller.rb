@@ -9,11 +9,6 @@ class UsersController < ApplicationController
     @title = "Sign up"
   end
 
-  def index
-    @title = "All users"
-    @users = User.all
-  end
-
   def show
     @user = User.find(params[:id])
     @title = @user.name
@@ -28,6 +23,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    # TODO This is pretty weird. Why does the controller need to handle the
+    # case where a POST create is attempted by a user that already exists?
+    # There must be a way to do this in a before filter.
     if signed_in?
       redirect_to dashboard_path
     elsif @user.save
