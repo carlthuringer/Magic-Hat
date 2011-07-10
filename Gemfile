@@ -29,7 +29,7 @@ end
 
 group :test do
   gem 'database_cleaner'
-  gem 'factory_girl_rails', ">= 1.1.beta1"
+  gem 'factory_girl_rails', ">= 1.1.rc1"
   gem 'timecop'
   gem 'webrat'
 end

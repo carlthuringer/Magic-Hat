@@ -1,4 +1,5 @@
 # By using the symbol ':user', we get Factory Girl to simulate the User model.
+# require 'active_support/core_ext/numeric'
 FactoryGirl.define do
   factory :user do
     sequence(:email) { |n| "person-#{n}@example.com" }
@@ -19,7 +20,7 @@ FactoryGirl.define do
 
   factory :habit, :class => :task do
     description "My habit description"
-    schedule_attributes = {:start_date => rand(30).days.ago.to_s, :repeat => "1", :interval_unit => "day", :interval => rand(7).to_s}
+    sequence( :schedule_attributes ) { |n| {:start_date => n.days.ago.to_s, :repeat => "1", :interval_unit => "day", :interval => 1.to_s} }
     association :goal
   end
 
