@@ -1,6 +1,4 @@
-= render 'layouts/header', :right_button => { :text => "Settings",
-  :path => edit_user_path(current_user), :options => { 'data-icon' => 'gear',
-  'data-transition' => 'flip' } }, :left_button => nil
+= render 'layouts/header', :right_button => nil, :left_button => nil
 %div{ :data => { :role => 'content' } }
   = render 'layouts/flash', :flash => flash
   - if current_user.goals.count == 0
@@ -32,3 +30,7 @@
       = render @goals
       %li{ :data => { :theme => 'b', :icon => 'plus' } }
         = link_to "Add Goal", new_goal_path, :data => { :ajax => 'false' }
+  %ul{ :data => { :role => "listview", :inset => 'true' } }
+    %li{ :data => { :theme => 'b' } } Configure
+    %li= link_to "User Settings", edit_user_path(current_user)
+    %li= link_to "Sign Out", signout_path, :confirm => "Are you sure you want to sign out?"

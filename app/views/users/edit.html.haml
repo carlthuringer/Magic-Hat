@@ -3,12 +3,18 @@
   :left_button => { :text => "Back",
     :path => dashboard_path,
     :options => { 'data-icon' => 'arrow-l',
-      'data-transition' => 'flip',
+      'data-transition' => 'slide',
       'data-direction' => 'reverse' } }
 %div{ :data => { :role => "content" } }
-  %h2 Settings
-  = form_for(@user) do |f|
-    %div
-    = render :partial =>  "fields", :locals => { :f => f }
-    .actions
-      = f.submit "Update"
+  %ul{ :data => { :role => 'listview' } }
+    %li
+      = form_for @user do |f|
+        = render 'shared/error_messages', :object => f.object
+        .field
+          = f.label :email
+          = f.text_field :email
+        .field
+          = f.label :password
+          = f.text_field :password
+        .actions
+          = f.submit "Update"
