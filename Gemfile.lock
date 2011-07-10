@@ -3,7 +3,6 @@ GEM
   specs:
     RedCloth (4.2.7)
     Saikuro (1.1.0)
-    ZenTest (4.5.0)
     actionmailer (3.1.0.rc4)
       actionpack (= 3.1.0.rc4)
       mail (~> 2.3.0)
@@ -37,10 +36,6 @@ GEM
     annotate-models (1.0.4)
     arel (2.1.3)
     arrayfields (4.7.4)
-    autotest (4.4.6)
-      ZenTest (>= 4.4.1)
-    autotest-fsevent (0.2.5)
-      sys-uname
     awesome_print (0.4.0)
     bcrypt-ruby (2.1.4)
     builder (3.0.0)
@@ -190,13 +185,11 @@ GEM
       activesupport
       ice_cube (>= 0.6.4)
     sexp_processor (3.0.5)
-    spork (0.8.5)
     sprockets (2.0.0.beta.10)
       hike (~> 1.0)
       rack (~> 1.0)
       tilt (!= 1.3.0, ~> 1.1)
     syntax (1.0.0)
-    sys-uname (0.8.5)
     therubyracer-heroku (0.8.1.pre3)
     thin (1.2.11)
       daemons (>= 1.0.9)
@@ -222,8 +215,6 @@ PLATFORMS
 DEPENDENCIES
   RedCloth
   annotate-models
-  autotest
-  autotest-fsevent
   awesome_print
   chronic
   coffee-script
@@ -243,7 +234,6 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   schedule_atts
-  spork
   therubyracer-heroku (= 0.8.1.pre3)
   thin
   timecop

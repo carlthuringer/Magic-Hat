@@ -23,21 +23,18 @@ end
 
 group :development do
   gem 'annotate-models'
+  gem 'awesome_print'
+  gem 'metric_fu'
 end
 
 group :test do
-  gem 'autotest'
   gem 'database_cleaner'
   gem 'factory_girl_rails', ">= 1.1.beta1"
-  gem 'autotest-fsevent'
-  gem 'spork'
   gem 'timecop'
   gem 'webrat'
 end
 
 group :development, :test do
-  gem 'awesome_print'
   gem 'faker'
   gem 'rspec-rails'
-  gem 'metric_fu'
 end
