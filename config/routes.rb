@@ -23,7 +23,7 @@ MagicHat::Application.routes.draw do
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   match '/dashboard', :to => 'dashboard#index'
-  match '/dashboard/shelved', :to => 'dashboard#shelved', :as => "shelved"
+  match '/dashboard/edit', :to => 'dashboard#edit', :as => "edit"
 
   # RESTful creation of a Task associated with a Plan.
   
