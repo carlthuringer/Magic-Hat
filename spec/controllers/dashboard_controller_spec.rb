@@ -110,19 +110,4 @@ describe DashboardController do
       end
     end
   end
-
-  describe "GET 'shelved'" do
-    # before :each do
-    #   @user = test_sign_in Factory :user
-    #   @goal = Factory(:goal, :user => @user)
-    #   @shelved_goal = Factory(:goal, :user => @user, :title => "INACTIVE GOAL", :shelved => true)
-    #   @task = Factory(:task, :goal => @goal)
-    # end
-
-    # it "should be successful" do
-    #   get 'shelved'
-    #   response.should render_template(:index)
-    # end
-
-  end
 end
