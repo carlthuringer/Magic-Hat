@@ -1,18 +1,16 @@
+- require 'calendar'
+- calendar = Calendar.new(history)
+
 %table{:cellspacing => "0"}
   - count = 1
   - days = %w{S M T W Th F S}
   %thead
     %tr
-      - 7.times do |i|
-        != "<td>#{days[i]}</td>"
+      - days.each do |d|
+        != "<td>#{d}</td>"
   %tbody
-    %tr
-      -# TODO See about building a PORO for handling the calendar-ish data formatting of History
-      - history.each_index do |index|
-        - record = history[ 27 - index - (6 - Time.now.wday)] 
-        - record = 0 if record.nil?
-        %td{ :class => "bar bar-#{ record <= 9 ? record : 9 }"}
-          = record
-        -if count % 7 == 0 
-          != "</tr><tr>" unless count == 28
-        - count += 1
+    - calendar.by_week.each_index do |week_index|
+      %tr{ :class => "#{(week_index + 1).ordinalize}-row" }
+        - calendar.by_week[week_index].each do |day|
+          %td{ :class => "bar bar-#{ day <= 9 ? day : 9 }"}
+            = day

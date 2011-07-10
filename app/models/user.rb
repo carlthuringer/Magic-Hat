@@ -78,12 +78,11 @@ class User < ActiveRecord::Base
 
   def history
     history = Array.new(28, 0)
-    # TODO Check for a way to avoid doing /60/60/24
     completions.where(:time => (28.days.ago)..(Time.now)).each do |c|
       c_completed_days_ago = (Time.now.to_i - c.time.to_i) / 60 / 60 / 24
       history[c_completed_days_ago] = history[c_completed_days_ago] + 1
     end
-    return history
+    return history.reverse!
   end
 
   private
