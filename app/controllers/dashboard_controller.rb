@@ -6,8 +6,6 @@ class DashboardController < ApplicationController
     @title = "Dashboard"
     @goals = current_user.active_goals
     @important_tasks = current_user.important_tasks
-    @total_completed = current_user.tasks_completed_today
-    @velocity = current_user.velocity
     @history = current_user.history
   end
 
