@@ -1,6 +1,5 @@
 /*!
- * jQuery Mobile v Git Build
- * Git Info SHA1: 7e40ddff4e4d2f1922e740429df2c8829a85ec38 Date: Tue Jun 14 11:42:40 2011 -0700
+ * jQuery Mobile v1.0b1
  * http://jquerymobile.com/
  *
  * Copyright 2010, jQuery Project
@@ -702,7 +701,7 @@ a.ui-link-inherit {
 }
 .ui-disabled,
 .ui-disabled a {
-	cursor: default !important;
+	cursor: default;
 }
 
 /* Icons
@@ -711,7 +710,7 @@ a.ui-link-inherit {
 .ui-icon {
 	background: 						#666;
 	background: 						rgba(0,0,0,.4);
-	background-image: url(/assets/icons-18-white.png);
+	background-image: url(icons-18-white.png);
 	background-repeat: no-repeat;
 	-moz-border-radius: 				9px;
 	-webkit-border-radius: 				9px;
@@ -725,7 +724,7 @@ a.ui-link-inherit {
 .ui-icon-alt {
 	background: 						#fff;
 	background: 						rgba(255,255,255,.3);
-	background-image: url(/assets/icons-18-black.png);
+	background-image: url(icons-18-black.png);
 	background-repeat: no-repeat;
 }
 
@@ -741,14 +740,14 @@ a.ui-link-inherit {
 	.ui-icon-gear, .ui-icon-refresh, .ui-icon-forward, .ui-icon-back,
 	.ui-icon-grid, .ui-icon-star, .ui-icon-alert, .ui-icon-info, .ui-icon-home, .ui-icon-search, 
 	.ui-icon-checkbox-off, .ui-icon-checkbox-on, .ui-icon-radio-off, .ui-icon-radio-on {
-		background-image: url(/assets/icons-36-white.png);
+		background-image: url(icons-36-white.png);
 		-moz-background-size: 776px 18px;
 		-o-background-size: 776px 18px;
 		-webkit-background-size: 776px 18px;
 		background-size: 776px 18px;
 	}
 	.ui-icon-alt {
-		background-image: url(/assets/icons-36-black.png);
+		background-image: url(icons-36-black.png);
 	}
 }
 
@@ -838,13 +837,13 @@ a.ui-link-inherit {
 	border-radius: 0;
 }
 .ui-icon-searchfield {
-	background-image: url(/assets/icon-search-black.png);
+	background-image: url(icon-search-black.png);
 	background-size: 16px 16px;
 }
 
 /* loading icon */
 .ui-icon-loading {
-	background-image: url(/assets/ajax-loader.png);
+	background-image: url(ajax-loader.png);
 	width: 40px;
 	height: 40px;
 	-moz-border-radius: 20px;
@@ -1021,9 +1020,9 @@ a.ui-link-inherit {
 
 /*orientations from js are available */
 .portrait,
-.portrait .ui-page,
+.portrait .ui-page { min-height: 420px; }
 .landscape,
-.landscape .ui-page  { min-height: 100%; }
+.landscape .ui-page  { min-height: 300px; }
 
 /* loading screen */
 .ui-loading .ui-mobile-viewport { overflow: hidden !important; }
@@ -1045,7 +1044,7 @@ a.ui-link-inherit {
 .ui-page .ui-header, .ui-page .ui-footer { position: relative; }
 .ui-header .ui-btn-left { position: absolute; left: 10px; top: .4em;  }
 .ui-header .ui-btn-right { position: absolute; right: 10px; top: .4em; }
-.ui-header .ui-title, .ui-footer .ui-title { text-align: center; font-size: 16px; display: block; margin: .6em 90px .8em;  padding: 0;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; outline: 0 !important; }
+.ui-header .ui-title, .ui-footer .ui-title { min-height: 1.1em; text-align: center; font-size: 16px; display: block; margin: .6em 90px .8em;  padding: 0;  text-overflow: ellipsis; overflow: hidden; white-space: nowrap; outline: 0 !important; }
 
 /*content area*/
 .ui-content { border-width: 0; overflow: visible; overflow-x: hidden; padding: 15px; }
@@ -1443,7 +1442,7 @@ Built by David Kaneda and maintained by Jonathan Stark.
 .ui-btn-icon-top .ui-icon { top: 5px; }
 .ui-btn-icon-bottom .ui-icon { bottom: 5px; }
 /*hiding native button,inputs */
-.ui-btn-hidden {  position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: button; opacity: 0; cursor: pointer; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter: alpha(opacity=0); }
+.ui-btn-hidden {  position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: button; opacity: 0; cursor: pointer; -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; filter: alpha(opacity=0); background: transparent; }
 /*
 * jQuery Mobile Framework
 * Copyright (c) jQuery Project
@@ -1660,4 +1659,3 @@ div.ui-slider-switch a.ui-slider-handle { z-index: 20;  width: 101%; height: 32p
 span.ui-slider-label { width: 100%; position: absolute;height: 32px;  font-size: 16px; text-align: center; line-height: 2; background: none; border-color: transparent; }
 span.ui-slider-label-a { left: -100%;  margin-right: -1px }
 span.ui-slider-label-b { right: -100%;  margin-left: -1px }
-
