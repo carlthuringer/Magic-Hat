@@ -61,7 +61,7 @@ describe UsersController do
 
     it "should have an email field" do
       get :new
-      response.should have_selector("input[name='user[email]'][type='text']")
+      response.should have_selector("input[name='user[email]'][type='email']")
     end
 
     it "should have a password field" do
