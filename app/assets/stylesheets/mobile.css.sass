@@ -101,3 +101,33 @@ li
   margin: .3em .3em
   width: auto
 
+// DEFAULT VIEW, HIDE SECONDARY
+.secondary
+  .goals, .settings
+    display: none
+
+// 2-COLUMN VIEW
+@media all and (min-width: 670px)
+  .goals, .tasks
+    .ui-li
+      padding-right: 15px
+    input.ui-input-text, textarea.ui-input-text
+      width: 95%
+    input.ui-slider-input
+      width: 15%
+    div.ui-slider
+      width: 70%
+    label.ui-input-text, label.ui-input-slider
+      width: auto
+      display: block
+  .secondary
+    float: left
+    width: 320px
+    margin-right: 15px
+    .goals, .settings
+      display: block
+  .primary
+    float: left
+    width: 320px
+    .goals, .settings
+      display: none

@@ -1,0 +1,6 @@
+- current_goal ||= nil
+%ul.goals{ :data => { :role => "listview", :inset => 'true',
+  'split-icon' => 'gear' } }
+  = render goals, :current_goal => current_goal
+  %li{ :data => { :theme => 'b', :icon => 'plus' } }
+    = link_to "Add Goal", new_goal_path, :data => { :ajax => 'false' }

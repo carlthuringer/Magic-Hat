@@ -31,6 +31,8 @@ class GoalsController < ApplicationController
 
   def show
     @goal = Goal.find params[:id]
+    @goals = current_user.active_goals
+    @history = current_user.history
     @title = @goal.title
     @tasks = @goal.tasks
     @incomplete_tasks = @goal.incomplete_tasks

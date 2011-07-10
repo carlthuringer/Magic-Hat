@@ -1,7 +1,8 @@
+-# TODO Clean up this crap so we don't do multiple queries.
 - tasks = goal.tasks
 - incomplete_tasks = goal.incomplete_tasks
 - complete_tasks = goal.complete_tasks
-%li.goal
+%li.goal{ :data => { :theme => "#{ goal == current_goal ? 'a' : ''}" } }
   = link_to goal do
     %h3= goal.title
     %p.ui-li-desc.ui-li-count= goal.incomplete_tasks.count
