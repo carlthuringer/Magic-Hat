@@ -7,9 +7,13 @@
 
     %link{ 'href' => 'http://fonts.googleapis.com/css?family=Crimson+Text:regular,regularitalic,bolditalic', 'rel' => 'stylesheet', 'type' => 'text/css' }
     = csrf_meta_tag
-    %meta{ 'name' => 'viewport', 'content' => 'width=device-width, initial-scale= 1.0, user-scalable = no'}
+    -# Mobile viewport optimization http://goo.gl/b9SaQ
+    %meta{ 'name' => "HandheldFriendly", 'content' => "True" }
+    %meta{ 'name' => "MobileOptimized", 'content' => "320" }
+    %meta{ 'name' => "viewport", 'content' => "width=device-width, minimum-scale=1, maximum-scale=1" }
+
+    %link{ 'rel' => "apple-touch-icon-precomposed", 'href' => 'magic_hat_rough.png' }
     %meta{ 'name' => 'apple-mobile-web-app-capable', 'content' => 'yes' }
-    %link{ 'rel' => "apple-touch-icon", 'href' => 'images/magic_hat_rough.png' }
   %body
     %div{ :data => { :role => "page" } }
       = yield
