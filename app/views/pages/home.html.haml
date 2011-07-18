@@ -1,9 +1,10 @@
-= render 'layouts/header', :right_button => { :text => "Log in",
-  :path => signin_path, :options => { 'data-transition' => 'slide',
-  'data-theme' => 'b'} }, :left_button => nil
-%div{:data => { :role => "content" } } 
-  #elevator-pitch
-    :textile
-      Magic Hat is a tool that helps you get things done. More than a task manager, it helps you *develop* good habits, *monitor* your performance, and *perform* no matter where you are.
-  = link_to "Sign up now!", signup_path, 'data-role' => 'button',
-    'data-theme' => 'b'
+%div{ :data => { :role => "page" } }
+  = render 'layouts/header', :right_button => { :text => "Log in",
+    :path => signin_path, :options => { 'data-transition' => 'slide',
+    'data-theme' => 'b'} }, :left_button => nil
+  %div{:data => { :role => "content" } } 
+    #elevator-pitch
+      :textile
+        Magic Hat is a tool that helps you get things done. More than a task manager, it helps you *develop* good habits, *monitor* your performance, and *perform* no matter where you are.
+    = link_to "Sign up now!", signup_path, 'data-role' => 'button',
+      'data-theme' => 'b'

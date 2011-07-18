@@ -1,31 +1,32 @@
-= render 'layouts/header', :right_button => nil, :left_button => nil
-%div{ :data => { :role => 'content' } }
-  %div.secondary
-    #statistics.ui-corner-all.ui-shadow.ui-btn-up-c
-      %span#stats-grid-plus-minus
-        = link_to "+", "#", :id => "expand-stats-grid", 'data-role' => 'button',
-          'data-icon' => 'plus', 'data-iconpos' => 'notext'
-      = render :partial => 'stats_grid', :locals => { :history => @history }
-    = render 'dash_goals', :goals => @goals
-    = render 'dash_settings'
-  %div.primary
-    = render 'layouts/flash', :flash => flash
-    - if current_user.goals.count == 0
-      #tutorial
-        :textile
-          Welcome to *Magic Hat*. The next step is to create your first goal.
-      = link_to "Add goal", new_goal_path, :data => { :role => "button", :icon => "plus",
-        :theme => 'b' }
-    - else
-      - unless @important_tasks.empty?
-        %ul.tasks{ :data => { :role => "listview", :inset => 'true',
-          'split-icon' => 'gear' } }
-          - current_date = nil
-          - @important_tasks.each do |task|
-            - if task.deadline?
-              - if (current_date == nil) || (current_date != task.deadline.to_s(:date))
-                %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
-                - current_date = task.deadline.to_s(:date)
-            = render :partial => 'tasks/task', :locals => { :task => task }
+%div{ :data => { :role => "page" } }
+  = render 'layouts/header', :right_button => nil, :left_button => nil
+  %div{ :data => { :role => 'content' } }
+    %div.secondary
+      #statistics.ui-corner-all.ui-shadow.ui-btn-up-c
+        %span#stats-grid-plus-minus
+          = link_to "+", "#", :id => "expand-stats-grid", 'data-role' => 'button',
+            'data-icon' => 'plus', 'data-iconpos' => 'notext'
+        = render :partial => 'stats_grid', :locals => { :history => @history }
       = render 'dash_goals', :goals => @goals
-    = render 'dash_settings'
+      = render 'dash_settings'
+    %div.primary
+      = render 'layouts/flash', :flash => flash
+      - if current_user.goals.count == 0
+        #tutorial
+          :textile
+            Welcome to *Magic Hat*. The next step is to create your first goal.
+        = link_to "Add goal", new_goal_path, :data => { :role => "button", :icon => "plus",
+          :theme => 'b' }
+      - else
+        - unless @important_tasks.empty?
+          %ul.tasks{ :data => { :role => "listview", :inset => 'true',
+            'split-icon' => 'gear' } }
+            - current_date = nil
+            - @important_tasks.each do |task|
+              - if task.deadline?
+                - if (current_date == nil) || (current_date != task.deadline.to_s(:date))
+                  %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
+                  - current_date = task.deadline.to_s(:date)
+              = render :partial => 'tasks/task', :locals => { :task => task }
+        = render 'dash_goals', :goals => @goals
+      = render 'dash_settings'

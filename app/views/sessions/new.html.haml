@@ -1,19 +1,20 @@
-= render 'layouts/header', :right_button => nil,
-  :left_button => { :text => "Back",
-  :path => root_path, :options => { 'data-icon' => 'arrow-l',
-  'data-transition' => 'slide', 'data-direction' => 'reverse' } }
-= render 'layouts/flash', :flash => flash
+%div{ :data => { :role => "page" } }
+  = render 'layouts/header', :right_button => nil,
+    :left_button => { :text => "Back",
+    :path => root_path, :options => { 'data-icon' => 'arrow-l',
+    'data-transition' => 'slide', 'data-direction' => 'reverse' } }
+  = render 'layouts/flash', :flash => flash
 
-= form_for(:session, :url => sessions_path) do |f|
-  %div.field
-    = f.label :email
-    = f.email_field :email
-  %div.field
-    = f.label :password
-    = f.password_field :password
-  %div.actions
-    = f.submit "Sign in"
+  = form_for(:session, :url => sessions_path) do |f|
+    %div.field
+      = f.label :email
+      = f.email_field :email
+    %div.field
+      = f.label :password
+      = f.password_field :password
+    %div.actions
+      = f.submit "Sign in"
 
-%p
-  New User? 
-  = link_to "Sign up now!", signup_path
+  %p
+    New User? 
+    = link_to "Sign up now!", signup_path

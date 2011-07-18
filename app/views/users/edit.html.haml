@@ -1,20 +1,21 @@
-= render 'layouts/header',
-  :right_button => nil,
-  :left_button => { :text => "Back",
-    :path => dashboard_path,
-    :options => { 'data-icon' => 'arrow-l',
-      'data-transition' => 'slide',
-      'data-direction' => 'reverse' } }
-%div{ :data => { :role => "content" } }
-  %ul{ :data => { :role => 'listview' } }
-    %li
-      = form_for @user do |f|
-        = render 'shared/error_messages', :object => f.object
-        .field
-          = f.label :email
-          = f.text_field :email
-        .field
-          = f.label :password
-          = f.text_field :password
-        .actions
-          = f.submit "Update"
+%div{ :data => { :role => "page" } }
+  = render 'layouts/header',
+    :right_button => nil,
+    :left_button => { :text => "Back",
+      :path => dashboard_path,
+      :options => { 'data-icon' => 'arrow-l',
+        'data-transition' => 'slide',
+        'data-direction' => 'reverse' } }
+  %div{ :data => { :role => "content" } }
+    %ul{ :data => { :role => 'listview' } }
+      %li
+        = form_for @user do |f|
+          = render 'shared/error_messages', :object => f.object
+          .field
+            = f.label :email
+            = f.text_field :email
+          .field
+            = f.label :password
+            = f.text_field :password
+          .actions
+            = f.submit "Update"

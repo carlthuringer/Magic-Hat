@@ -1,14 +1,15 @@
-= render 'layouts/header',
-  :right_button => nil,
-  :left_button => { :text => "Back",
-    :path => dashboard_path,
-    :options => { 'data-icon' => 'arrow-l',
-      'data-transition' => 'slide',
-      'data-direction' => 'reverse' } }
-%div{:data => { :role => "content" } }
-  %ul{ :data => { :role => "listview" }}
-    %li
-      = form_for @goal do |f|
-        = render :partial => "goal_fields", :locals => { :f => f }
-        %div.actions
-          = f.submit "Create", 'data-ajax' => 'false'
+%div{ :data => { :role => "page" } }
+  = render 'layouts/header',
+    :right_button => nil,
+    :left_button => { :text => "Back",
+      :path => dashboard_path,
+      :options => { 'data-icon' => 'arrow-l',
+        'data-transition' => 'slide',
+        'data-direction' => 'reverse' } }
+  %div{:data => { :role => "content" } }
+    %ul{ :data => { :role => "listview" }}
+      %li
+        = form_for @goal do |f|
+          = render :partial => "goal_fields", :locals => { :f => f }
+          %div.actions
+            = f.submit "Create", 'data-ajax' => 'false'

@@ -1,17 +1,18 @@
-= render 'layouts/header',
-  :right_button => nil,
-  :left_button => { :text => "Back",
-    :path => @goal,
-    :options => { 'data-icon' => 'arrow-l',
-      'data-transition' => 'flip',
-      'data-direction' => 'reverse' } }
-%div{:data => { :role => "content" } }
-  %div{ :data => { :role => 'content' } }
-    // TODO Set flip transition, or some other reverse transition method...
-    = form_for @goal, :data => { :transition => 'flip' } do |f|
-      = render :partial => "goal_fields", :locals => { :f => f }
-      %div.actions
-        = f.submit "Save Edit"
-        = link_to "Delete", @goal, :action => 'destroy', :id => @goal.id,
-          :confirm => "Delete this goal?", :method => :delete, :data => { :role => 'button',
-          :theme => 'f', :ajax => 'false' }
+%div{ :data => { :role => "page" } }
+  = render 'layouts/header',
+    :right_button => nil,
+    :left_button => { :text => "Back",
+      :path => @goal,
+      :options => { 'data-icon' => 'arrow-l',
+        'data-transition' => 'flip',
+        'data-direction' => 'reverse' } }
+  %div{:data => { :role => "content" } }
+    %div{ :data => { :role => 'content' } }
+      // TODO Set flip transition, or some other reverse transition method...
+      = form_for @goal, :data => { :transition => 'flip' } do |f|
+        = render :partial => "goal_fields", :locals => { :f => f }
+        %div.actions
+          = f.submit "Save Edit"
+          = link_to "Delete", @goal, :action => 'destroy', :id => @goal.id,
+            :confirm => "Delete this goal?", :method => :delete, :data => { :role => 'button',
+            :theme => 'f', :ajax => 'false' }

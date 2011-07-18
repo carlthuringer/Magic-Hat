@@ -1,8 +1,9 @@
-.profile{:summary => "Profile information"}
-  %h1
-    = link_to @user.name, @user
-  - if @user.empty_profile && @user == current_user
-    = link_to "Get started on your profile!", edit_user_path(@user), :id => "tutorial"
-  - else
-    - if @user == current_user
-      = link_to "Edit my profile", edit_user_path(@user)
+%div{ :data => { :role => "page" } }
+  .profile{:summary => "Profile information"}
+    %h1
+      = link_to @user.name, @user
+    - if @user.empty_profile && @user == current_user
+      = link_to "Get started on your profile!", edit_user_path(@user), :id => "tutorial"
+    - else
+      - if @user == current_user
+        = link_to "Edit my profile", edit_user_path(@user)
