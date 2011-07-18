@@ -22,7 +22,6 @@ group :production do
 end
 
 group :development do
-  gem 'annotate-models'
   gem 'awesome_print'
   gem 'metric_fu'
 end
