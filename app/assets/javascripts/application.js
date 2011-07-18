@@ -8,6 +8,5 @@
 // = require jquery_mobile
 // = require datepicker
 // = require mobile
-// = require habit_toggle
-// = require form_toggle
 // = require jquery.scroller-1.0.1
+
