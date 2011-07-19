@@ -36,4 +36,6 @@ end
 group :development, :test do
   gem 'faker'
   gem 'rspec-rails'
+  gem 'jasmine'
+  gem 'headless'
 end

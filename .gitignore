@@ -6,3 +6,4 @@ tmp/
 *.log*
 .sass-cache/
 database.yml
+spec/javascripts/generated/*
