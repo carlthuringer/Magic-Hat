@@ -1,4 +1,11 @@
 $('div').live 'pagecreate', (event, ui)->
+  # Mobiscroll
+  # http://code.google.com/p/mobiscroll/
+  $('#task_deadline_string').scroller(
+    preset: 'datetime',
+    dateFormat: 'yy-mm-dd'
+  )
+
   # Statistics toggle
   $('#statistics').height(70)
   uiIcon = $('#stats-grid-plus-minus a').children('span').children('.ui-icon')
