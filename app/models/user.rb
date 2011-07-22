@@ -38,6 +38,8 @@ class User < ActiveRecord::Base
   has_many :tasks, :through => :goals, :dependent => :destroy
   has_many :completions, :through => :tasks, :dependent => :destroy
 
+  has_and_belongs_to_many :groups
+
   # Return true if the user's submitted password matches the hashed one.
   def has_password?(submitted_password)
     # Compare encrypted password with the encrypted version of
@@ -103,5 +105,4 @@ class User < ActiveRecord::Base
   def secure_hash(string)
     Digest::SHA2.hexdigest(string)
   end
-
 end

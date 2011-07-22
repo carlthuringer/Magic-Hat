@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110619004856) do
+ActiveRecord::Schema.define(:version => 20110722000921) do
 
   create_table "completions", :force => true do |t|
     t.integer  "task_id"
@@ -32,6 +32,19 @@ ActiveRecord::Schema.define(:version => 20110619004856) do
 
   add_index "goals", ["id"], :name => "index_goals_on_id"
   add_index "goals", ["user_id"], :name => "index_goals_on_user_id"
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["id"], :name => "index_groups_on_id"
+
+  create_table "groups_users", :id => false, :force => true do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+  end
 
   create_table "tasks", :force => true do |t|
     t.string   "description"
