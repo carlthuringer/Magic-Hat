@@ -20,7 +20,7 @@ hideStatsGrid = (statsGrid) ->
 showHideStatsGrid = (statsGrid) ->
   statsGrid.toggle( showStatsGrid(), hideStatsGrid() )
 
-setupStatsGrid = ->
+window.setupStatsGrid = ->
   # Initial height of stats grid container
   $('#statistics').height(70)
   # Hide all rows, then show the last one
