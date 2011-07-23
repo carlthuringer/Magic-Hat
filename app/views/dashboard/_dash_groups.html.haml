@@ -1,0 +1,6 @@
+- current_group ||= nil
+%ul.groups{ :data => { :role => "listview", :inset => 'true',
+  'split-icon' => 'gear' } }
+  = render groups, :current_group => current_group
+  %li{ :data => { :theme => 'b', :icon => 'plus' } }
+    = link_to "Add Group", new_group_path, :data => { :ajax => 'false' }

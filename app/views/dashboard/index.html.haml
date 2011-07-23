@@ -7,6 +7,7 @@
           = link_to "+", "#", :id => "expand-stats-grid", 'data-role' => 'button',
             'data-icon' => 'plus', 'data-iconpos' => 'notext'
         = render :partial => 'stats_grid', :locals => { :history => @history }
+      = render 'dash_groups', :groups => @groups
       = render 'dash_goals', :goals => @goals
       = render 'dash_settings'
     %div.primary
@@ -28,5 +29,6 @@
                   %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
                   - current_date = task.deadline.to_s(:date)
               = render :partial => 'tasks/task', :locals => { :task => task }
+        = render 'dash_groups', :groups => @groups
         = render 'dash_goals', :goals => @goals
       = render 'dash_settings'

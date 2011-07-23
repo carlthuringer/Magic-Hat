@@ -1,0 +1,35 @@
+%div{ :data => { :role => "page" } }
+  = render 'layouts/header', :right_button => { :text => "Edit",
+    :path => edit_group_path(@group), :options => { 'data-icon' => 'gear',
+    'data-transition' => 'flip' } }, :left_button => { :text => "Dashboard",
+    :path => dashboard_path, :options => { 'data-icon' => 'arrow-l',
+    'data-transition' => 'slide', 'data-direction' => 'reverse',
+    'data-ajax' => 'false' } }
+  %div.group-view{ :data => { :role => 'content' } }
+    %div.secondary
+      #statistics.ui-corner-all.ui-shadow.ui-btn-up-c
+        %span#stats-grid-plus-minus
+          = link_to "+", "#", :id => "expand-stats-grid", 'data-role' => 'button',
+            'data-icon' => 'plus', 'data-iconpos' => 'notext'
+        = render :partial => 'dashboard/stats_grid', :locals => { :history => @history }
+      = render 'dashboard/dash_groups', :groups => @groups, :current_goal => @group
+      = render 'dashboard/dash_settings'
+    %div.primary
+      = render 'layouts/flash', :flash => flash
+      %h3= @group.name
+      %ul{ :data => { :role => 'listview', :inset => 'true', 'split-icon' => 'gear' } }
+        -# - unless @tasks.empty?
+        -#   - current_date = nil
+        -#   - @incomplete_tasks.each do |task|
+        -#     - if task.deadline?
+        -#       - if (current_date == nil) || (current_date != task.deadline.to_s(:date))
+        -#         %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
+        -#         - current_date = task.deadline.to_s(:date)
+        -#     = render :partial => 'tasks/task', :locals => { :task => task }
+        -#   = render :partial => 'tasks/task', :collection => @complete_tasks
+        -#   %li{ :data => { :theme => 'b', :icon => 'plus' } }
+        -#     = link_to "Add Task", new_task_path(:group_id => @group), :data => { :ajax => 'false' }
+        -# - else
+        -#   %li There are no tasks yet.
+        -#   %li{ :data => { :theme => 'b', :icon => 'plus' } }
+        -#     = link_to "Create a new Task", new_task_path(:group_id => @group), :data => { :ajax => 'false' }
