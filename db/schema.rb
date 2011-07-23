@@ -37,9 +37,8 @@ ActiveRecord::Schema.define(:version => 20110722000921) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "default"
   end
-
-  add_index "groups", ["id"], :name => "index_groups_on_id"
 
   create_table "groups_users", :id => false, :force => true do |t|
     t.integer "group_id"
