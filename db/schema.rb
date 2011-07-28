@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110722000921) do
+ActiveRecord::Schema.define(:version => 20110728021903) do
 
   create_table "completions", :force => true do |t|
     t.integer  "task_id"
@@ -38,6 +38,14 @@ ActiveRecord::Schema.define(:version => 20110722000921) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "default"
+  end
+
+  create_table "invitations", :force => true do |t|
+    t.integer  "group_id"
+    t.string   "user_email"
+    t.string   "secure_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "memberships", :force => true do |t|

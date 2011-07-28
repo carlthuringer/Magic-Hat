@@ -2,7 +2,9 @@ MagicHat::Application.routes.draw do
   root :to => 'pages#home'
   resources :users, except: :index
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :groups
+  resources :groups do
+    resources :invitations
+  end
   resources :goals, :except => :index
 
 
