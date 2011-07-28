@@ -6,7 +6,7 @@ class CreateGroupsAndHabtmTables < ActiveRecord::Migration
       g.boolean :default
     end
 
-    create_table :groups_users, :id => false do |ug|
+    create_table :memberships do |ug|
       ug.integer :group_id
       ug.integer :user_id
     end

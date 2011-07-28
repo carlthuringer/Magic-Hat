@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20110722000921) do
     t.boolean  "default"
   end
 
-  create_table "groups_users", :id => false, :force => true do |t|
+  create_table "memberships", :force => true do |t|
     t.integer "group_id"
     t.integer "user_id"
   end

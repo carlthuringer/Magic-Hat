@@ -147,38 +147,6 @@ describe GoalsController do
     end
   end
 
-  describe "PUT 'shelving'" do
-    before :each do
-      @user = Factory :user
-      @goal = Factory(:goal, :user => @user)
-    end
-
-    describe "failure" do
-      it "should redirect unauthorized users silently" do
-        unauthorized_user = test_sign_in Factory(:user)
-        put :shelving, :id => @goal
-        response.should redirect_to root_path
-      end
-    end
-
-    describe "success" do
-
-      before :each do
-        test_sign_in @user
-        put :shelving, :id => @goal
-      end
-
-      it "should change the goal's shelved status to true" do
-        @goal.reload
-        @goal.shelved.should be_true
-      end
-
-      it "should display an appropriate flash message" do
-        flash[:success] =~ /shelved/i
-      end
-    end
-  end
-
   describe "DELETE 'destroy'" do
 
     describe "for an unauthorized user" do

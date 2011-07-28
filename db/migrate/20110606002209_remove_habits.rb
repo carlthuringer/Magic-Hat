@@ -1,7 +1,6 @@
 class RemoveHabits < ActiveRecord::Migration
   def self.up
     drop_table :habits
-    remove_column :tasks, :habit_id
     add_column :tasks, :schedule_yaml, :string
   end
 

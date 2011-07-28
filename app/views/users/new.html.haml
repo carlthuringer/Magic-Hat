@@ -16,6 +16,9 @@
       = render 'shared/error_messages', :object => f.object
       -# = render :partial =>  "fields", :locals => { :f => f }
       .field
+        = f.label :name
+        = f.text_field :name, :placeholder => "Your Name"
+      .field
         = f.label :email
         = f.email_field :email, :placeholder => "you@youremail.com"
       .field

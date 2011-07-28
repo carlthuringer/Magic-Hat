@@ -1,0 +1,18 @@
+-# TODO Clean up this crap so we don't do multiple queries.
+-# - tasks = group.tasks
+-# - incomplete_tasks = group.incomplete_tasks
+%li.group{ :data => { :theme => "#{ group == current_group ? 'a' : ''}" } }
+  = link_to group do
+    %h3= group.name
+    -# %p.ui-li-desc.ui-li-count= group.incomplete_tasks.count
+    -# %p.ui-li-desc= group.description
+  = link_to "Edit", '#', 'data-transition' => 'slidedown',
+    :id => "form-reveal-button"
+%li.group-form{ :id => "form_for_group_#{ group.id }" }
+  = form_for group do |f|
+    = render 'groups/group_fields', :f => f
+    .actions
+      = f.submit "Save"
+      = link_to "Delete", group, :action => 'destroy', :id => group.id,
+          :confirm => "Delete this group?", :method => :delete, :data => { :role => 'button',
+          :theme => 'f', :ajax => 'false' }

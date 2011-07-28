@@ -33,8 +33,10 @@ formToggleInitialize = ->
   # Initialize by hiding all the forms
   $('.task-form').hide()
   $('.goal-form').hide()
+  $('.group-form').hide()
   setupRevealer('.task')
   setupRevealer('.goal')
+  setupRevealer('.group')
 
 setupRevealer = (targetClass) ->
   $("#{targetClass} a#form-reveal-button").click (event)->

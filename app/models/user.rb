@@ -38,7 +38,8 @@ class User < ActiveRecord::Base
   has_many :tasks, :through => :goals, :dependent => :destroy
   has_many :completions, :through => :tasks, :dependent => :destroy
 
-  has_and_belongs_to_many :groups
+  has_many :memberships
+  has_many :groups, :through => :memberships
 
   # Return true if the user's submitted password matches the hashed one.
   def has_password?(submitted_password)
