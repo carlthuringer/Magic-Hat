@@ -1,0 +1,14 @@
+-# Provide this view with a collection of invitations
+%div{ :data => { :role => "page" } }
+  = render 'layouts/header', :right_button => nil,
+    :left_button => { :text => "Dashboard",
+    :path => dashboard_path, :options => { 'data-icon' => 'arrow-l',
+    'data-transition' => 'slide', 'data-direction' => 'reverse',
+    'data-ajax' => 'false' } }
+  %div.invitation-view{ :data => { :role => 'content' } }
+    %ul{ :data => { :role => 'listview', 'split-icon' => 'delete' } }
+      - @invitations.each do |invitation|
+        %li.invitation
+          %a{ href: "#" } Accept Invitation to "#{ invitation.group.name }"
+          %p.ui-li-aside= time_ago_in_words(invitation.created_at) + " ago"
+          %a{ href: "#" } Delete Invitation

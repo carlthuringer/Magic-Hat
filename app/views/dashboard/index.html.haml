@@ -8,6 +8,7 @@
             'data-icon' => 'plus', 'data-iconpos' => 'notext'
         = render :partial => 'stats_grid', :locals => { :history => @history }
       = render 'dash_groups', :groups => @groups
+      = render 'invitation_count', :invitations => @invitations
       = render 'dash_goals', :goals => @goals
       = render 'dash_settings'
     %div.primary

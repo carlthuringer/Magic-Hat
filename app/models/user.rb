@@ -40,6 +40,7 @@ class User < ActiveRecord::Base
 
   has_many :memberships
   has_many :groups, :through => :memberships
+  has_many :invitations, :through => :groups
 
   # Return true if the user's submitted password matches the hashed one.
   def has_password?(submitted_password)

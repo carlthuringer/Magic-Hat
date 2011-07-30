@@ -1,0 +1,12 @@
+-# Provide this view with a collection of invitations
+- if invitations
+  %ul.invitations{ data: { role: 'listview', inset: 'true' } }
+    %li
+      %h3 Pending Invitations
+      %p.ui-li-desc.ui-li-count= invitations.count
+      %ul{ :data => { :role => 'listview', 'split-icon' => 'delete', :rel => 'dialog' } }
+        - invitations.each do |invitation|
+          %li.invitation
+            %a{ href: "#" } Accept Invitation to #{ invitation.group.title }
+            %p.ui-li-aside= time_ago_in_words(invitation.created_at) + " ago"
+            %a{ href: "#" } Delete Invitation

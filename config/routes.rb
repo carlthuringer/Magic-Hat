@@ -5,6 +5,8 @@ MagicHat::Application.routes.draw do
   resources :groups do
     resources :invitations
   end
+
+  match 'invitations' => 'invitations#list_invitations_addressed_to_me', :via => 'GET', :as => 'list_invitations_addressed_to_me'
   resources :goals, :except => :index
 
 

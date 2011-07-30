@@ -34,19 +34,16 @@
         -#   %li{ :data => { :theme => 'b', :icon => 'plus' } }
         -#     = link_to "Create a new Task", new_task_path(:group_id => @group), :data => { :ajax => 'false' }
         - if @group.invitations
-          %li
-            %h3 Pending Invitations
-            %p.ui-li-desc.ui-li-count= @group.invitations.count
-            %ul{ :data => { :role => 'listview', 'split-icon' => 'delete' } }
-              - @group.invitations.each do |invitation|
-                %li.invitation
-                  %a{ href: "#" } Re-send Invitation to #{ invitation.user_email }
-                  %p.ui-li-aside= time_ago_in_words(invitation.created_at) + " ago"
-                  %a{ href: "#" } Delete Invitation
-
-
-
-
-
+          %ul.invitations{ data: { role: 'listview', inset: 'true' } }
+            %li
+              %h3 Pending Invitations
+              %p.ui-li-desc.ui-li-count= @group.invitations.count
+              %ul{ :data => { :role => 'listview', 'split-icon' => 'delete' } }
+                - @group.invitations.each do |invitation|
+                  %li.invitation
+                    %a{ href: "#" } Re-send Invitation to #{ invitation.user_email }
+                    %p.ui-li-aside= time_ago_in_words(invitation.created_at) + " ago"
+                    %a{ href: "#" } Delete Invitation
         %li{ :data => { :theme => 'b', :icon => 'plus' } }
-          = link_to "Invite User to Group", new_group_invitation_path(:group_id => @group), :data => { :ajax => 'false' }
+          = link_to "Invite User to Group",
+            new_group_invitation_path(:group_id => @group)

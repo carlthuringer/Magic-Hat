@@ -14,4 +14,8 @@ class InvitationsController < ApplicationController
       render :new
     end
   end
+
+  def list_invitations_addressed_to_me
+    @invitations = Invitation.where user_email: current_user.email
+  end
 end
