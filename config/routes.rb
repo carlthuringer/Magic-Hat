@@ -3,7 +3,11 @@ MagicHat::Application.routes.draw do
   resources :users, except: :index
   resources :sessions, :only => [:new, :create, :destroy]
   resources :groups do
-    resources :invitations
+    resources :invitations do
+      member do
+        post :accept
+      end
+    end
   end
 
   match 'invitations' => 'invitations#list_invitations_addressed_to_me', :via => 'GET', :as => 'list_invitations_addressed_to_me'

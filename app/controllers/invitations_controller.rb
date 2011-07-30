@@ -18,4 +18,16 @@ class InvitationsController < ApplicationController
   def list_invitations_addressed_to_me
     @invitations = Invitation.where user_email: current_user.email
   end
+
+  def accept
+    invitation = Invitation.find params[:id]
+    Membership.create! group_id: params[:group_id], user_id: current_user.id
+
+    invitation.destroy
+    unless current_user.invitations_addressed_to_me.empty?
+      redirect_to list_invitations_addressed_to_me_path
+    else
+      redirect_to dashboard_path
+    end
+  end
 end

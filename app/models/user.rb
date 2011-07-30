@@ -89,6 +89,10 @@ class User < ActiveRecord::Base
     return history.reverse!
   end
 
+  def invitations_addressed_to_me
+    Invitation.where user_email: email
+  end
+
   private
 
   def encrypt_password

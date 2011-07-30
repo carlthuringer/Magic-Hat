@@ -9,6 +9,6 @@
     %ul{ :data => { :role => 'listview', 'split-icon' => 'delete' } }
       - @invitations.each do |invitation|
         %li.invitation
-          %a{ href: "#" } Accept Invitation to "#{ invitation.group.name }"
           %p.ui-li-aside= time_ago_in_words(invitation.created_at) + " ago"
+          =link_to "Accept Invitation to \"#{ invitation.group.name }\"", accept_group_invitation_path(invitation.group_id, invitation), method: 'POST'
           %a{ href: "#" } Delete Invitation
