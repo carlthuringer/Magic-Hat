@@ -37,6 +37,16 @@ MagicHat::Application.configure do
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
+  config.action_mailer.smtp_settings = {
+    :address        => "smtp.sendgrid.net",
+    :port           => "25",
+    :authentication => :plain,
+    :user_name      => ENV['SENDGRID_USERNAME'],
+    :password       => ENV['SENDGRID_PASSWORD'],
+    :domain         => ENV['SENDGRID_DOMAIN']
+  }
+
+
   # Enable threaded mode
   # config.threadsafe!
 
@@ -52,4 +62,6 @@ MagicHat::Application.configure do
   # TODO probably possible to put this back later? Disabled because it doesn't
   # work in 3.1 RC4 on Heroku
   # config.assets.css_compressor = :scss
+  #
+
 end
