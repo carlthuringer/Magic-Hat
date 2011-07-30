@@ -9,6 +9,7 @@ class InvitationsController < ApplicationController
     invitation = Invitation.new params[:invitation]
     if invitation.save
       flash[:success] = "Invite sent!"
+      InvitationMailer.send_message(invitation).deliver
       redirect_to invitation.group
     else
       render :new
