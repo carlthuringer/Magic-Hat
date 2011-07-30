@@ -17,6 +17,9 @@ gem 'schedule_atts'
 gem 'thin'
 gem 'uglifier'
 
+# XXX Sprockets Beta 12 is fscked?
+gem 'sprockets', "=2.0.0.beta.10"
+
 group :production do
   gem 'therubyracer-heroku', '0.8.1.pre3'
 end
