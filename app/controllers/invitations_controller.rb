@@ -1,8 +1,10 @@
 class InvitationsController < ApplicationController
+  before_filter :authenticate
+  before_filter :authorized_user, :except => [ :list_invitations_addressed_to_me,
+                                               :accept ]
 
   def new
-    group = Group.find params[:group_id]
-    @invitation = group.invitations.build
+    @invitation = @group.invitations.build
   end
 
   def create
@@ -22,13 +24,23 @@ class InvitationsController < ApplicationController
 
   def accept
     invitation = Invitation.find params[:id]
-    Membership.create! group_id: params[:group_id], user_id: current_user.id
+    if(invitation.user_email == current_user.email &&
+       params[:secure_token] == invitation.secure_token)
+      Membership.create! group_id: params[:group_id], user_id: current_user.id
+      invitation.destroy
+    end
 
-    invitation.destroy
     unless current_user.invitations_addressed_to_me.empty?
       redirect_to list_invitations_addressed_to_me_path
     else
       redirect_to dashboard_path
     end
+  end
+
+  private
+
+  def authorized_user
+    @group = Group.find params[:group_id]
+    redirect_to root_path unless current_user.groups.include? @group
   end
 end

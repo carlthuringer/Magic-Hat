@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_filter :authenticate
+  before_filter :authorized_user, :only => :update
 
   def new
     @title = "New Group"
@@ -32,5 +33,12 @@ class GroupsController < ApplicationController
     @group = Group.find params[:id]
     @groups = current_user.groups
     @history = current_user.history
+  end
+
+  private
+
+  def authorized_user
+    @group = Group.find(params[:id])
+    redirect_to root_path unless current_user.groups.include? @group
   end
 end

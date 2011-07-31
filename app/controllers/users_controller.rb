@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate, :except => [:show, :new, :create]
-  before_filter :correct_user, :only => [:edit, :update]
+  before_filter :authorized_user, :only => [:edit, :update]
   before_filter :admin_user, :only => :destroy
 
   def new
@@ -67,7 +67,7 @@ class UsersController < ApplicationController
 
   private
 
-  def correct_user
+  def authorized_user
     @user = User.find params[:id]
     redirect_to root_path unless current_user? @user
   end
