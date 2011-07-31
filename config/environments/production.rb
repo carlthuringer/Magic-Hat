@@ -46,6 +46,10 @@ MagicHat::Application.configure do
     :domain         => ENV['SENDGRID_DOMAIN']
   }
 
+  config.action_mailer.default_url_options = {
+    host: "magic-hat.dev"
+  }
+
 
   # Enable threaded mode
   # config.threadsafe!

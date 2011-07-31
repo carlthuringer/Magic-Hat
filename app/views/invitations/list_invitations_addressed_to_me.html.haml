@@ -10,5 +10,5 @@
       - @invitations.each do |invitation|
         %li.invitation
           %p.ui-li-aside= time_ago_in_words(invitation.created_at) + " ago"
-          =link_to "Accept Invitation to \"#{ invitation.group.name }\"", accept_group_invitation_path(invitation.group_id, invitation, { :secure_token => invitation.secure_token }), method: 'POST'
+          =link_to "Accept Invitation to \"#{ invitation.group.name }\"", accept_group_invitation_path(invitation.group_id, invitation, { :secure_token => invitation.secure_token })
           %a{ href: "#" } Delete Invitation

@@ -5,7 +5,7 @@ MagicHat::Application.routes.draw do
   resources :groups do
     resources :invitations do
       member do
-        post :accept
+        get :accept
       end
     end
   end

@@ -31,7 +31,7 @@ class UsersController < ApplicationController
     elsif @user.save
       sign_in @user
       flash[:success] = "Account Created!"
-      redirect_to dashboard_path
+      redirect_back_or dashboard_path
     else
       @title = "Sign up"
       @user.password = ''

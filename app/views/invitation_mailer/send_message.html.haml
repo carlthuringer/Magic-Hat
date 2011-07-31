@@ -6,4 +6,5 @@
     %h1 Magic Hat Group Invitation
     %p You have been invited to join the group #{@group.name} on Magic Hat.
     %p Complete tasks from anywhere, and now team up with your friends or organization as you get things done.
-    =link_to "Click here to accept.", '#'
+    =link_to "Click here to accept.", accept_group_invitation_url(@invitation.group_id, @invitation, { :secure_token => @invitation.secure_token })
+
