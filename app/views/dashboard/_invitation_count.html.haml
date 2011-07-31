@@ -1,6 +1,6 @@
 -# Provide this view with a collection of invitations
-%ul.invitations{ data: { role: 'listview', inset: 'true' } }
-  %li
-    - if invitations
+- unless invitations.empty?
+  %ul.invitations{ data: { role: 'listview', inset: 'true' } }
+    %li
       %p.ui-li-desc.ui-li-count= invitations.count
       =link_to 'Pending Invitations', list_invitations_addressed_to_me_path

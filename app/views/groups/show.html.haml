@@ -41,9 +41,9 @@
               %ul{ :data => { :role => 'listview', 'split-icon' => 'delete' } }
                 - @group.invitations.each do |invitation|
                   %li.invitation
-                    %a{ href: "#" } Re-send Invitation to #{ invitation.user_email }
                     %p.ui-li-aside= time_ago_in_words(invitation.created_at) + " ago"
-                    %a{ href: "#" } Delete Invitation
+                    = link_to "Re-send Invitation to #{ invitation.user_email }", resend_group_invitation_path(@group, invitation), :method => 'POST'
+                    = link_to "Delete Invitation", group_invitation_path(@group, invitation), :method => "DELETE"
         %li{ :data => { :theme => 'b', :icon => 'plus' } }
           = link_to "Invite User to Group",
             new_group_invitation_path(:group_id => @group)

@@ -6,6 +6,8 @@ MagicHat::Application.routes.draw do
     resources :invitations do
       member do
         get :accept
+        post :resend
+        delete :destroy
       end
     end
   end

@@ -10,13 +10,30 @@ class InvitationsController < ApplicationController
   def create
     invitation = Invitation.new params[:invitation].
                  merge(secure_token: SecureRandom.base64(10))
-    if invitation.save
-      flash[:success] = "Invite sent!"
-      InvitationMailer.send_message(invitation).deliver
-      redirect_to invitation.group
+    if Invitation.where(user_email: invitation.user_email,
+                        group_id: invitation.group_id).
+                  empty? or not
+             User.find_by_email(invitation.user_email).
+                  groups.
+                  include?(invitation.group)
+      if invitation.save
+        flash[:success] = "Invite sent!"
+        InvitationMailer.send_message(invitation).deliver
+        redirect_to invitation.group
+      else
+        render :new
+      end
     else
-      render :new
+      flash[:success] = "Invite sent!"
+      redirect_to invitation.group
     end
+  end
+
+  def resend
+    invitation = Invitation.find params[:id]
+    InvitationMailer.send_message(invitation).deliver
+    flash[:success] = "Invite re-sent!"
+    redirect_to invitation.group
   end
 
   def list_invitations_addressed_to_me
@@ -36,6 +53,14 @@ class InvitationsController < ApplicationController
     else
       redirect_to dashboard_path
     end
+  end
+
+  def destroy
+    invitation = Invitation.find params[:id]
+    group = Group.find params[:group_id]
+    invitation.destroy
+    flash[:success] = "Invitation deleted!"
+    redirect_to group
   end
 
   private
