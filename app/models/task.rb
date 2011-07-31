@@ -1,19 +1,3 @@
-# == Schema Information
-# Schema version: 20110604231631
-#
-# Table name: tasks
-#
-#  id          :integer         not null, primary key
-#  description :string(255)
-#  goal_id     :integer
-#  created_at  :datetime
-#  updated_at  :datetime
-#  complete    :datetime
-#  deadline    :datetime
-#  kind        :string(255)     default("plain")
-#  habit_id    :integer
-#
-
 class Task < ActiveRecord::Base
   include ScheduleAttributes
 
