@@ -8,7 +8,8 @@ class InvitationsController < ApplicationController
   end
 
   def create
-    invitation = Invitation.new params[:invitation]
+    invitation = Invitation.new params[:invitation].
+                 merge(secure_token: SecureRandom.base64(10))
     if invitation.save
       flash[:success] = "Invite sent!"
       InvitationMailer.send_message(invitation).deliver
