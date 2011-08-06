@@ -56,7 +56,7 @@ describe User do
       @goal = Factory(:goal, :user => @user)
       @tasks = []
       5.times do
-        @tasks << Factory(:task, :goal => @goal)
+        @tasks << Factory(:task, :user => @user)
       end
 
       @tasks[0..1].each do |task|
@@ -79,7 +79,7 @@ describe User do
 
     it "should calculate a rounded velocity average based on tasks per week, versus the past three weeks." do
       5.times do
-        @tasks << Factory(:task, :goal => @goal)
+        @tasks << Factory(:task, :user => @user)
       end
 
       @tasks.each do |task|
@@ -215,7 +215,7 @@ describe User do
     before :each do
       @user = Factory :user
       @goal = Factory(:goal, :user => @user)
-      @task = Factory(:task, :goal => @goal)
+      @task = Factory(:task, :user => @user)
     end
 
     it "should discover its own tasks through its association" do
@@ -228,7 +228,7 @@ describe User do
     before :each do
       @user = Factory :user
       @goal = Factory :goal, :user => @user
-      @task = Factory :task, :goal => @goal
+      @task = Factory :task, :user => @user
       @task.mark_complete
     end
 
@@ -266,7 +266,7 @@ describe User do
     end
 
     it "should show the habit when its completion is old" do
-      @habit = Factory :task, :goal => @goal
+      @habit = Factory :task, :user => @user
       @habit.mark_complete
       @habit.toggle_habit
       @user.reload

@@ -5,7 +5,7 @@ describe Task do
   before :each do
     @user = Factory :user
     @goal = Factory(:goal, :user => @user)
-    @task = Factory(:task, :goal => @goal)
+    @task = Factory(:task, :user => @user)
   end
 
   it "should create a new instance given valid attributes" do
@@ -39,7 +39,7 @@ describe Task do
   describe "deadline_string" do
 
     before :each do
-      @task = Factory(:task, :goal => @goal)
+      @task = Factory(:task, :user => @user)
     end
     it "uses Chronic to parse a common-language time" do
       @task.deadline_string = "in two weeks"

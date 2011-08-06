@@ -8,8 +8,10 @@ class InvitationsController < ApplicationController
   end
 
   def create
+    # XXX Move to a method on the model
     invitation = Invitation.new params[:invitation].
                  merge(secure_token: SecureRandom.base64(10))
+    # XXX Move to a method on the model
     if Invitation.where(user_email: invitation.user_email,
                         group_id: invitation.group_id).
                   empty? or not
