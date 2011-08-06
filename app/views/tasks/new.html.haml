@@ -2,18 +2,17 @@
   = render 'layouts/header',
     :right_button => nil,
     :left_button => { :text => "Back",
-      :path => @goal,
+      :path => root_path,
       :options => { 'data-icon' => 'arrow-l',
         'data-transition' => 'slide',
         'data-direction' => 'reverse' } }
   %div{ :data => { :role => "content" } }
-    %h2 New task for #{@goal.title}
+    %h2 New task
     %ul{ :data => { :role => "listview" }}
       %li.new-task-form
         = form_for @task do |f|
           = render 'task_fields', :f => f
           = render 'habit_fields', :f => f, :task => @task
-          .field
-          = f.hidden_field :goal_id
+          = f.hidden_field :group_id, :value => @group_id
           .actions
-            = f.submit "Save", :goal_id => @goal.id
+            = f.submit "Save"

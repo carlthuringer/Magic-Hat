@@ -15,7 +15,7 @@ FactoryGirl.define do
 
   factory :task do
     description "My task description"
-    association :goal
+    association :user
   end
 
   factory :habit, :class => :task do

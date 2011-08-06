@@ -4,31 +4,32 @@ class TasksController < ApplicationController
 
   def new
     @title = "New Task"
-    @goal = Goal.find params[:goal_id]
-    @task = @goal.tasks.build(:goal_id => @goal.id)
+    @group_id = params[:group_id]
+    @task = current_user.tasks.build group_id: params[:group_id]
   end
 
   def create
-    @goal = Goal.find params[:task][:goal_id]
-    @task = @goal.tasks.build params[:task]
+    @task = current_user.tasks.build params[:task]
     @task.description = params[:task][:description]
     @task.deadline_string=params[:task][:deadline_string]
 
-    if params[:task][:schedule_attributes]["start_date(1i)"]
-      params[:task][:schedule_attributes][:start_date] =
-        Date.civil(params[:task][:schedule_attributes]["start_date(1i)"].to_i,
-                   params[:task][:schedule_attributes]["start_date(2i)"].to_i,
-                   params[:task][:schedule_attributes]["start_date(3i)"].to_i).to_s
+    if params[:task][:schedule_attributes]
+      if params[:task][:schedule_attributes]["start_date(1i)"]
+        params[:task][:schedule_attributes][:start_date] =
+          Date.civil(params[:task][:schedule_attributes]["start_date(1i)"].to_i,
+                     params[:task][:schedule_attributes]["start_date(2i)"].to_i,
+                     params[:task][:schedule_attributes]["start_date(3i)"].to_i).to_s
+      end
+      if params[:task][:schedule_attributes][:repeat] == "1"
+        @task.schedule_attributes = params[:task][:schedule_attributes]
+      else
+        @task.schedule_yaml = nil
+      end
     end
 
-    if params[:task][:schedule_attributes][:repeat] == "1"
-      @task.schedule_attributes = params[:task][:schedule_attributes]
-    else
-      @task.schedule_yaml = nil
-    end
 
     if @task.save
-      redirect_to @goal
+      redirect_to root_path
     else
       @title = "New Task"
       render :new

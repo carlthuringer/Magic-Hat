@@ -19,9 +19,6 @@ describe TasksController do
       response.should have_selector('title', :content => "Magic Hat | New Task")
     end
 
-    it "should have a heading that indicates what goal the task is assigned to" do
-      response.should contain(@goal.title)
-    end
 
     it "should have a form with the right fields" do
       response.should have_selector('input', :id => "task_description")

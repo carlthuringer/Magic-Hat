@@ -18,21 +18,22 @@
       = render 'layouts/flash', :flash => flash
       %h3= @group.name
       %ul{ :data => { :role => 'listview', :inset => 'true', 'split-icon' => 'gear' } }
-        -# - unless @tasks.empty?
-        -#   - current_date = nil
-        -#   - @incomplete_tasks.each do |task|
-        -#     - if task.deadline?
-        -#       - if (current_date == nil) || (current_date != task.deadline.to_s(:date))
-        -#         %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
-        -#         - current_date = task.deadline.to_s(:date)
-        -#     = render :partial => 'tasks/task', :locals => { :task => task }
-        -#   = render :partial => 'tasks/task', :collection => @complete_tasks
-        -#   %li{ :data => { :theme => 'b', :icon => 'plus' } }
-        -#     = link_to "Add Task", new_task_path(:group_id => @group), :data => { :ajax => 'false' }
-        -# - else
-        -#   %li There are no tasks yet.
-        -#   %li{ :data => { :theme => 'b', :icon => 'plus' } }
-        -#     = link_to "Create a new Task", new_task_path(:group_id => @group), :data => { :ajax => 'false' }
+        - unless @tasks.empty?
+          - current_date = nil
+          - @incomplete_tasks.each do |task|
+            - if task.deadline?
+              - if (current_date == nil) || (current_date != task.deadline.to_s(:date))
+                %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
+                - current_date = task.deadline.to_s(:date)
+            = render :partial => 'tasks/task', :locals => { :task => task }
+          = render :partial => 'tasks/task', :collection => @complete_tasks
+          %li{ :data => { :theme => 'b', :icon => 'plus' } }
+            = link_to "Add Task", new_task_path(:group_id => @group), :data => { :ajax => 'false' }
+        - else
+          %li There are no tasks yet.
+          %li{ :data => { :theme => 'b', :icon => 'plus' } }
+            = link_to "Create a new Task", new_task_path(:group_id => @group), :data => { :ajax => 'false' }
+      %ul{ :data => { :role => 'listview', :inset => 'true', 'split-icon' => 'gear' } }
         - if @group.invitations
           %ul.invitations{ data: { role: 'listview', inset: 'true' } }
             %li

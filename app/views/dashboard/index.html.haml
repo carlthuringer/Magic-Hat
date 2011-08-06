@@ -7,6 +7,13 @@
           = link_to "+", "#", :id => "expand-stats-grid", 'data-role' => 'button',
             'data-icon' => 'plus', 'data-iconpos' => 'notext'
         = render :partial => 'stats_grid', :locals => { :history => @history }
+
+      %ul{ :data => { :role => 'listview', :inset => 'true' } }
+        %li.new-task-form
+          = form_for @task do |f|
+            = f.text_field :description
+            .actions
+              = f.submit "Add Task"
       = render 'dash_groups', :groups => @groups
       = render 'invitation_count', :invitations => @invitations
       = render 'dash_goals', :goals => @goals

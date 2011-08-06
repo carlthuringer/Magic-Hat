@@ -9,5 +9,6 @@ class DashboardController < ApplicationController
     @important_tasks = current_user.important_tasks
     @history = current_user.history
     @invitations = Invitation.where user_email: current_user.email
+    @task = current_user.tasks.build
   end
 end

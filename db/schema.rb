@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110728021903) do
+ActiveRecord::Schema.define(:version => 20110731220502) do
 
   create_table "completions", :force => true do |t|
     t.integer  "task_id"
@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(:version => 20110728021903) do
     t.datetime "deadline"
     t.string   "kind",          :default => "plain"
     t.text     "schedule_yaml"
+    t.integer  "group_id"
+    t.integer  "user_id"
   end
 
   add_index "tasks", ["goal_id"], :name => "index_tasks_on_goal_id"

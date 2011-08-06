@@ -32,6 +32,10 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find params[:id]
     @groups = current_user.groups
+    @incomplete_tasks = @group.incomplete_tasks
+    @complete_tasks = @group.complete_tasks
+    @tasks = @group.tasks
+
     @history = current_user.history
   end
 

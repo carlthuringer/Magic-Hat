@@ -1,18 +1,19 @@
 class Task < ActiveRecord::Base
   include ScheduleAttributes
 
-  attr_accessible :description, :deadline, :schedule_yaml
+  attr_accessible :schedule_attributes, :description, :group_id, :user_id
 
   validates :description, :presence => true,
     :length => { :minimum => 5 }
   validate :deadline_string_no_errors
 
   belongs_to :goal
+  belongs_to :group
+  belongs_to :user
   has_many :completions
 
   def owned_by?(user)
-    goal = Goal.find self.goal_id
-    owner = User.find goal.user_id
+    owner = User.find user_id
     owner == user
   end
 

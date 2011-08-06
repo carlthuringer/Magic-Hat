@@ -1,8 +1,8 @@
 class Invitation < ActiveRecord::Base
-  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  validates :email, :presence   => true,
-                    :format     => { :with => email_regex }
+  validates :user_email, :presence   => true,
+                    :format     => { :with => EMAIL_REGEX }
 
   belongs_to :group
 

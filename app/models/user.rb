@@ -1,19 +1,3 @@
-# == Schema Information
-# Schema version: 20110604231631
-#
-# Table name: users
-#
-#  id                 :integer         not null, primary key
-#  name               :string(255)
-#  email              :string(255)
-#  encrypted_password :string(255)
-#  salt               :string(255)
-#  admin              :boolean
-#  created_at         :datetime
-#  updated_at         :datetime
-#  habit_id           :integer
-#
-
 require 'digest'
 
 class User < ActiveRecord::Base
@@ -35,7 +19,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
 
   has_many :goals, :dependent => :destroy
-  has_many :tasks, :through => :goals, :dependent => :destroy
+  has_many :tasks
   has_many :completions, :through => :tasks, :dependent => :destroy
 
   has_many :memberships
