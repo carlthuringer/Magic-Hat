@@ -20,15 +20,6 @@ class GoalsController < ApplicationController
     end
   end
 
-  def index
-    @title = "Dashboard"
-    @goals = current_user.goals.all
-    @goal_tasks = []
-    @goals.each do |goal|
-      @goal_tasks << [goal, goal.tasks.all]
-    end
-  end
-
   def show
     @goal = Goal.find params[:id]
     @goals = current_user.active_goals
@@ -53,13 +44,6 @@ class GoalsController < ApplicationController
       @title = "Edit Goal"
       render 'edit'
     end
-  end
-
-  def shelving
-    goal = Goal.find params[:id]
-    goal.toggle :shelved
-    goal.save
-    redirect_to dashboard_path
   end
 
   def destroy

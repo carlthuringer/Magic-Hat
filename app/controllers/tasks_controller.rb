@@ -5,28 +5,13 @@ class TasksController < ApplicationController
   def new
     @title = "New Task"
     @group_id = params[:group_id]
-    @task = current_user.tasks.build group_id: params[:group_id]
+    @task = current_user.tasks.build group_id: @group_id
   end
 
   def create
     @task = current_user.tasks.build params[:task]
-    @task.description = params[:task][:description]
-    @task.deadline_string=params[:task][:deadline_string]
 
-    if params[:task][:schedule_attributes]
-      if params[:task][:schedule_attributes]["start_date(1i)"]
-        params[:task][:schedule_attributes][:start_date] =
-          Date.civil(params[:task][:schedule_attributes]["start_date(1i)"].to_i,
-                     params[:task][:schedule_attributes]["start_date(2i)"].to_i,
-                     params[:task][:schedule_attributes]["start_date(3i)"].to_i).to_s
-      end
-      if params[:task][:schedule_attributes][:repeat] == "1"
-        @task.schedule_attributes = params[:task][:schedule_attributes]
-      else
-        @task.schedule_yaml = nil
-      end
-    end
-
+    parse_schedule_atts_start_date
 
     if @task.save
       redirect_to root_path
@@ -39,56 +24,20 @@ class TasksController < ApplicationController
   def edit
     @title = "Edit Task"
     @task = Task.find params[:id]
-    @goal = Goal.find @task.goal_id
   end
 
   def update
     @task = Task.find params[:id]
-    @goal = Goal.find @task.goal_id
-    @task.description = params[:task][:description]
-    @task.deadline_string=params[:task][:deadline_string]
 
-    if params[:task][:schedule_attributes]["start_date(1i)"]
-      params[:task][:schedule_attributes][:start_date] =
-        Date.civil(params[:task][:schedule_attributes]["start_date(1i)"].to_i,
-                   params[:task][:schedule_attributes]["start_date(2i)"].to_i,
-                   params[:task][:schedule_attributes]["start_date(3i)"].to_i).to_s
-    end
+    parse_schedule_atts_start_date
 
-    if params[:task][:schedule_attributes][:repeat] == "1"
-      @task.schedule_attributes = params[:task][:schedule_attributes]
-    else
-      @task.schedule_yaml = nil
-    end
-    if @task.save
+    if @task.update_attributes(params[:task])
       flash[:success] = "Task Updated!"
-      redirect_to @goal
+      redirect_to root_path
     else
       @title = "Edit Task"
       render :edit
     end
-  end
-
-  def complete
-    current_user.tasks.each do |task|
-      # Because the array of task IDs is returned as a string and we're
-      # doing an include? to compare that array's items against an integer
-      # id we have to convert the task ID to a string or else it won't match.
-      if params[:ids]
-        unless params[:ids].include?(task.id.to_s)
-          task.clear_complete
-        end
-      else
-        task.clear_complete
-      end
-    end
-    if params[:ids]
-      Task.find(params[:ids]).each do |task|
-        task.mark_complete
-      end
-    end
-
-    redirect_to dashboard_path
   end
 
   def complete_toggle
@@ -106,9 +55,8 @@ class TasksController < ApplicationController
 
   def destroy
     @task = Task.find params[:id]
-    @goal = Goal.find @task.goal_id
     @task.destroy
-    redirect_to @goal
+    redirect_to dashboard_path
   end
 
   private
@@ -124,4 +72,16 @@ class TasksController < ApplicationController
       redirect_back_or dashboard_path unless task.owned_by? current_user
     end
   end
- end
+
+  def parse_schedule_atts_start_date
+    if params[:task][:schedule_attributes]
+      if params[:task][:schedule_attributes]["start_date(1i)"]
+        params[:task][:schedule_attributes][:start_date] =
+          Date.civil(params[:task][:schedule_attributes]["start_date(1i)"].to_i,
+                     params[:task][:schedule_attributes]["start_date(2i)"].to_i,
+                     params[:task][:schedule_attributes]["start_date(3i)"].to_i).to_s
+      end
+    end
+  end
+end
+

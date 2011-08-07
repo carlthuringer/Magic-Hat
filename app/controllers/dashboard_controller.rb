@@ -8,7 +8,7 @@ class DashboardController < ApplicationController
     @groups = current_user.groups
     @important_tasks = current_user.important_tasks
     @history = current_user.history
-    @invitations = Invitation.where user_email: current_user.email
+    @invitations = Invitation.where(:user_email => current_user.email)
     @task = current_user.tasks.build
   end
 end

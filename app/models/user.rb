@@ -48,8 +48,9 @@ class User < ActiveRecord::Base
   end
 
   def important_tasks
-    tasks.order("deadline ASC").select {|task| task.incomplete_or_habit? }
+    tasks.order("updated_at DESC").select {|task| task.incomplete_or_habit? }
   end
+
 
   def velocity
     three_week_total = completions.where(:time => (3.weeks.ago)..(Time.now)).count

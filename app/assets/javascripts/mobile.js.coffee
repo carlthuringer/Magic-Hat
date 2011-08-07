@@ -53,6 +53,7 @@ habitToggleInitialize = ->
   # Because of something that jQuery Mobile does we have to manually sync the hidden
   # field with the checkbox.
   initialCheckboxSync()
+  hideAndShowOnChanges()
 
 initialCheckboxSync = ->
   # Iterate over all task schedule repeat elements. The offending checkboxes.

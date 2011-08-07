@@ -26,17 +26,16 @@
             Welcome to *Magic Hat*. The next step is to create your first goal.
         = link_to "Add goal", new_goal_path, :data => { :role => "button", :icon => "plus",
           :theme => 'b' }
-      - else
-        - unless @important_tasks.empty?
-          %ul.tasks{ :data => { :role => "listview", :inset => 'true',
-            'split-icon' => 'gear' } }
-            - current_date = nil
-            - @important_tasks.each do |task|
-              - if task.deadline?
-                - if (current_date == nil) || (current_date != task.deadline.to_s(:date))
-                  %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
-                  - current_date = task.deadline.to_s(:date)
-              = render :partial => 'tasks/task', :locals => { :task => task }
+      - unless @important_tasks.empty?
+        %ul.tasks{ :data => { :role => "listview", :inset => 'true',
+          'split-icon' => 'gear' } }
+          - current_date = nil
+          - @important_tasks.each do |task|
+            - if task.deadline?
+              - if (current_date == nil) || (current_date != task.deadline.to_s(:date))
+                %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
+                - current_date = task.deadline.to_s(:date)
+            = render :partial => 'tasks/task', :locals => { :task => task }
         = render 'dash_groups', :groups => @groups
         = render 'dash_goals', :goals => @goals
       = render 'dash_settings'

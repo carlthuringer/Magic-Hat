@@ -1,7 +1,9 @@
 class Task < ActiveRecord::Base
   include ScheduleAttributes
 
-  attr_accessible :schedule_attributes, :description, :group_id, :user_id
+  attr_accessible :schedule_yaml, :description, :group_id,
+    :user_id, :deadline_string, :schedule_attributes
+
 
   validates :description, :presence => true,
     :length => { :minimum => 5 }
@@ -80,6 +82,7 @@ class Task < ActiveRecord::Base
   def deadline_string_no_errors
     errors.add(:deadline_string, "Is Invalid") if @deadline_invalid
   end
+
 
 end
 
