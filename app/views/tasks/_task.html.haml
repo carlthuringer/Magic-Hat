@@ -2,6 +2,9 @@
   = link_to complete_toggle_task_path(task), 'data-ajax' => 'false', :remote => true, :method => :put do
     %span.check-box
     = task.description
+    - if task.group
+      %p.ui-li-aside= task.group.name
+      %div.clearfix
     %p.ui-li-aside= task.deadline.to_s(:time) if task.deadline?
   = link_to "Edit", '#', :class => "form_for_task_#{ task.id }",
     :id => "form-reveal-button"

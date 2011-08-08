@@ -11,7 +11,7 @@ class Group < ActiveRecord::Base
   validates_presence_of :name
 
   def incomplete_tasks
-    tasks.order(["deadline ASC", "updated_at DESC"]).select {|task| task.incomplete_or_habit?}
+    tasks.order(["deadline DESC", "updated_at DESC"]).select {|task| task.incomplete_or_habit?}
   end
 
   def complete_tasks

@@ -16,16 +16,14 @@
               = f.submit "Add Task"
       = render 'dash_groups', :groups => @groups
       = render 'invitation_count', :invitations => @invitations
-      = render 'dash_goals', :goals => @goals
       = render 'dash_settings'
     %div.primary
       = render 'layouts/flash', :flash => flash
       - if current_user.goals.count == 0
         #tutorial
           :textile
-            Welcome to *Magic Hat*. The next step is to create your first goal.
-        = link_to "Add goal", new_goal_path, :data => { :role => "button", :icon => "plus",
-          :theme => 'b' }
+            Welcome to *Magic Hat*. The next step is to create your first task.
+            Just use the form and click 'Add Task!'
       - unless @important_tasks.empty?
         %ul.tasks{ :data => { :role => "listview", :inset => 'true',
           'split-icon' => 'gear' } }

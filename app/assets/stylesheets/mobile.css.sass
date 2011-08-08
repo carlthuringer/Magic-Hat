@@ -95,12 +95,19 @@ li
     white-space: initial
 
 .task.ui-li-has-alt .ui-btn-inner a.ui-link-inherit
-  padding-right: 47px
+  padding-right: 45px
 
 .task .ui-li-aside
   margin: .3em .3em
   width: auto
+  clear: right
 
+.secondary .new-task-form
+  padding-right: 15px
+  input
+    width: 95%
+.clearfix
+  clear: both
 // DEFAULT VIEW, HIDE SECONDARY
 .secondary
   .goals, .settings
@@ -109,8 +116,6 @@ li
 // 2-COLUMN VIEW
 @media all and (min-width: 670px)
   .goals, .tasks
-    .ui-li
-      padding-right: 15px
     input.ui-input-text, textarea.ui-input-text
       width: 95%
     input.ui-slider-input
@@ -129,14 +134,15 @@ li
   .primary
     float: left
     width: 320px
-    .goals, .settings
+    .goals, .settings, .groups
       display: none
 @media all and (min-width: 1005px)
   .tasks
     position: relative
     .task-form
-      left: 320px
+      left: 686px
       width: 320px
-      top: 32px
-      position: absolute
+      top: 72px
+      position: fixed
       display: block
+

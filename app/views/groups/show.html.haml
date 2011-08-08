@@ -12,12 +12,12 @@
           = link_to "+", "#", :id => "expand-stats-grid", 'data-role' => 'button',
             'data-icon' => 'plus', 'data-iconpos' => 'notext'
         = render :partial => 'dashboard/stats_grid', :locals => { :history => @history }
-      = render 'dashboard/dash_groups', :groups => @groups, :current_goal => @group
+      = render 'dashboard/dash_groups', :groups => @groups, :current_group => @group
       = render 'dashboard/dash_settings'
     %div.primary
       = render 'layouts/flash', :flash => flash
       %h3= @group.name
-      %ul{ :data => { :role => 'listview', :inset => 'true', 'split-icon' => 'gear' } }
+      %ul.tasks{ :data => { :role => 'listview', :inset => 'true', 'split-icon' => 'gear' } }
         - unless @tasks.empty?
           - current_date = nil
           - @incomplete_tasks.each do |task|
@@ -34,6 +34,15 @@
           %li{ :data => { :theme => 'b', :icon => 'plus' } }
             = link_to "Create a new Task", new_task_path(:group_id => @group), :data => { :ajax => 'false' }
       %ul{ :data => { :role => 'listview', :inset => 'true', 'split-icon' => 'gear' } }
+        - if @group.users
+          %ul.memberships{ data: { role: 'listview', inset: 'true' } }
+            %li
+              %h3 Users in this group
+              %p.ui-li-desc.ui-li-count= @group.users.count
+              %ul{ :data => { :role => 'listview', 'split-icon' => 'delete' } }
+                - @group.users.each do |user|
+                  %li.users
+                    = link_to "Remove User: #{user.name}", remove_group_member_path(@group, user), :method => "DELETE"
         - if @group.invitations
           %ul.invitations{ data: { role: 'listview', inset: 'true' } }
             %li

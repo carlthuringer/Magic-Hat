@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   has_many :goals, :dependent => :destroy
   has_many :tasks
+  has_many :group_tasks, :through => :groups, :source => :tasks
   has_many :completions, :through => :tasks, :dependent => :destroy
 
   has_many :memberships
@@ -48,7 +49,11 @@ class User < ActiveRecord::Base
   end
 
   def important_tasks
-    tasks.order("updated_at DESC").select {|task| task.incomplete_or_habit? }
+    (tasks + group_tasks).uniq.select{|task| task.incomplete_or_habit? }.sort{|a,b| b.updated_at <=> a.updated_at }
+  end
+
+  def important_group_tasks
+    group_tasks.order("updated_at DESC").select {|task| task.incomplete_or_habit? }
   end
 
 

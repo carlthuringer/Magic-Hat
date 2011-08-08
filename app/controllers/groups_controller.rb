@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_filter :authenticate
-  before_filter :authorized_user, :only => :update
+  before_filter :authorized_user, :only => [:update, :remove_member]
 
   def new
     @title = "New Group"
@@ -37,6 +37,12 @@ class GroupsController < ApplicationController
     @tasks = @group.tasks
 
     @history = current_user.history
+  end
+
+  def remove_member
+    membership = @group.memberships.where(:user_id => params[:user_id])
+    @group.memberships.destroy(membership)
+    redirect_to @group
   end
 
   private

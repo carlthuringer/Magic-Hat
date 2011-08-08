@@ -44,7 +44,7 @@ describe "Tasks" do
 
       it "should reload the page and show an error message" do
         within ".tasks" do
-          fill_in "task_description", :with => "IT SHOULD CREATE THE TASK"
+          fill_in "task_description", :with => ""
           click_button "Save"
         end
         response.should have_selector('div.error')

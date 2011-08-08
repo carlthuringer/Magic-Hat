@@ -75,7 +75,7 @@ class TasksController < ApplicationController
 
   def parse_schedule_atts_start_date
     atts = params[:task][:schedule_attributes]
-    if atts[:repeat] == "1"
+    if atts && atts[:repeat] == "1"
       atts[:start_date] =
         Date.civil(atts["start_date(1i)"].to_i,
                    atts["start_date(2i)"].to_i,

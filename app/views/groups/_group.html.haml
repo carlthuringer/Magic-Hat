@@ -4,8 +4,7 @@
 %li.group{ :data => { :theme => "#{ group == current_group ? 'a' : ''}" } }
   = link_to group do
     %h3= group.name
-    -# %p.ui-li-desc.ui-li-count= group.incomplete_tasks.count
-    -# %p.ui-li-desc= group.description
+    %p.ui-li-desc.ui-li-count= group.incomplete_tasks.count
   = link_to "Edit", '#', 'data-transition' => 'slidedown',
     :id => "form-reveal-button"
 %li.group-form{ :id => "form_for_group_#{ group.id }" }

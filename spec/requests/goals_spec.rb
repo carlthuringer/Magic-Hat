@@ -65,6 +65,7 @@ describe "Goals" do
 
     describe "failure" do
       it "should not save the goal and report an error" do
+        pending "Goals being removed"
         click_link "Edit"
         fill_in "Description", :with => ""
         click_button
@@ -75,6 +76,7 @@ describe "Goals" do
 
     describe "success" do
       it "should save the goal" do
+        pending "Goals being removed"
         within 'li.goal' do |scope|
           scope.click_link "Edit"
         end
