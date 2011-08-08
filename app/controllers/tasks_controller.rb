@@ -74,13 +74,16 @@ class TasksController < ApplicationController
   end
 
   def parse_schedule_atts_start_date
-    if params[:task][:schedule_attributes]
-      if params[:task][:schedule_attributes]["start_date(1i)"]
-        params[:task][:schedule_attributes][:start_date] =
-          Date.civil(params[:task][:schedule_attributes]["start_date(1i)"].to_i,
-                     params[:task][:schedule_attributes]["start_date(2i)"].to_i,
-                     params[:task][:schedule_attributes]["start_date(3i)"].to_i).to_s
-      end
+    atts = params[:task][:schedule_attributes]
+    if atts[:repeat] == "1"
+      atts[:start_date] =
+        Date.civil(atts["start_date(1i)"].to_i,
+                   atts["start_date(2i)"].to_i,
+                   atts["start_date(3i)"].to_i).to_s
+      params[:task][:schedule_attributes] = atts
+    else
+      params[:task].delete(:schedule_attributes)
+      params[:task][:schedule_yaml] = nil
     end
   end
 end
