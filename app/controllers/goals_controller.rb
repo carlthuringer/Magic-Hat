@@ -1,6 +1,6 @@
 class GoalsController < ApplicationController
   before_filter :authenticate
-  before_filter :authorized_user, :only => [:destroy, :update, :shelving]
+  before_filter :authorized_user, :only => [:destroy, :update]
 
   def new
     @title = "New Goal"

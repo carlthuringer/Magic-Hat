@@ -1,67 +1,79 @@
 require 'spec_helper'
 
 describe SessionsController do
-  render_views
 
-  describe "GET 'new'" do
+  describe "#new" do
+
+    it "should set the title" do
+      get :new
+      assigns(:title).should_not be_blank
+    end
 
     it "should be successful" do
       get :new
       response.should be_success
     end
+  end
 
-    it "should have the right title" do
-      get :new
-      response.should have_selector("title", :content => "Sign in")
+  describe "successful #create" do
+
+    before do
+      @user = mock(User).as_null_object
+      User.stub(:authenticate).and_return(@user)
+      @user.stub(:nil?).and_return(false)
+    end
+
+    it "Delegates authentication to the User model" do
+      auth_params = { 'email' => 'foo',
+                      'password' => 'bar'}
+      User.should_receive(:authenticate).with('foo', 'bar')
+      post :create, :session => auth_params
+    end
+
+    it "signs in the user" do
+      controller.should_receive(:sign_in).with(@user)
+      post :create, :session => {}
+    end
+
+    it "redirects to the dashboard" do
+      post :create, :session => {}
+      response.should redirect_to dashboard_path
     end
   end
 
-  describe "POST 'create'" do
+  describe "failed #create" do
 
-    before :each do
-      @attr = { :email => "email@example.com", :password => "invalid" }
+    before do
+      @user = mock(User).as_null_object
+      User.stub(:authenticate).and_return(@user)
+      @user.stub(:nil?).and_return(true)
     end
 
-    it "should re-render the new page" do
-      post :create, :session => @attr
-      response.should render_template('new')
+    it "sets a flash message" do
+      post :create, :session => {}
+      flash[:error].should_not be_empty
     end
 
-    it "should have the right title" do
-      post :create, :session => @attr
-      response.should have_selector("title", :content => "Sign in")
+    it "sets the title" do
+      post :create, :session => {}
+      assigns(:title).should_not be_empty
     end
 
-    it "should have the flash.now message" do
-      post :create, :session => @attr
-      flash.now[:error].should =~ /invalid/i
-    end
-
-    describe "with valid email and password" do
-
-      before :each do
-        @user = Factory :user
-        @attr = { :email => @user.email, :password => @user.password }
-      end
-
-      it "should sign the user in" do
-        post :create, :session => @attr
-        controller.current_user.should == @user
-        controller.should be_signed_in
-      end
-
-      it "should redirect to the dashboard page" do
-        post :create, :session => @attr
-        response.should redirect_to dashboard_path
-      end
+    it "renders the new user template" do
+      post :create, :session => {}
+      response.should render_template :new
     end
   end
 
-  describe "DELETE 'destroy'" do
-    it "should sign a user out" do
-      test_sign_in Factory :user
-      delete :destroy
-      controller.should_not be_signed_in
+  describe "#destroy" do
+
+    it "should sign the user out" do
+      controller.should_receive(:sign_out)
+      delete :destroy, :id => 1
+    end
+
+    it "redirects to the root path" do
+      delete :destroy, :id => 1
       response.should redirect_to root_path
     end
   end

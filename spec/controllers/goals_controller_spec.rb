@@ -53,7 +53,7 @@ describe GoalsController do
     end
   end
 
-  context "Authenticated user" do
+  context "Authenticated and Authorized user" do
 
     before do
       @user = mock(User).as_null_object

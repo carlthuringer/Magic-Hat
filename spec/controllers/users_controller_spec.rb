@@ -1,280 +1,221 @@
 require 'spec_helper'
 
 describe UsersController do
-  render_views
 
-  describe "GET 'show'" do
+  context "for unauthenticated users" do
 
-    before :each do
-      @user = Factory :user
+    before do
+      controller.stub(:authenticate).and_return(false)
     end
 
-    describe "displayed user is not signed in user or no user signed in" do
+    context "who are unauthorized" do
 
-      before :each do
-        get :show, :id => @user
+      before do
+        User.stub(:find).and_return( @found_user = mock(User).as_null_object)
+        controller.stub(:current_user?).and_return(false)
       end
 
-      it "should be successful" do
-        response.should be_success
+      describe "#new" do
+
+        it "Instantiates a user" do
+          User.should_receive(:new)
+          get :new
+        end
+
+        it "assigns user" do
+          User.stub(:new).and_return(user = mock(User))
+          get :new
+          assigns(:user).should == user
+        end
       end
 
-      it "should find the right user" do
-        assigns(:user).should == @user
+      describe "Successful #create" do
+
+        before do
+          @atts = {"foo" => "bar"}
+          User.stub(:new).and_return(@user = mock(User).as_null_object)
+        end
+
+        it "Instantiates a user with the parameters" do
+          User.should_receive(:new).with(@atts)
+          post :create, :user => @atts
+        end
+
+        it "saves the user" do
+          @user.should_receive(:save)
+          post :create, :user => @atts
+        end
+
+        it "signs the user in" do
+          controller.should_receive(:sign_in).with(@user)
+          post :create, :user => @atts
+        end
+
+        it "sets the flash message" do
+          post :create, :user => @atts
+          flash[:success].should_not be_empty
+        end
+
+        it "redirects to the dashboard" do
+          post :create, :user => @atts
+          response.should redirect_to dashboard_path
+        end
       end
 
-      it "should have the right title" do
-        response.should have_selector("title", :content => @user.name)
+      describe "failed #create" do
+
+        before do
+          @atts = {"foo" => "bar"}
+          User.stub(:new).and_return(@user = mock(User).as_null_object)
+          @user.stub(:save).and_return(false)
+        end
+
+        it "assigns the title" do
+          post :create, :user => @atts
+          assigns(:title).should_not be_empty
+        end
+
+        it "blanks the password if any" do
+          #XXX This is probably not a valid test...
+          @user.should_receive(:password=).with('')
+          post :create, :user => @atts
+        end
+
+        it "renders the new user template" do
+          post :create, :user => @atts
+          response.should render_template :new
+        end
       end
 
-      it "should include the user's name" do
-        response.should have_selector("h1", :content => @user.name)
+      describe "#edit" do
+
+        it "redirects to the dashboard" do
+          get :edit, :id => 1
+          response.should redirect_to root_path
+        end
       end
 
-      it "should not have an edit link" do
-        response.should_not have_selector('a', :href => edit_user_path(@user))
-      end
-    end
+      describe "#update" do
 
-    describe "displayed user is signed in" do
-
-      it "should have an edit link" do
-        test_sign_in @user
-        get :show, :id => @user
-        response.should have_selector('a', :href => edit_user_path(@user))
-      end
-
-    end
-  end
-
-  describe "GET 'new'" do
-
-    it "should be successful" do
-      get :new
-      response.should be_success
-    end
-
-    it "should have the right title" do
-      get :new
-      response.should have_selector("title", :content => "Sign up")
-    end
-
-    it "should have an email field" do
-      get :new
-      response.should have_selector("input[name='user[email]'][type='email']")
-    end
-
-    it "should have a password field" do
-      get :new
-      response.should have_selector("input[name='user[password]'][type='password']")
-    end
-  end
-
-  describe "POST 'create'" do
-
-    describe "failure" do
-
-      before :each do
-        @attr = { :name => '', :email => '', :password => '', :password_confirmation => '' }
-      end
-
-      it "should not create a user" do
-        lambda do
-          post :create, :user => @attr
-        end.should_not change(User, :count)
-      end
-
-      it "should have the right title" do
-        post :create, :user => @attr
-        response.should have_selector("title", :content => "Sign up")
-      end
-
-      it "should render the 'new' page" do
-        post :create, :user => @attr
-        response.should render_template('new')
-      end
-    end
-
-    describe "success" do
-
-      before :each do
-        @attr = { :name => "New User", :email => "user@example.com", :password => "foobar",
-                  :password_confirmation => "foobar" }
-      end
-
-      it "should sign the user in" do
-        post :create, :user => @attr
-        controller.should be_signed_in
-      end
-
-      it "should create a user" do
-        lambda do
-          post :create, :user => @attr
-        end.should change(User, :count).by(1)
-      end
-
-      it "should redirect to the dashboard" do
-        post :create, :user => @attr
-        response.should redirect_to(dashboard_path)
-      end
-
-      it "should have a welcome message" do
-        post :create, :user => @attr
-        flash[:success].should =~ /account created/i
+        it "redirects to the dashboard" do
+          get :edit, :id => 1
+          response.should redirect_to root_path
+        end
       end
     end
   end
 
-  describe "GET 'edit'" do
+  context "For authenticated users" do
 
-    before :each do
-      @user = Factory :user
-      test_sign_in(@user)
+    before do
+      @current_user = mock(User).as_null_object
+      controller.stub(:current_user).and_return(@current_user)
     end
 
-    it "should be successful" do
-      get :edit, :id => @user
-      response.should be_success
-    end
+    describe "#new" do
 
-    it "should have the right title" do
-      get :edit, :id => @user
-      response.should have_selector('title', :content => "Edit user")
-    end
-  end
-
-  describe "PUT 'edit'" do
-
-    before :each do
-      @user = Factory :user
-      test_sign_in @user
-    end
-
-    describe "failure" do
-
-      before :each do
-        @attr = { :email => "", :name => "", :password => "",
-                  :password_confirmation => "" }
-      end
-
-      it "should render the edit page" do
-        put :update, :id => @user, :user => @attr
-        response.should render_template 'edit'
-      end
-
-      it "should have the right title" do
-        put :update, :id => @user, :user => @attr
-        response.should have_selector('title', :content => "Edit user")
-      end
-    end
-
-    describe "success" do
-
-      before :each do
-        @attr = { :name => "New Name", :email => "newemail@example.org",
-                  :password => "barbaz", :password_confirmation => "barbaz" }
-      end
-
-      it "should change the user's attributes" do
-        put :update, :id => @user, :user => @attr
-        @user.reload
-        @user.name.should == @attr[:name]
-        @user.email.should == @attr[:email]
-      end
-
-      it "should redirect to the user show page" do
-        put :update, :id => @user, :user => @attr
-        response.should redirect_to user_path @user
-      end
-
-      it "should have a flash message" do
-        put :update, :id => @user, :user => @attr
-        flash[:success].should =~ /updated/i
-      end
-    end
-  end
-
-  describe "authentication of edit/update pages" do
-
-    before :each do
-      @user = Factory :user
-    end
-
-    describe "for non-signed-in users" do
-
-      it "should deny access to 'edit'" do
-        get :edit, :id => @user
-        response.should redirect_to signin_path
-      end
-
-      it "should deny access to 'update'" do
-        put :update, :id => @user
-        response.should redirect_to signin_path
-      end
-    end
-
-    describe "for signed-in users" do
-
-      before :each do
-        wrong_user = Factory(:user, :email => "wronguser@wakkawakka.co.jp")
-        test_sign_in wrong_user
-      end
-
-      it "should require matching users for 'edit'" do
-        get :edit, :id => @user
-        response.should redirect_to root_path
-      end
-
-      it "should require matching users for 'update'" do
-        put :update, :id => @user, :user => {}
-        response.should redirect_to root_path
-      end
-    end
-  end
-
-  describe "DELETE 'destroy'" do
-
-    before :each do
-      @user = Factory :user
-    end
-
-    describe "as a non-signed-in user" do
-      it "should deny access" do
-        delete :destroy, :id => @user
-        response.should redirect_to signin_path
-      end
-    end
-
-    describe "as a non-admin user" do
-      it "should protect the page" do
-        test_sign_in @user
-        delete :destroy, :id => @user
+      it "redirects to the root" do
+        get :new
         response.should redirect_to root_path
       end
     end
 
-    describe "as an admin user" do
+    describe "#create" do
 
-      before :each do
-        @admin = Factory(:user, :email => "admin@example.com", :admin => true)
-        test_sign_in @admin
+      it "redirects to the root" do
+        post :create, :user => {"foo" => "bar"}
+        response.should redirect_to root_path
+      end
+    end
+
+
+    context "who are unauthorized" do
+
+      before do
+        User.stub(:find).and_return( @found_user = mock(User).as_null_object)
+        controller.stub(:current_user?).and_return(false)
       end
 
-      it "should destroy the user" do
-        lambda do
-          delete :destroy, :id => @user
-        end.should change(User, :count).by -1
+      describe "#edit" do
+
+        it "redirects to the root path" do
+          get :edit, :id => 1
+          response.should redirect_to root_path
+        end
       end
 
-      it "should redirect to the users page" do
-        delete :destroy, :id => @user
-        response.should redirect_to users_path
+      describe "#update" do
+
+        it "redirects to the root path" do
+          @atts = {"foo" => "bar"}
+          put :update, :id => 1, :user => @atts
+          response.should redirect_to root_path
+        end
+      end
+    end
+
+    context "who are authorized" do
+
+      before do
+        User.stub(:find).and_return(@current_user)
       end
 
-      it "should not allow the admin to destroy himself" do
-        lambda do
-          delete :destroy, :id => @admin
-        end.should_not change(User, :count).by -1
+      describe "#edit" do
+
+        it "sets the title" do
+          get :edit, :id => 1
+          assigns(:title).should_not be_empty
+        end
+
+        it "finds the user" do
+          User.should_receive(:find).with(1)
+          get :edit, :id => 1
+        end
+
+        it "assigns the user" do
+          get :edit, :id => 1
+          assigns(:user).should == @current_user
+        end
+      end
+
+      describe "successful #update" do
+
+        before do
+          @atts = {"foo" => "bar"}
+          @current_user.stub(:update_attributes).and_return(true)
+        end
+
+        it "updates the user's attributes with the parameters" do
+          @current_user.should_receive(:update_attributes).with(@atts)
+          put :update, :id => 1, :user => @atts
+        end
+
+        it "sets a flash message" do
+          put :update, :id => 1, :user => @atts
+          flash[:success].should_not be_blank
+        end
+
+        it "redirects to the root path" do
+          put :update, :id => 1, :user => @atts
+          response.should redirect_to root_path
+        end
+      end
+
+      describe "failed #update" do
+
+        before do
+          @current_user.stub(:update_attributes).and_return(false)
+        end
+
+        it "sets the title" do
+          put :update, :id => 1
+          assigns(:title).should_not be_blank
+        end
+
+        it "renders the edit user template" do
+          put :update, :id => 1
+          response.should render_template :edit
+        end
       end
     end
   end
