@@ -1,27 +1,25 @@
 source 'http://rubygems.org'
 
 gem 'chronic'
-gem 'coffee-script'
-gem 'haml'
-gem 'haml-rails'
 gem 'ice_cube'
 gem 'jquery-rails'
 gem 'json'
 gem 'pg'
-gem 'rails', '3.1.0.rc4'
+gem 'rails', '3.1.0.rc5'
 gem 'rails3-generators'
 gem 'rake'
 gem 'RedCloth'
-gem 'sass-rails'
 gem 'schedule_atts'
-gem 'thin'
-gem 'uglifier'
 
-# XXX Sprockets Beta 12 is fscked?
-gem 'sprockets', "=2.0.0.beta.10"
+group :assets do
+  gem 'uglifier'
+  gem 'haml-rails'
+  gem 'sass-rails'
+  gem 'coffee-rails'
+end
 
 group :production do
-  gem 'therubyracer-heroku', '0.8.1.pre3'
+  gem 'thin'
 end
 
 group :development do
