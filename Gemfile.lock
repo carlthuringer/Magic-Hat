@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:carlthuringer/ice_cube.git
+  remote: git://github.com/carlthuringer/ice_cube.git
   revision: 6a8f99dec0a46bc45b77c63df23840b447bda028
   specs:
     ice_cube (0.6.12)

@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'chronic'
 gem 'ice_cube', :git =>
-  "git@github.com:carlthuringer/ice_cube.git"
+  "git://github.com/carlthuringer/ice_cube.git"
 gem 'jquery-rails'
 gem 'json'
 gem 'pg'
