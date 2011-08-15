@@ -56,7 +56,7 @@ describe TasksController do
     describe "#new" do
 
       it "Builds the task" do
-        new_task = mock(Task, :group_id => 12)
+        new_task = mock(Task, :group_id => 12, :start_date= => stub, :interval_unit= => stub, :interval= => stub)
         @current_user.stub_chain(:tasks, :build).and_return(new_task)
 
         get :new, :group_id => 12

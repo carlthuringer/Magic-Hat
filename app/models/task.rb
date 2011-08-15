@@ -66,7 +66,7 @@ class Task < ActiveRecord::Base
       if completions.length == 0
         true
       else
-        completions.last.created_at < 15.hours.ago
+        schedule.occurs_between?(completions.last.time + 15.hours, Date.today)
       end
     else
       completions.empty?

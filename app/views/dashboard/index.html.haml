@@ -19,7 +19,7 @@
       = render 'dash_settings'
     %div.primary
       = render 'layouts/flash', :flash => flash
-      - if current_user.goals.count == 0
+      - if current_user.tasks.count == 0
         #tutorial
           :textile
             Welcome to *Magic Hat*. The next step is to create your first task.
@@ -35,5 +35,4 @@
                 - current_date = task.deadline.to_s(:date)
             = render :partial => 'tasks/task', :locals => { :task => task }
         = render 'dash_groups', :groups => @groups
-        = render 'dash_goals', :goals => @goals
       = render 'dash_settings'

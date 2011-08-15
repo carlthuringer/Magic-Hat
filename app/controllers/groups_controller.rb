@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_filter :authenticate
-  before_filter :authorized_user, :only => [:update, :remove_member]
+  before_filter :authorized_user, :only => [:update, :remove_member, :destroy]
 
   def new
     @title = "New Group"
@@ -43,6 +43,11 @@ class GroupsController < ApplicationController
     membership = @group.memberships.where(:user_id => params[:user_id])
     @group.memberships.destroy(membership)
     redirect_to @group
+  end
+
+  def destroy
+    @group.destroy
+    redirect_to root_path
   end
 
   private

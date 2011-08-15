@@ -3,17 +3,23 @@
     = sattr.label :repeat, "Make a habit?"
     = sattr.check_box :repeat, :checked => task.habit? ? true : false
   %div{ :class => task.habit? ? "habit-fields" : "habit-fields hidden" }
-    %div{ :data => { :role => "controlgroup", :type => "horizontal" }, :class => "start-date" }
-      = sattr.label :start_date, "Starting date"
-      = sattr.date_select :start_date
-    .field.repeat
-      %div{ :data => { :role => "fieldcontain" } }
-        = sattr.label :interval, "Repeat every:"
-        = sattr.range_field :interval, :min => "1", :max => "7"
+    = sattr.hidden_field :start_date
+    = sattr.hidden_field :interval, :value => "1"
+    = sattr.hidden_field :interval_unit, :value => "week"
+    %legend Every:
+    %div{ :data => { :role => "fieldcontain" }, :class => "weekly-days"}
       %fieldset{ :data => { :role => "controlgroup", :type => "horizontal" } }
-        = sattr.label :interval_unit_day, "Days"
-        = sattr.radio_button :interval_unit, "day",
-          :checked => task.schedule_attributes.interval_unit == "day" ? true : false
-        = sattr.label :interval_unit_week, "Weeks"
-        = sattr.radio_button :interval_unit, "week",
-          :checked => task.schedule_attributes.interval_unit == "week" ? true : false
+        = sattr.label :sunday, "Su"
+        = sattr.check_box :sunday
+        = sattr.label :monday, "Mo"
+        = sattr.check_box :monday
+        = sattr.label :tuesday, "Tu"
+        = sattr.check_box :tuesday
+        = sattr.label :wednesday, "We"
+        = sattr.check_box :wednesday
+        = sattr.label :thursday, "Th"
+        = sattr.check_box :thursday
+        = sattr.label :friday, "Fr"
+        = sattr.check_box :friday
+        = sattr.label :saturday, "Sa"
+        = sattr.check_box :saturday

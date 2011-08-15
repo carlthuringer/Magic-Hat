@@ -168,7 +168,7 @@ describe UsersController do
         end
 
         it "finds the user" do
-          User.should_receive(:find).with(1)
+          User.should_receive(:find).with("1")
           get :edit, :id => 1
         end
 

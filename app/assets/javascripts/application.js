@@ -4,6 +4,7 @@
 // This is a manifest list that will be compiled into all the files listed.
 // = require jquery
 // = require jquery_ujs
+// = require mobile_init
 // = require jquery_mobile
 // = require datepicker
 // = require mobile

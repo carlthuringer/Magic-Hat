@@ -230,7 +230,7 @@ describe GoalsController do
       end
 
       it "finds the goal" do
-        Goal.should_receive(:find).with(1)
+        Goal.should_receive(:find).with("1")
         get :edit, :id => 1
       end
 
@@ -302,7 +302,7 @@ describe GoalsController do
       end
 
       it "should find the goal" do
-        Goal.should_receive(:find).with(1)
+        Goal.should_receive(:find).with("1")
         delete :destroy, :id => 1
       end
 

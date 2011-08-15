@@ -11,8 +11,6 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build params[:task]
 
-    parse_schedule_atts_start_date
-
     if @task.save
       redirect_to root_path
     else
@@ -24,12 +22,15 @@ class TasksController < ApplicationController
   def edit
     @title = "Edit Task"
     @task = Task.find params[:id]
+    @task.start_date ||= Date.today
+    @task.interval_unit = 'week'
+    @task.interval = 1
   end
 
   def update
     @task = Task.find params[:id]
 
-    parse_schedule_atts_start_date
+    wipe_schedule_yaml
 
     if @task.update_attributes(params[:task])
       flash[:success] = "Task Updated!"
@@ -72,18 +73,13 @@ class TasksController < ApplicationController
       redirect_back_or dashboard_path unless task.owned_by? current_user
     end
   end
-
-  def parse_schedule_atts_start_date
-    atts = params[:task][:schedule_attributes]
-    if atts && atts[:repeat] == "1"
-      atts[:start_date] =
-        Date.civil(atts["start_date(1i)"].to_i,
-                   atts["start_date(2i)"].to_i,
-                   atts["start_date(3i)"].to_i).to_s
-      params[:task][:schedule_attributes] = atts
-    else
-      params[:task].delete(:schedule_attributes)
-      params[:task][:schedule_yaml] = nil
+  def wipe_schedule_yaml
+    if params[:task][:schedule_attributes]
+      if params[:task][:schedule_attributes][:repeat] == "0"
+        params[:task].delete(:schedule_attributes)
+        @task.schedule_yaml = nil
+        @task.save!
+      end
     end
   end
 end

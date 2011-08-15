@@ -1,35 +1,5 @@
-# Save up some useful jQuery objects
-uiIcon = $('#stats-grid-plus-minus a').children('span').children('.ui-icon')
-statGridRows = $('#statistics').children('table').children('tbody').children('tr')
-thisWeekRow = $('#statistics').children('table').children('tbody').children('tr.4th-row')
-statsGrid = $('#stats-grid-plus-minus a')
 
-showStatsGrid = (statsGrid) ->
-  statGridRows.show('fast')
-  $(this).parents('#statistics').animate({ height: "170px"}, 500)
-  uiIcon.removeClass('ui-icon-plus')
-  uiIcon.addClass('ui-icon-minus')
-
-hideStatsGrid = (statsGrid) ->
-  statGridRows.hide('fast')
-  thisWeekRow.show('fast')
-  $(this).parents('#statistics').animate({ height: "70px"}, 500)
-  uiIcon.removeClass('ui-icon-minus')
-  uiIcon.addClass('ui-icon-plus')
-
-showHideStatsGrid = (statsGrid) ->
-  statsGrid.toggle( showStatsGrid(), hideStatsGrid() )
-
-window.setupStatsGrid = ->
-  # Initial height of stats grid container
-  $('#statistics').height(70)
-  # Hide all rows, then show the last one
-  statGridRows.hide()
-  thisWeekRow.show()
-  # Set up the toggler
-  showHideStatsGrid(statsGrid)
-
-formToggleInitialize = ->
+window.formToggleInitialize = ->
   # Initialize by hiding all the forms
   $('.task-form').hide()
   $('.goal-form').hide()
@@ -38,7 +8,7 @@ formToggleInitialize = ->
   setupRevealer('.goal')
   setupRevealer('.group')
 
-setupRevealer = (targetClass) ->
+window.setupRevealer = (targetClass) ->
   $("#{targetClass} a#form-reveal-button").click (event)->
     event.preventDefault()
     thisForm = $(this).parents('li').next("#{targetClass}-form")
@@ -47,7 +17,7 @@ setupRevealer = (targetClass) ->
       allForms.hide('fast')
     thisForm.slideToggle('fast')
 
-habitToggleInitialize = ->
+window.habitToggleInitialize = ->
   # Initialize by hiding the habit fields. This seems pretty crude...
   $('.habit-fields.hidden').hide()
   # Because of something that jQuery Mobile does we have to manually sync the hidden
@@ -55,7 +25,7 @@ habitToggleInitialize = ->
   initialCheckboxSync()
   hideAndShowOnChanges()
 
-initialCheckboxSync = ->
+window.initialCheckboxSync = ->
   # Iterate over all task schedule repeat elements. The offending checkboxes.
   $('input[name*="task[schedule_attributes][repeat]"]').map (index, element) ->
     myMatchingHiddenField = $(this).parent('div.ui-checkbox').next('input[name*="task[schedule_attributes][repeat]"]')
@@ -65,7 +35,7 @@ initialCheckboxSync = ->
     else
       myMatchingHiddenField.val("0")
 
-hideAndShowOnChanges = ->
+window.hideAndShowOnChanges = ->
   # Finally, if the repeat checkbox changes, toggle the form from hidden to showing.
   # Also sync the value of the hidden checkbox.
   $('input[name*="task[schedule_attributes][repeat]"]').change ->
@@ -78,7 +48,23 @@ hideAndShowOnChanges = ->
     else
       myMatchingHiddenField.val("0")
 
-$('div').live 'pagecreate', (event, ui)->
+window.habitCheckboxSync = ->
+  $('.weekly-days input[type="checkbox"]').map (index, element) ->
+    myMatchingHiddenField = $(element).parent('div.ui-checkbox').next('input')
+
+    if element.checked
+      myMatchingHiddenField.val("1")
+    else
+      myMatchingHiddenField.val("0")
+
+    $(element).change ->
+      if myMatchingHiddenField.val() == "1"
+        myMatchingHiddenField.val("0")
+      else
+        myMatchingHiddenField.val("1")
+
+$ ->
+  console.log(event)
   # Mobiscroll
   # http://code.google.com/p/mobiscroll/
   $('#task_deadline_string').scroller(
@@ -86,11 +72,49 @@ $('div').live 'pagecreate', (event, ui)->
     dateFormat: 'yy-mm-dd'
   )
 
+  window.statsGrid = 
+    uiIcon: $('#stats-grid-plus-minus a').children('span').children('.ui-icon')
+    rows: $('#statistics').children('table').children('tbody').children('tr')
+    lastRow: $('#statistics').children('table').children('tbody').children('tr.4th-row')
+    toggleButton: $('#stats-grid-plus-minus a')
+    container: $('#statistics')
+
+    init: ->
+      statsGrid.container.height(70)
+      # Hide all rows, then show the last one
+      statsGrid.rows.hide()
+      statsGrid.lastRow.show()
+      # Set up the toggler
+      statsGrid.bindToggler()
+
+    bindToggler: ->
+      statsGrid.toggleButton.toggle( -> 
+        statsGrid.show()
+      , -> 
+        statsGrid.hide() 
+      )
+
+
+    show: ->
+      statsGrid.rows.show('fast')
+      statsGrid.container.animate({ height: "170px" }, 500)
+      statsGrid.uiIcon.removeClass('ui-icon-plus')
+      statsGrid.uiIcon.addClass('ui-icon-minus')
+
+    hide: ->
+      statsGrid.rows.hide('fast')
+      statsGrid.lastRow.show('fast')
+      statsGrid.container.animate({ height: "70px" }, 500)
+      statsGrid.uiIcon.addClass('ui-icon-plus')
+      statsGrid.uiIcon.removeClass('ui-icon-minus')
+
   # Statistics toggle
-  setupStatsGrid(statsGrid)
+  statsGrid.init()
 
   # Form Toggle
   formToggleInitialize()
 
   # Habit Toggle
   habitToggleInitialize()
+
+  habitCheckboxSync()
