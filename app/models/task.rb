@@ -15,8 +15,7 @@ class Task < ActiveRecord::Base
   has_many :completions
 
   def owned_by?(user)
-    owner = User.find user_id
-    owner == user
+    user.important_tasks.include?(self)
   end
 
   def mark_complete(time = Time.now)

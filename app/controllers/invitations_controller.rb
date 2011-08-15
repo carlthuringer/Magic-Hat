@@ -44,6 +44,7 @@ class InvitationsController < ApplicationController
 
   def accept
     invitation = Invitation.find params[:id]
+    group = Group.find(invitation.group_id)
     if(invitation.user_email == current_user.email &&
        params[:secure_token] == invitation.secure_token)
       Membership.create! group_id: params[:group_id], user_id: current_user.id
@@ -53,7 +54,7 @@ class InvitationsController < ApplicationController
     unless current_user.invitations_addressed_to_me.empty?
       redirect_to list_invitations_addressed_to_me_path
     else
-      redirect_to dashboard_path
+      redirect_to group
     end
   end
 
