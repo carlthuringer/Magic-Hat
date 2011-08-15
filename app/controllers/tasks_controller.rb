@@ -11,6 +11,8 @@ class TasksController < ApplicationController
   def create
     @task = current_user.tasks.build params[:task]
 
+    wipe_schedule_yaml
+
     if @task.save
       redirect_to root_path
     else
