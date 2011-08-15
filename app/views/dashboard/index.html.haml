@@ -34,5 +34,5 @@
                 %li{ :data => { :role => "list-divider" } }= task.deadline.to_s(:date)
                 - current_date = task.deadline.to_s(:date)
             = render :partial => 'tasks/task', :locals => { :task => task }
-        = render 'dash_groups', :groups => @groups
+      = render 'dash_groups', :groups => @groups
       = render 'dash_settings'
