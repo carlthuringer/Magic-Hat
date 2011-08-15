@@ -58,7 +58,7 @@ class Task < ActiveRecord::Base
   end
 
   def habit?
-    schedule_yaml?
+    schedule_yaml? && schedule.next_occurrence != nil
   end
 
   def incomplete_or_habit?
