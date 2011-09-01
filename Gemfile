@@ -21,6 +21,7 @@ end
 
 group :production do
   gem 'thin'
+  gem 'therubyracer'
 end
 
 group :development do
