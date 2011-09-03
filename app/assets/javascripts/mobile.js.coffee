@@ -64,7 +64,6 @@ window.habitCheckboxSync = ->
         myMatchingHiddenField.val("1")
 
 $ ->
-  console.log(event)
   # Mobiscroll
   # http://code.google.com/p/mobiscroll/
   $('#task_deadline_string').scroller(
