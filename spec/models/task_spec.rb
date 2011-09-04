@@ -104,7 +104,7 @@ describe Task do
 
     it "returns false if the habit has a recent completion" do
       @task.toggle_habit
-      @task.completions.create!
+      @task.mark_complete
       @task.reload
       @task.should_not be_incomplete_or_habit
     end
