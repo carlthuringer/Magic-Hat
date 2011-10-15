@@ -9,7 +9,6 @@ class Task < ActiveRecord::Base
     :length => { :minimum => 5 }
   validate :deadline_string_no_errors
 
-  belongs_to :goal
   belongs_to :group
   belongs_to :user
   has_many :completions

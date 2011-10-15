@@ -3,7 +3,6 @@ namespace :db do
   task :populate => :environment do
     Rake::Task['db:reset'].invoke
     make_users
-    make_goals
     make_tasks
   end
 end
@@ -27,19 +26,11 @@ def make_users
   end
 end
 
-def make_goals
-  user = User.first
-  3.times do
-    user.goals.create!(:title => Faker::Lorem.words(3).join(' '), :description => Faker::Lorem.sentence(5))
-  end
-end
-
 def make_tasks
-  User.first.goals.all.each do |goal|
-    10.times do
-      goal.tasks.create!(:description => Faker::Lorem.sentence(5))
-    end
+  10.times do
+    User.first.tasks.create!(:description => Faker::Lorem.sentence(5))
   end
+
   User.first.tasks.all(:limit => 28).each do |task|
     task.mark_complete rand(28).days.ago
     task.save
@@ -48,7 +39,7 @@ end
 
 def make_habits
   task = User.first.tasks.first
-  task.create_habit(:description => task.description, :goal => task.goal,
+  task.create_habit(:description => task.description,
     :schedule_attributes => { :repeat => 1, :start_date => Time.now.to_s,
       :interval_unit => 'day', :interval => 2 } )
 end

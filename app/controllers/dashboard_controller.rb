@@ -4,7 +4,6 @@ class DashboardController < ApplicationController
   def index
     @body_class = "dashboard"
     @title = "Dashboard"
-    @goals = current_user.active_goals
     @groups = current_user.groups
     @important_tasks = current_user.important_tasks
     @history = current_user.history

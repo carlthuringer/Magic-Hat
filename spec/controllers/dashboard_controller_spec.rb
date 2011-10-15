@@ -30,17 +30,6 @@ describe DashboardController do
         assigns(:title).should == "Dashboard"
       end
 
-      it "finds the user's active goals" do
-        @user.should_receive(:active_goals)
-        get :index
-      end
-
-      it "sets the goals" do
-        @user.stub(:active_goals).and_return( goal = mock(Object))
-        get :index
-        assigns(:goals).should == goal
-      end
-
       it "gets the user's groups" do
         @user.should_receive(:groups)
         get :index

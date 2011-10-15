@@ -14,7 +14,6 @@ MagicHat::Application.routes.draw do
 
   match 'group/:id/remove_member/:user_id' => 'groups#remove_member', :via => 'DELETE', :as => 'remove_group_member'
   match 'invitations' => 'invitations#list_invitations_addressed_to_me', :via => 'GET', :as => 'list_invitations_addressed_to_me'
-  resources :goals, :except => :index
 
 
   resources :tasks, :except => :index do

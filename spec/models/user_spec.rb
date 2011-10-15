@@ -53,7 +53,6 @@ describe User do
 
     before :each do
       @user = Factory :user
-      @goal = Factory(:goal, :user => @user)
       @tasks = []
       5.times do
         @tasks << Factory(:task, :user => @user)
@@ -94,7 +93,7 @@ describe User do
 
       it "should return a marked calendar array" do
         20.times do
-          task = Factory(:task, :goal => @goal)
+          task = Factory(:task)
           task.mark_complete(rand(28).days.ago)
         end
 
@@ -187,34 +186,10 @@ describe User do
     end
   end
 
-  describe "goal associations" do
-
-    before :each do
-      @user = User.create! @attr
-      @goal1 = Factory(:goal, :user => @user)
-      @goal2 = Factory(:goal, :user => @user)
-      @goal3 = Factory(:goal, :user => @user)
-      @goal4 = Factory(:goal, :user => @user)
-      @goal5 = Factory(:goal, :user => @user)
-    end
-
-    it "should have a goals attribute" do
-      @user.should respond_to :goals
-    end
-
-    it "should destroy associated goals" do
-      @user.destroy
-      [@goal1, @goal2].each do |goal|
-        Goal.find_by_id(goal.id).should be_nil
-      end
-    end
-  end
-
   describe "task associations" do
 
     before :each do
       @user = Factory :user
-      @goal = Factory(:goal, :user => @user)
       @task = Factory(:task, :user => @user)
     end
 
@@ -227,7 +202,6 @@ describe User do
 
     before :each do
       @user = Factory :user
-      @goal = Factory :goal, :user => @user
       @task = Factory :task, :user => @user
       @task.mark_complete
     end
@@ -241,25 +215,24 @@ describe User do
 
     before :each do
       @user = Factory :user
-      @goal = Factory :goal, :user => @user
     end
 
     it "should respond with a list of tasks that have no completions" do
-      5.times { Factory :task, :goal => @goal }
+      5.times { Factory :task }
       @user.important_tasks.each do |task|
         task.completions.should be_empty
       end
     end
 
     it "should not show the task with a completion" do
-      @task = Factory :task, :goal => @goal
+      @task = Factory :task
       @task.mark_complete
       @user.reload
       @user.important_tasks.should be_empty
     end
 
     it "should not show the habit with a completion" do
-      @habit = Factory :task, :goal => @goal
+      @habit = Factory :task
       @habit.mark_complete
       @user.reload
       @user.important_tasks.should be_empty

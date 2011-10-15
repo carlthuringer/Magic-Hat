@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
 
   before_save :encrypt_password
 
-  has_many :goals, :dependent => :destroy
   has_many :tasks
   has_many :group_tasks, :through => :groups, :source => :tasks
   has_many :completions, :through => :tasks, :dependent => :destroy

@@ -7,12 +7,6 @@ FactoryGirl.define do
     password              "foobar"
   end
 
-  factory :goal do
-    title "Example"
-    description "An example description of the goal."
-    association :user
-  end
-
   factory :task do
     description "My task description"
     association :user
@@ -21,7 +15,6 @@ FactoryGirl.define do
   factory :habit, :class => :task do
     description "My habit description"
     sequence( :schedule_attributes ) { |n| {:start_date => n.days.ago.to_s, :repeat => "1", :interval_unit => "day", :interval => 1.to_s} }
-    association :goal
   end
 
   factory :completion do

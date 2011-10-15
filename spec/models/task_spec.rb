@@ -4,7 +4,6 @@ describe Task do
 
   before :each do
     @user = Factory :user
-    @goal = Factory(:goal, :user => @user)
     @task = Factory(:task, :user => @user)
   end
 
@@ -26,13 +25,6 @@ describe Task do
 
     it "should default to deadline == nil" do
       @task.deadline.should be_nil
-    end
-  end
-
-  describe "relationships" do
-
-    it "should be one of a goal's tasks" do
-      @goal.tasks.include?(@task)
     end
   end
 
