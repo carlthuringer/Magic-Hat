@@ -6,7 +6,7 @@ gem 'ice_cube', :git =>
 gem 'jquery-rails'
 gem 'json'
 gem 'pg'
-gem 'rails', '3.1.0'
+gem 'rails', '3.1.1'
 gem 'rails3-generators'
 gem 'rake'
 gem 'RedCloth'

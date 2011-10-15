@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20110731220502) do
     t.datetime "updated_at"
     t.datetime "deadline"
     t.string   "kind",          :default => "plain"
+    t.integer  "habit_id"
     t.text     "schedule_yaml"
     t.integer  "group_id"
     t.integer  "user_id"
