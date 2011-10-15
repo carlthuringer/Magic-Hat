@@ -1,6 +1,7 @@
 - if object.errors.any?
   .error
-    %p We found #{ pluralize(object.errors.count, "problem") } with your form:
     %ul{ :data => { :role => 'listview', :inset => 'true', :theme => 'a' } }
+      %li{ :data => { :role => 'list-divider', :theme => 'f' } }
+        = "We found #{ pluralize(object.errors.count, "problem") } with your form:"
       - object.errors.full_messages.each do |msg|
         %li= msg

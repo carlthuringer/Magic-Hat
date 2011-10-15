@@ -64,14 +64,39 @@ describe "Users" do
 
   describe "edit" do
     before :each do
-      user = Factory :user
+      @user = Factory :user
       visit signin_path
-      fill_in :email, :with => user.email
-      fill_in :password, :with => user.password
+      fill_in :email, :with => @user.email
+      fill_in :password, :with => @user.password
       click_button
     end
 
     describe "failure" do
+
+      context "When the user does not enter his password" do
+
+        it "Does not save and displays an error" do
+          click_link "User Settings"
+          click_button
+          response.should have_selector(".error > ul")
+        end
+      end
+    end
+
+    describe "timezone" do
+
+      context "When the user selects 'Central Time (US & Canada)' as his timezone" do
+
+        it "Saves and the new timezone is selected" do
+          click_link "User Settings"
+          fill_in :password, :with => @user.password
+          select '(GMT-06:00) Central Time (US & Canada)', :from => 'Time zone'
+          click_button
+          click_link "User Settings"
+
+          field_labeled('Time zone').element.search(".//option[@selected = 'selected']").inner_html.should =~ /#{'Central Time'}/
+        end
+      end
     end
   end
 end

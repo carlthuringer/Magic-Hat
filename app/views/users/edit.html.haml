@@ -17,5 +17,8 @@
           .field
             = f.label :password
             = f.text_field :password
+          .field
+            = f.label :time_zone
+            = f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones
           .actions
             = f.submit "Update"
